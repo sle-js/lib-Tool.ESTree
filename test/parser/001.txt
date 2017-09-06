@@ -1,0 +1,23 @@
+-- Simple Node definition
+interface Node {
+    type: string;
+}
+-- ast
+[
+  {
+    "name": "Node",
+    "value": {
+      "kind": "interface",
+      "props": [
+        {
+          "name": "type",
+          "type": {
+            "kind": "reference",
+            "name": "string"
+          }
+        }
+      ],
+      "base": []
+    }
+  }
+]

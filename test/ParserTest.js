@@ -44,7 +44,7 @@ const parseFile = content => {
 
 const processFile = content => assertion => {
     const ast =
-        Parser.parseModule(LexerConfiguration.fromString(content.src.join("\n")));
+        Parser.program(LexerConfiguration.fromString(content.src.join("\n")));
 
     return content.ast
         ? assertion
