@@ -59,6 +59,10 @@ const or = parsers => lexer => {
 };
 
 
+const orMap = parsers => f => lexer =>
+    mapResult(f)(or(parsers)(lexer));
+
+
 const chainl1 = parser => sep => lexer => {
     const initialResult =
         mapResult(r => [r])(parser(lexer));
@@ -122,6 +126,7 @@ module.exports = {
     optional,
     optionalMap,
     or,
+    orMap,
     token,
     tokenMap
 };
