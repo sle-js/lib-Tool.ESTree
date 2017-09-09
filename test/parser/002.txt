@@ -1,0 +1,95 @@
+-- Multiple node definitions each with multiple properties
+interface Node {
+    type: string;
+    loc: SourceLocation;
+}
+
+interface SourceLocation {
+    source: string;
+    start: Position;
+    end: Position;
+}
+
+interface Position {
+    line: number;
+    column: number;
+}
+-- ast
+[
+  {
+    "name": "Node",
+    "value": {
+      "kind": "interface",
+      "props": [
+        {
+          "name": "type",
+          "type": {
+            "kind": "reference",
+            "name": "string"
+          }
+        },
+        {
+          "name": "loc",
+          "type": {
+            "kind": "reference",
+            "name": "SourceLocation"
+          }
+        }
+      ],
+      "base": []
+    }
+  },
+  {
+    "name": "SourceLocation",
+    "value": {
+      "kind": "interface",
+      "props": [
+        {
+          "name": "source",
+          "type": {
+            "kind": "reference",
+            "name": "string"
+          }
+        },
+        {
+          "name": "start",
+          "type": {
+            "kind": "reference",
+            "name": "Position"
+          }
+        },
+        {
+          "name": "end",
+          "type": {
+            "kind": "reference",
+            "name": "Position"
+          }
+        }
+      ],
+      "base": []
+    }
+  },
+  {
+    "name": "Position",
+    "value": {
+      "kind": "interface",
+      "props": [
+        {
+          "name": "line",
+          "type": {
+            "kind": "reference",
+            "name": "number"
+          }
+        },
+        {
+          "name": "column",
+          "type": {
+            "kind": "reference",
+            "name": "number"
+          }
+        }
+      ],
+      "base": []
+    }
+  }
+]
