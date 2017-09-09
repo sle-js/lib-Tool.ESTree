@@ -1,3 +1,4 @@
+const Array = require("./Libs").Array;
 const C = require("./ParseCombinators");
 const Tokens = require("./Tokens");
 
@@ -32,14 +33,32 @@ function prop(lexer) {
     return C.andMap([
         C.token(Tokens.NAME),
         C.token(Tokens.COLON),
-        type,
+        unionType,
         C.token(Tokens.SEMICOLON)
     ])(a => ({name: tokenValue(a[0]), type: a[2]}))(lexer);
 }
 
 
+function unionType(lexer) {
+    return C.chainl1Map(type)(C.token(Tokens.BAR))(a => Array.length(a) === 1 ? a[0] : ({
+        kind: "union",
+        types: a
+    }))(lexer);
+}
+
+
 function type(lexer) {
-    return C.tokenMap(Tokens.NAME)(t => ({kind: "reference", name: tokenValue(t)}))(lexer);
+    return C.or([
+        C.tokenMap(Tokens.NAME)(t => ({kind: "reference", name: tokenValue(t)})),
+        literal
+    ])(lexer);
+}
+
+
+function literal(lexer) {
+    return C.orMap([
+        C.tokenMap(Tokens.NULL)(_ => null)
+    ])(a => ({kind: "literal", value: a}))(lexer);
 }
 
 

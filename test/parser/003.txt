@@ -1,0 +1,76 @@
+-- Union type with a null literal
+interface SourceLocation {
+    source: string | null;
+    start: Position;
+    end: Position;
+}
+
+interface Position {
+    line: number;
+    column: number;
+}
+-- ast
+[
+  {
+    "name": "SourceLocation",
+    "value": {
+      "kind": "interface",
+      "props": [
+        {
+          "name": "source",
+          "type": {
+            "kind": "union",
+            "types": [
+              {
+                "kind": "reference",
+                "name": "string"
+              },
+              {
+                "kind": "literal",
+                "value": null
+              }
+            ]
+          }
+        },
+        {
+          "name": "start",
+          "type": {
+            "kind": "reference",
+            "name": "Position"
+          }
+        },
+        {
+          "name": "end",
+          "type": {
+            "kind": "reference",
+            "name": "Position"
+          }
+        }
+      ],
+      "base": []
+    }
+  },
+  {
+    "name": "Position",
+    "value": {
+      "kind": "interface",
+      "props": [
+        {
+          "name": "line",
+          "type": {
+            "kind": "reference",
+            "name": "number"
+          }
+        },
+        {
+          "name": "column",
+          "type": {
+            "kind": "reference",
+            "name": "number"
+          }
+        }
+      ],
+      "base": []
+    }
+  }
+]
