@@ -1,0 +1,35 @@
+-- Interface inheritance
+interface Node {
+    type: string;
+}
+
+interface Expression <: Node { }
+-- ast
+[
+  {
+    "name": "Node",
+    "value": {
+      "kind": "interface",
+      "props": [
+        {
+          "name": "type",
+          "type": {
+            "kind": "reference",
+            "name": "string"
+          }
+        }
+      ],
+      "base": []
+    }
+  },
+  {
+    "name": "Expression",
+    "value": {
+      "kind": "interface",
+      "props": [],
+      "base": [
+        "Node"
+      ]
+    }
+  }
+]

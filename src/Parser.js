@@ -12,11 +12,20 @@ function program(lexer) {
 
 
 function def(lexer) {
-    return C.andMap([
-        C.token(Tokens.INTERFACE),
-        C.token(Tokens.NAME),
-        object
-    ])(a => ({name: tokenValue(a[1]), value: {kind: "interface", props: a[2], base: []}}))(lexer);
+    return C.or([
+        C.andMap([
+            C.token(Tokens.INTERFACE),
+            C.token(Tokens.NAME),
+            object
+        ])(a => ({name: tokenValue(a[1]), value: {kind: "interface", props: a[2], base: []}})),
+        C.andMap([
+            C.token(Tokens.INTERFACE),
+            C.token(Tokens.NAME),
+            C.token(Tokens.LESS_COLON),
+            C.chainl1(C.tokenMap(Tokens.NAME)(t => t.state.token.value))(C.token(Tokens.COMMA)),
+            object
+        ])(a => ({name: tokenValue(a[1]), value: {kind: "interface", props: a[4], base: a[3]}}))
+    ])(lexer);
 }
 
 
