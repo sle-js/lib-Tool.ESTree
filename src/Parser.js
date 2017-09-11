@@ -22,7 +22,7 @@ function def(lexer) {
             C.token(Tokens.INTERFACE),
             C.token(Tokens.NAME),
             C.token(Tokens.LESS_COLON),
-            C.chainl1(C.tokenMap(Tokens.NAME)(t => t.state.token.value))(C.token(Tokens.COMMA)),
+            C.chainl1(token(Tokens.NAME))(C.token(Tokens.COMMA)),
             object
         ])(a => ({name: valueOf(a[1]), value: {kind: "interface", props: a[4], base: a[3]}})),
         C.andMap([
@@ -79,17 +79,25 @@ function type(lexer) {
 
 function literal(lexer) {
     return C.orMap([
-        C.tokenMap(Tokens.NULL)(_ => null),
-        C.tokenMap(Tokens.TRUE)(_ => true),
-        C.tokenMap(Tokens.FALSE)(_ => false),
-        C.tokenMap(Tokens.constantInteger)(t => t.state.token.value),
-        C.tokenMap(Tokens.constantString)(t => t.state.token.value)
+        tokenConstant(Tokens.NULL)(null),
+        tokenConstant(Tokens.TRUE)(true),
+        tokenConstant(Tokens.FALSE)(false),
+        token(Tokens.constantInteger),
+        token(Tokens.constantString)
     ])(a => ({kind: "literal", value: a}))(lexer);
 }
 
 
 const valueOf = token =>
     token.state.token.value;
+
+
+const token = t =>
+    C.tokenMap(t)(valueOf);
+
+
+const tokenConstant = t => c =>
+    C.tokenMap(t)(_ => c);
 
 
 module.exports = {
