@@ -4,9 +4,6 @@ const Maybe = require("./Libs").Maybe;
 const Result = require("./Result");
 
 
-// TODO: Rewrite all of the ...Map functions to use map rather than mapResult.
-
-
 const okayResult = lexer => result =>
     Result.Okay({lexer: lexer, result: result});
 
@@ -27,8 +24,8 @@ const and = parsers => lexer =>
     Array.foldl(okayResult(lexer)([]))(andThen)(parsers);
 
 
-const andMap = parsers => f => lexer =>
-    mapResult(f)(and(parsers)(lexer));
+const andMap = parsers => f =>
+    map(and(parsers))(f);
 
 
 const manyResult = currentResult => parser => {
@@ -49,8 +46,8 @@ const many1 = parser => lexer =>
     manyResult(mapResult(r => [r])(parser(lexer)))(parser);
 
 
-const many1Map = parser => f => lexer =>
-    mapResult(f)(many1(parser)(lexer));
+const many1Map = parser => f =>
+    map(many1(parser)(f));
 
 
 const or = parsers => lexer => {
@@ -66,8 +63,8 @@ const or = parsers => lexer => {
 };
 
 
-const orMap = parsers => f => lexer =>
-    mapResult(f)(or(parsers)(lexer));
+const orMap = parsers => f =>
+    map(or(parsers))(f);
 
 
 const chainl1 = parser => sep => lexer => {
@@ -85,8 +82,8 @@ const chainl1 = parser => sep => lexer => {
 };
 
 
-const chainl1Map = parser => sep => f => lexer =>
-    mapResult(f)(chainl1(parser)(sep)(lexer));
+const chainl1Map = parser => sep => f =>
+    map(chainl1(parser)(sep))(f);
 
 
 const condition = f => lexer =>
@@ -95,16 +92,16 @@ const condition = f => lexer =>
         : Result.Error(Errors.conditionFailed(lexer.head()));
 
 
-const conditionMap = f => map => lexer =>
-    mapResult(map)(condition(f)(lexer));
+const conditionMap = predicate => f =>
+    map(condition(predicate))(f);
 
 
 const token = tokenID =>
     condition(h => h.token().id === tokenID);
 
 
-const tokenMap = tokenID => f => lexer =>
-    mapResult(f)(token(tokenID)(lexer));
+const tokenMap = tokenID => f =>
+    map(token(tokenID))(f);
 
 
 const optional = parser => lexer => {
@@ -116,8 +113,8 @@ const optional = parser => lexer => {
 };
 
 
-const optionalMap = parser => f => lexer =>
-    mapResult(f)(optional(parser)(lexer));
+const optionalMap = parser => f =>
+    map(optional(parser))(f);
 
 
 module.exports = {
