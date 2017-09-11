@@ -58,8 +58,14 @@ function unionType(lexer) {
 
 function type(lexer) {
     return C.or([
+        literal,
         C.tokenMap(Tokens.NAME)(t => ({kind: "reference", name: tokenValue(t)})),
-        literal
+        C.andMap([
+            C.token(Tokens.LSQUARE),
+            unionType,
+            C.token(Tokens.RSQUARE)
+        ])(a => ({kind: "array", base: a[1]})),
+        C.map(object)(v => ({kind: object, values: v}))
     ])(lexer);
 }
 

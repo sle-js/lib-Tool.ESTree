@@ -1,0 +1,78 @@
+-- Array and object types
+interface Array {
+    simple: [string];
+    lessSimple: [string | number | null];
+    complex: [{
+        a: string;
+        b: number;
+    }];
+}
+-- ast
+[
+  {
+    "name": "Array",
+    "value": {
+      "kind": "interface",
+      "props": [
+        {
+          "name": "simple",
+          "type": {
+            "kind": "array",
+            "base": {
+              "kind": "reference",
+              "name": "string"
+            }
+          }
+        },
+        {
+          "name": "lessSimple",
+          "type": {
+            "kind": "array",
+            "base": {
+              "kind": "union",
+              "types": [
+                {
+                  "kind": "reference",
+                  "name": "string"
+                },
+                {
+                  "kind": "reference",
+                  "name": "number"
+                },
+                {
+                  "kind": "literal",
+                  "value": null
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "complex",
+          "type": {
+            "kind": "array",
+            "base": {
+              "values": [
+                {
+                  "name": "a",
+                  "type": {
+                    "kind": "reference",
+                    "name": "string"
+                  }
+                },
+                {
+                  "name": "b",
+                  "type": {
+                    "kind": "reference",
+                    "name": "number"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "base": []
+    }
+  }
+]

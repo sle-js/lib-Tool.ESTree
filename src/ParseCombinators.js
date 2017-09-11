@@ -4,12 +4,19 @@ const Maybe = require("./Libs").Maybe;
 const Result = require("./Result");
 
 
+// TODO: Rewrite all of the ...Map functions to use map rather than mapResult.
+
+
 const okayResult = lexer => result =>
     Result.Okay({lexer: lexer, result: result});
 
 
 const mapResult = f => result =>
     result.map(r => ({lexer: r.lexer, result: f(r.result)}));
+
+
+const map = parser => f => lexer =>
+    mapResult(f)(parser(lexer));
 
 
 const andThen = currentResult => parser =>
@@ -123,6 +130,7 @@ module.exports = {
     many,
     many1,
     many1Map,
+    map,
     optional,
     optionalMap,
     or,
