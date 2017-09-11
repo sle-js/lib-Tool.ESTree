@@ -1,0 +1,43 @@
+-- Enum type
+enum UnaryOperator {
+      "-" | "+" | "!" | "~" | "typeof" | "void" | "delete"
+}
+-- ast
+[
+  {
+    "name": "UnaryOperator",
+    "value": {
+      "kind": "enum",
+      "values": [
+        {
+          "kind": "literal",
+          "value": "-"
+        },
+        {
+          "kind": "literal",
+          "value": "+"
+        },
+        {
+          "kind": "literal",
+          "value": "!"
+        },
+        {
+          "kind": "literal",
+          "value": "~"
+        },
+        {
+          "kind": "literal",
+          "value": "typeof"
+        },
+        {
+          "kind": "literal",
+          "value": "void"
+        },
+        {
+          "kind": "literal",
+          "value": "delete"
+        }
+      ]
+    }
+  }
+]

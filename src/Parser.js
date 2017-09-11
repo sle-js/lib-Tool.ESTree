@@ -24,7 +24,14 @@ function def(lexer) {
             C.token(Tokens.LESS_COLON),
             C.chainl1(C.tokenMap(Tokens.NAME)(t => t.state.token.value))(C.token(Tokens.COMMA)),
             object
-        ])(a => ({name: tokenValue(a[1]), value: {kind: "interface", props: a[4], base: a[3]}}))
+        ])(a => ({name: tokenValue(a[1]), value: {kind: "interface", props: a[4], base: a[3]}})),
+        C.andMap([
+            C.token(Tokens.ENUM),
+            C.token(Tokens.NAME),
+            C.token(Tokens.LCURLY),
+            C.chainl1(literal)(C.token(Tokens.BAR)),
+            C.token(Tokens.RCURLY)
+        ])(a => ({name: tokenValue(a[1]), value: {kind: "enum", values: a[3]}}))
     ])(lexer);
 }
 
