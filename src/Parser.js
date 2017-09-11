@@ -17,21 +17,21 @@ function def(lexer) {
             C.token(Tokens.INTERFACE),
             C.token(Tokens.NAME),
             object
-        ])(a => ({name: tokenValue(a[1]), value: {kind: "interface", props: a[2], base: []}})),
+        ])(a => ({name: valueOf(a[1]), value: {kind: "interface", props: a[2], base: []}})),
         C.andMap([
             C.token(Tokens.INTERFACE),
             C.token(Tokens.NAME),
             C.token(Tokens.LESS_COLON),
             C.chainl1(C.tokenMap(Tokens.NAME)(t => t.state.token.value))(C.token(Tokens.COMMA)),
             object
-        ])(a => ({name: tokenValue(a[1]), value: {kind: "interface", props: a[4], base: a[3]}})),
+        ])(a => ({name: valueOf(a[1]), value: {kind: "interface", props: a[4], base: a[3]}})),
         C.andMap([
             C.token(Tokens.ENUM),
             C.token(Tokens.NAME),
             C.token(Tokens.LCURLY),
             C.chainl1(literal)(C.token(Tokens.BAR)),
             C.token(Tokens.RCURLY)
-        ])(a => ({name: tokenValue(a[1]), value: {kind: "enum", values: a[3]}}))
+        ])(a => ({name: valueOf(a[1]), value: {kind: "enum", values: a[3]}}))
     ])(lexer);
 }
 
@@ -51,7 +51,7 @@ function prop(lexer) {
         C.token(Tokens.COLON),
         unionType,
         C.token(Tokens.SEMICOLON)
-    ])(a => ({name: tokenValue(a[0]), type: a[2]}))(lexer);
+    ])(a => ({name: valueOf(a[0]), type: a[2]}))(lexer);
 }
 
 
@@ -66,7 +66,7 @@ function unionType(lexer) {
 function type(lexer) {
     return C.or([
         literal,
-        C.tokenMap(Tokens.NAME)(t => ({kind: "reference", name: tokenValue(t)})),
+        C.tokenMap(Tokens.NAME)(t => ({kind: "reference", name: valueOf(t)})),
         C.andMap([
             C.token(Tokens.LSQUARE),
             unionType,
@@ -88,7 +88,7 @@ function literal(lexer) {
 }
 
 
-const tokenValue = token =>
+const valueOf = token =>
     token.state.token.value;
 
 
