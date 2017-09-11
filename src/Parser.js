@@ -66,7 +66,11 @@ function type(lexer) {
 
 function literal(lexer) {
     return C.orMap([
-        C.tokenMap(Tokens.NULL)(_ => null)
+        C.tokenMap(Tokens.NULL)(_ => null),
+        C.tokenMap(Tokens.TRUE)(_ => true),
+        C.tokenMap(Tokens.FALSE)(_ => false),
+        C.tokenMap(Tokens.constantInteger)(t => t.state.token.value),
+        C.tokenMap(Tokens.constantString)(t => t.state.token.value)
     ])(a => ({kind: "literal", value: a}))(lexer);
 }
 

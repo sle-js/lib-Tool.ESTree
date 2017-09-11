@@ -1,0 +1,55 @@
+-- Literal values
+interface Literal {
+    stringLiteral: "Literal";
+    numberLiteral: 123;
+    trueLiteral: true;
+    falseLiteral: false;
+    nullLiteral: null;
+}
+-- ast
+[
+  {
+    "name": "Literal",
+    "value": {
+      "kind": "interface",
+      "props": [
+        {
+          "name": "stringLiteral",
+          "type": {
+            "kind": "literal",
+            "value": "Literal"
+          }
+        },
+        {
+          "name": "numberLiteral",
+          "type": {
+            "kind": "literal",
+            "value": 123
+          }
+        },
+        {
+          "name": "trueLiteral",
+          "type": {
+            "kind": "literal",
+            "value": true
+          }
+        },
+        {
+          "name": "falseLiteral",
+          "type": {
+            "kind": "literal",
+            "value": false
+          }
+        },
+        {
+          "name": "nullLiteral",
+          "type": {
+            "kind": "literal",
+            "value": null
+          }
+        }
+      ],
+      "base": []
+    }
+  }
+]
