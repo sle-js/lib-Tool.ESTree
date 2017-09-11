@@ -28,7 +28,7 @@ const parseFile = content => {
             const result =
                 Object.assign({}, acc);
 
-            result[result["current"]] = Array.append(item)(result[result["current"]]);
+            result[result.current] = Array.append(item)(result[result.current]);
 
             return result;
         }
