@@ -1,0 +1,34 @@
+-- Multiple node definitions each with multiple properties
+interface Node {
+    type: string;
+    loc: SourceLocation;
+}
+
+interface SourceLocation {
+    source: string;
+    start: Position;
+    end: Position;
+}
+
+interface Position {
+    line: number;
+    column: number;
+}
+-- js
+const Node = type => loc =>
+    ({type, loc});
+
+
+const SourceLocation = source => start => end =>
+    ({source, start, end});
+
+
+const Position = line => column =>
+    ({line, column});
+
+
+module.exports = {
+    Node,
+    SourceLocation,
+    Position
+};
