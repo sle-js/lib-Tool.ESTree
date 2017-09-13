@@ -1,0 +1,24 @@
+-- Union type with a null literal
+interface SourceLocation {
+    source: string | null;
+    start: Position;
+    end: Position;
+}
+
+interface Position {
+    line: number;
+    column: number;
+}
+-- js
+const SourceLocation = source => start => end =>
+    ({source, start, end});
+
+
+const Position = line => column =>
+    ({line, column});
+
+
+module.exports = {
+    SourceLocation,
+    Position
+};
