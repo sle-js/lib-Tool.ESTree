@@ -2,6 +2,7 @@ const Array = require("./Libs").Array;
 const Assertion = require("./Libs").Assertion;
 const FileSystem = require("../src/FileSystem");
 const String = require("./Libs").String;
+const Translator = require("../src/Translator");
 const Unit = require("./Libs").Unit;
 
 const LexerConfiguration = require("../src/LexerConfiguration");
@@ -46,12 +47,23 @@ const processFile = content => assertion => {
     const ast =
         Parser.program(LexerConfiguration.fromString(content.src.join("\n")));
 
-    return content.ast
-        ? assertion
-            .isTrue(ast.isOkay())
-            .equals(asString(ast.content[1].result).trim())(content.ast.join("\n").trim())
-        : assertion
-            .isTrue(ast.isOkay());
+    const parseAST =
+        content.ast
+            ? assertion
+                .isTrue(ast.isOkay())
+                .equals(asString(ast.content[1].result).trim())(content.ast.join("\n").trim())
+            : assertion
+                .isTrue(ast.isOkay());
+
+    if (content.js) {
+        const translation = Translator.translate(ast.content[1].result);
+
+        return parseAST
+            .isTrue(translation.isOkay())
+            .equals(translation.content[1].trim())(content.js.join("\n").trim());
+    } else {
+        return parseAST;
+    }
 };
 
 

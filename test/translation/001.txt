@@ -1,0 +1,12 @@
+-- Simple Node definition
+interface Node {
+    type: string;
+}
+-- js
+const Node = type =>
+    ({type});
+
+
+module.exports = {
+    Node
+};
