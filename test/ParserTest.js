@@ -61,15 +61,18 @@ const loadSuite = suiteName => fileSystemName =>
         .then(lstat =>
             lstat.isFile()
                 ? FileSystem
-                .readFile(fileSystemName)
-                .then(content => parseFile(content.split("\n")))
-                .then(content => Unit.Test(suiteName + ": " + content.name)(processFile(content)(Assertion)))
-                .catch(error => Unit.Test(suiteName)(Assertion.fail(error)))
+                    .readFile(fileSystemName)
+                    .then(content => parseFile(content.split("\n")))
+                    .then(content => Unit.Test(suiteName + ": " + content.name)(processFile(content)(Assertion)))
+                    .catch(error => Unit.Test(suiteName)(Assertion.fail(error)))
 
                 : FileSystem
-                .readdir(fileSystemName)
-                .then(directoryContents => Unit.Suite(suiteName)(directoryContents.map(file => loadSuite(file)(fileSystemName + "/" + file)))));
+                    .readdir(fileSystemName)
+                    .then(directoryContents => Unit.Suite(suiteName)(directoryContents.map(file => loadSuite(file)(fileSystemName + "/" + file)))));
 
 
 module.exports =
-    loadSuite("Parser Suite")("./test/parser");
+    Unit.Suite("ESTree")([
+        loadSuite("Parser")("./test/parser"),
+        loadSuite("Translation")("./test/translation")
+    ]);
