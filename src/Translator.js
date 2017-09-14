@@ -18,20 +18,23 @@ const translate = ast => {
     const find = name =>
         Array.findMap(object => object.name === name ? Maybe.Just(object) : Maybe.Nothing)(ast);
 
+    const constructorParameters = constructorAST =>
+        Array.concat(
+            flatten(
+                constructorAST.value.base.map(find).map(c => c.map(constructorParameters).withDefault([]))))(
+            constructorAST.value.props.map(p => p.name));
+
     const constructor = constructorAST => {
-        const constructorParameters = constructorAST =>
-            Array.concat(
-                flatten(
-                    constructorAST.value.base.map(find).map(c => c.map(constructorParameters).withDefault([]))))(
-                constructorAST.value.props.map(p => p.name));
+        const parameters =
+            constructorParameters(constructorAST);
 
         const constructorBody =
             Array.length(constructorAST.value.base) === 0
-                ? tab + "({" + constructorParameters(constructorAST).join(", ") + "});"
+                ? tab + "({" + parameters.join(", ") + "});"
                 : tab + "Object.assign({},\n" + constructorAST.value.base.map(find).map(c => c.map(base => tab + tab + base.name + "(" + base.value.props.map(p => p.name).join(", ") + ")").withDefault("")).join(",\n") + ");";
 
         return [
-            "const " + constructorAST.name + " =" + constructorParameters(constructorAST).map(name => " " + name + " =>").join(""),
+            "const " + constructorAST.name + " =" + parameters.map(name => " " + name + " =>").join(""),
             constructorBody
         ].join("\n");
     };
