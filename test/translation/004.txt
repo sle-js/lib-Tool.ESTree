@@ -1,0 +1,20 @@
+-- Interface inheritance
+interface Node {
+    type: string;
+}
+
+interface Expression <: Node { }
+-- js
+const Node = type =>
+    ({type});
+
+
+const Expression = type =>
+    Object.assign({},
+        Node(type));
+
+
+module.exports = {
+    Node,
+    Expression
+};
