@@ -18,15 +18,14 @@ const translate = ast => {
     const find = name =>
         Array.findMap(object => object.name === name ? Maybe.Just(object) : Maybe.Nothing)(ast);
 
-    const constructorParameters = constructorAST =>
+    const properties = interfaceAST =>
         Array.concat(
-            flatten(
-                constructorAST.value.base.map(find).map(c => c.map(constructorParameters).withDefault([]))))(
-            constructorAST.value.props.map(p => p.name));
+            flatten(interfaceAST.value.base.map(find).map(c => c.map(properties).withDefault([]))))(
+            interfaceAST.value.props);
 
     const constructor = constructorAST => {
         const parameters =
-            constructorParameters(constructorAST);
+            properties(constructorAST).map(p => p.name);
 
         const constructorBody =
             Array.length(constructorAST.value.base) === 0
