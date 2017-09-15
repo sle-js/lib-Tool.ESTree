@@ -1,0 +1,16 @@
+-- Literal values
+interface Literal {
+    stringLiteral: "Literal";
+    numberLiteral: 123;
+    trueLiteral: true;
+    falseLiteral: false;
+    nullLiteral: null;
+}
+-- js
+const Literal =
+    ({stringLiteral: "Literal", numberLiteral: 123, trueLiteral: true, falseLiteral: false, nullLiteral: null});
+
+
+module.exports = {
+    Literal
+};

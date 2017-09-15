@@ -18,22 +18,25 @@ const translate = ast => {
     const find = name =>
         Array.findMap(object => object.name === name ? Maybe.Just(object) : Maybe.Nothing)(ast);
 
-    const properties = interfaceAST =>
+    const allProperties = interfaceAST =>
         Array.concat(
-            flatten(interfaceAST.value.base.map(find).map(c => c.map(properties).withDefault([]))))(
+            flatten(interfaceAST.value.base.map(find).map(c => c.map(allProperties).withDefault([]))))(
             interfaceAST.value.props);
 
     const constructor = constructorAST => {
-        const parameters =
-            properties(constructorAST).map(p => p.name);
+        const properties =
+            allProperties(constructorAST);
+
+        const isLiteralProperty = property =>
+            property.type.kind === "literal";
 
         const constructorBody =
             Array.length(constructorAST.value.base) === 0
-                ? tab + "({" + parameters.join(", ") + "});"
+                ? tab + "({" + properties.map(property => isLiteralProperty(property) ? property.name + ": " + (typeof property.type.value === "string" ? '"' + property.type.value + '"' : property.type.value) : property.name).join(", ") + "});"
                 : tab + "Object.assign({},\n" + constructorAST.value.base.map(find).map(c => c.map(base => tab + tab + base.name + "(" + base.value.props.map(p => p.name).join(", ") + ")").withDefault("")).join(",\n") + ");";
 
         return [
-            "const " + constructorAST.name + " =" + parameters.map(name => " " + name + " =>").join(""),
+            "const " + constructorAST.name + " =" + Array.filter(p => !isLiteralProperty(p))(properties).map(p => p.name).map(name => " " + name + " =>").join(""),
             constructorBody
         ].join("\n");
     };
