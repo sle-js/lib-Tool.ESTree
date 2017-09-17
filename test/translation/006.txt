@@ -1,0 +1,34 @@
+-- Literal values
+interface Node {
+    type: string;
+}
+
+
+interface Statement <: Node {}
+
+
+interface Program <: Statement {
+    type: "Program";
+    body: [ Statement ];
+}
+-- js
+const Node = type =>
+    ({type});
+
+
+const Statement = type =>
+    Object.assign({},
+        Node(type));
+
+
+const Program = body =>
+    Object.assign({},
+        Statement("Program"),
+        {type: "Program", body});
+
+
+module.exports = {
+    Node,
+    Statement,
+    Program
+};

@@ -11,6 +11,14 @@ const flatten =
     Array.foldr([])(i => acc => Array.concat(i)(acc));
 
 
+const isLiteralProperty = property =>
+    property.type.kind === "literal";
+
+
+const removeAll = needles => a =>
+    Array.filter(item => !Array.any(i => i.name === item.name)(needles))(a);
+
+
 const translate = ast => {
     const interfaces =
         Array.filter(x => x.value.kind === "interface")(ast);
@@ -23,20 +31,57 @@ const translate = ast => {
             flatten(interfaceAST.value.base.map(find).map(c => c.map(allProperties).withDefault([]))))(
             interfaceAST.value.props);
 
+    const nonLiteralProperties = interfaceAST => {
+        const nonLiteralBaseProperties =
+            flatten(interfaceAST.value.base.map(find).map(c => c.map(nonLiteralProperties).withDefault([])));
+
+        const literalProps =
+            Array.filter(isLiteralProperty)(interfaceAST.value.props);
+
+        const nonLiteralProps =
+            Array.filter(prop => !(isLiteralProperty(prop)))(interfaceAST.value.props);
+
+        return Array.concat(
+            removeAll(literalProps)(nonLiteralBaseProperties))(
+            nonLiteralProps);
+    };
+
     const constructor = constructorAST => {
         const properties =
             allProperties(constructorAST);
 
-        const isLiteralProperty = property =>
-            property.type.kind === "literal";
+        const nonLP =
+            nonLiteralProperties(constructorAST);
+
+        const findLiteralProp = name =>
+            Array.findMap(prop => prop.name === name && isLiteralProperty(prop) ? Maybe.Just(prop) : Maybe.Nothing)(constructorAST.value.props);
+
+        const renderPropLiteralValue = prop =>
+            typeof prop.type.value === "string"
+                ? '"' + prop.type.value + '"'
+                : prop.type.value;
+
+        const renderPropLiteral = prop =>
+            prop.name + ": " + (renderPropLiteralValue(prop));
+
+        const renderProp = prop =>
+            isLiteralProperty(prop)
+                ? renderPropLiteral(prop)
+                : findLiteralProp(prop.name).map(renderPropLiteralValue).withDefault(prop.name);
 
         const constructorBody =
             Array.length(constructorAST.value.base) === 0
-                ? tab + "({" + properties.map(property => isLiteralProperty(property) ? property.name + ": " + (typeof property.type.value === "string" ? '"' + property.type.value + '"' : property.type.value) : property.name).join(", ") + "});"
-                : tab + "Object.assign({},\n" + constructorAST.value.base.map(find).map(c => c.map(base => tab + tab + base.name + "(" + base.value.props.map(p => p.name).join(", ") + ")").withDefault("")).join(",\n") + ");";
+                ? tab + "({" + properties.map(renderProp).join(", ") + "});"
+                : tab + "Object.assign({}" + constructorAST.value.base.map(find).map(c => c.map(base => ",\n" + tab + tab + base.name + "(" + nonLiteralProperties(base).map(renderProp).join(", ") + ")").withDefault("")).join("") +
+
+                (Array.length(constructorAST.value.props) > 0
+                    ? ",\n" + tab + tab + "{" + constructorAST.value.props.map(renderProp).join(", ") + "}"
+                    : "") +
+
+                ");";
 
         return [
-            "const " + constructorAST.name + " =" + Array.filter(p => !isLiteralProperty(p))(properties).map(p => p.name).map(name => " " + name + " =>").join(""),
+            "const " + constructorAST.name + " =" + nonLP.map(p => p.name).map(name => " " + name + " =>").join(""),
             constructorBody
         ].join("\n");
     };
