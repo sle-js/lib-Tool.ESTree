@@ -3,7 +3,7 @@ interface Node {
     type: string;
 }
 -- js
-const Node = type =>
+const Node = (type) =>
     ({type});
 
 

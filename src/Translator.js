@@ -81,7 +81,7 @@ const translate = ast => {
                 ");";
 
         return [
-            "const " + constructorAST.name + " =" + nonLP.map(p => p.name).map(name => " " + name + " =>").join(""),
+            "const " + constructorAST.name + " = (" + nonLP.map(p => p.name).join(", ") + ") =>",
             constructorBody
         ].join("\n");
     };

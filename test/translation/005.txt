@@ -7,7 +7,7 @@ interface Literal {
     nullLiteral: null;
 }
 -- js
-const Literal =
+const Literal = () =>
     ({stringLiteral: "Literal", numberLiteral: 123, trueLiteral: true, falseLiteral: false, nullLiteral: null});
 
 

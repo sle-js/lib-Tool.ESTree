@@ -5,11 +5,11 @@ interface Node {
 
 interface Expression <: Node { }
 -- js
-const Node = type =>
+const Node = (type) =>
     ({type});
 
 
-const Expression = type =>
+const Expression = (type) =>
     Object.assign({},
         Node(type));
 

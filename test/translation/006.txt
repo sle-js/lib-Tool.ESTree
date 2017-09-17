@@ -12,16 +12,16 @@ interface Program <: Statement {
     body: [ Statement ];
 }
 -- js
-const Node = type =>
+const Node = (type) =>
     ({type});
 
 
-const Statement = type =>
+const Statement = (type) =>
     Object.assign({},
         Node(type));
 
 
-const Program = body =>
+const Program = (body) =>
     Object.assign({},
         Statement("Program"),
         {type: "Program", body});

@@ -10,11 +10,11 @@ interface Position {
     column: number;
 }
 -- js
-const SourceLocation = source => start => end =>
+const SourceLocation = (source, start, end) =>
     ({source, start, end});
 
 
-const Position = line => column =>
+const Position = (line, column) =>
     ({line, column});
 
 

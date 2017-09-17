@@ -15,15 +15,15 @@ interface Position {
     column: number;
 }
 -- js
-const Node = type => loc =>
+const Node = (type, loc) =>
     ({type, loc});
 
 
-const SourceLocation = source => start => end =>
+const SourceLocation = (source, start, end) =>
     ({source, start, end});
 
 
-const Position = line => column =>
+const Position = (line, column) =>
     ({line, column});
 
 
