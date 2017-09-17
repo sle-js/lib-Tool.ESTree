@@ -32,7 +32,7 @@ const translate = ast => {
             interfaceAST.value.props);
 
     const nonLiteralProperties = interfaceAST => {
-        const nonLiteralBaseProperties =
+        const nonLiteralBaseProps =
             flatten(interfaceAST.value.base.map(find).map(c => c.map(nonLiteralProperties).withDefault([])));
 
         const literalProps =
@@ -42,7 +42,7 @@ const translate = ast => {
             Array.filter(prop => !(isLiteralProperty(prop)))(interfaceAST.value.props);
 
         return Array.concat(
-            removeAll(literalProps)(nonLiteralBaseProperties))(
+            removeAll(literalProps)(nonLiteralBaseProps))(
             nonLiteralProps);
     };
 
