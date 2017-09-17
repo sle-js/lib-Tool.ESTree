@@ -1,5 +1,6 @@
 const Array = require("./Libs").Array;
 const C = require("./ParseCombinators");
+const ESTreeAST = require("./ESTreeAST");
 const Tokens = require("./Tokens");
 
 
@@ -71,7 +72,7 @@ function type(lexer) {
             C.token(Tokens.LSQUARE),
             unionType,
             C.token(Tokens.RSQUARE)
-        ])(a => ({kind: "array", base: a[1]})),
+        ])(a => ESTreeAST.Array(location(a[0])(a[2]), a[1])),
         C.map(object)(v => ({kind: object, values: v}))
     ])(lexer);
 }
@@ -98,6 +99,22 @@ const token = t =>
 
 const tokenConstant = t => c =>
     C.tokenMap(t)(_ => c);
+
+
+const location = fromToken => toToken =>
+    ESTreeAST.SourceLocation(fromToken.source().withDefault(null), positionAt(fromToken), positionAt(toToken));
+
+
+const locationAt = t => {
+    const position =
+        positionOf(t);
+
+    return ESTreeAST.SourceLocation(t.source().withDefault(null), position, position);
+};
+
+
+const positionAt = t =>
+    ESTreeAST.Position(t.position()[1], t.position()[0] - 1);
 
 
 module.exports = {

@@ -1,4 +1,5 @@
 const Array = require("./Libs").Array;
+const Maybe = require("./Libs").Maybe;
 const String = require("./Libs").String;
 const Stream = require("./Libs").Stream;
 
@@ -7,6 +8,11 @@ function LexerState(configuration, state) {
     this.configuration = configuration;
     this.state = state;
 }
+
+
+LexerState.prototype.source = function() {
+    return this.state.source;
+};
 
 
 LexerState.prototype.token = function () {
@@ -84,7 +90,8 @@ const skipWhitespaceComments = configuration => state => {
 };
 
 
-const mkRunningState = input => index => position => token => oldPosition => oldIndex => ({
+const mkRunningState = source => input => index => position => token => oldPosition => oldIndex => ({
+    source: source,
     input: input,
     index: index,
     position: position,
@@ -102,25 +109,31 @@ const advanceState = currentState => matchedText => matchedToken => {
             : [position[0] + 1, position[1]];
     const advancedPosition = String.foldl(currentState.position)(advancePositionOnCharacter)(matchedText);
 
-    return mkRunningState(currentState.input)(advancedIndex)(advancedPosition)(matchedToken)(currentState.position)(currentState.index);
+    return mkRunningState(currentState.source)(currentState.input)(advancedIndex)(advancedPosition)(matchedToken)(currentState.position)(currentState.index);
 };
 
 
-const initialState = input =>
-    mkRunningState(input)(0)([1, 1])(undefined)([1, 1])(0);
+const initialState = source => input =>
+    mkRunningState(source)(input)(0)([1, 1])(undefined)([1, 1])(0);
 
 
 const finalState = configuration => state =>
-    mkRunningState(state.input)(state.input.length)(state.position)(configuration.eof)(state.position)(state.input.length);
+    mkRunningState(state.source)(state.input)(state.input.length)(state.position)(configuration.eof)(state.position)(state.input.length);
 
 
 const lexerAsStream = lexer =>
     Stream.Cons(lexer)(() => lexerAsStream(next(lexer)));
 
 
-const setup = configuration => ( {
-    fromString: input => lexerAsStream(next(new LexerState(configuration, initialState(input))))
-});
+const setup = configuration => {
+    const lexer = source => input =>
+        lexerAsStream(next(new LexerState(configuration, initialState(source)(input))));
+
+    return {
+        fromString: lexer(Maybe.Nothing),
+        fromNamedString: name => lexer(Maybe.Just(name))
+    };
+};
 
 
 module.exports = {

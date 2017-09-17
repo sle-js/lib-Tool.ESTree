@@ -43,9 +43,9 @@ const parseFile = content => {
 };
 
 
-const processFile = content => assertion => {
+const processFile = name => content => assertion => {
     const ast =
-        Parser.program(LexerConfiguration.fromString(content.src.join("\n")));
+        Parser.program(LexerConfiguration.fromNamedString(name)(content.src.join("\n")));
 
     const parseAST =
         content.ast
@@ -75,7 +75,7 @@ const loadSuite = suiteName => fileSystemName =>
                 ? FileSystem
                     .readFile(fileSystemName)
                     .then(content => parseFile(content.split("\n")))
-                    .then(content => Unit.Test(suiteName + ": " + content.name)(processFile(content)(Assertion)))
+                    .then(content => Unit.Test(suiteName + ": " + content.name)(processFile(suiteName)(content)(Assertion)))
                     .catch(error => Unit.Test(suiteName)(Assertion.fail(error)))
 
                 : FileSystem

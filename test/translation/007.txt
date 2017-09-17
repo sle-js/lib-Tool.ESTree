@@ -1,6 +1,6 @@
 -- ESTree AST
 interface Node {
-    type: string;
+    kind: string;
     loc: SourceLocation | null;
 }
 
@@ -20,18 +20,18 @@ interface Declaration <: Node {
 }
 
 interface Interface <: Declaration {
-     type: "Interface";
+     kind: "Interface";
      props: [ Property ];
      base: [ string ];
 }
 
 interface Enum <: Declaration {
-     type: "Enum";
+     kind: "Enum";
      values: [ string ];
 }
 
 interface Property <: Node {
-     type: "Property";
+     kind: "Property";
      name: string;
      value: Type;
 }
@@ -39,27 +39,27 @@ interface Property <: Node {
 interface Type <: Node { }
 
 interface Union <: Type {
-     type: "Union";
+     kind: "Union";
      types: [ Type ];
 }
 
 interface Literal <: Type {
-     type: "Literal";
+     kind: "Literal";
      value: string | number | boolean | null;
 }
 
 interface Reference <: Type {
-     type: "Reference";
+     kind: "Reference";
      name: string;
 }
 
 interface Array <: Type {
-     type: "Array";
+     kind: "Array";
      base: Type;
 }
 -- js
-const Node = (type, loc) =>
-    ({type, loc});
+const Node = (kind, loc) =>
+    ({kind, loc});
 
 
 const SourceLocation = (source, start, end) =>
@@ -70,57 +70,57 @@ const Position = (line, column) =>
     ({line, column});
 
 
-const Declaration = (type, loc, name) =>
+const Declaration = (kind, loc, name) =>
     Object.assign({},
-        Node(type, loc),
+        Node(kind, loc),
         {name});
 
 
 const Interface = (loc, name, props, base) =>
     Object.assign({},
         Declaration("Interface", loc, name),
-        {type: "Interface", props, base});
+        {kind: "Interface", props, base});
 
 
 const Enum = (loc, name, values) =>
     Object.assign({},
         Declaration("Enum", loc, name),
-        {type: "Enum", values});
+        {kind: "Enum", values});
 
 
 const Property = (loc, name, value) =>
     Object.assign({},
         Node("Property", loc),
-        {type: "Property", name, value});
+        {kind: "Property", name, value});
 
 
-const Type = (type, loc) =>
+const Type = (kind, loc) =>
     Object.assign({},
-        Node(type, loc));
+        Node(kind, loc));
 
 
 const Union = (loc, types) =>
     Object.assign({},
         Type("Union", loc),
-        {type: "Union", types});
+        {kind: "Union", types});
 
 
 const Literal = (loc, value) =>
     Object.assign({},
         Type("Literal", loc),
-        {type: "Literal", value});
+        {kind: "Literal", value});
 
 
 const Reference = (loc, name) =>
     Object.assign({},
         Type("Reference", loc),
-        {type: "Reference", name});
+        {kind: "Reference", name});
 
 
 const Array = (loc, base) =>
     Object.assign({},
         Type("Array", loc),
-        {type: "Array", base});
+        {kind: "Array", base});
 
 
 module.exports = {

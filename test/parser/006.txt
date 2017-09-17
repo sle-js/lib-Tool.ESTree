@@ -17,7 +17,18 @@ interface Array {
         {
           "name": "simple",
           "type": {
-            "kind": "array",
+            "kind": "Array",
+            "loc": {
+              "source": "006.txt",
+              "start": {
+                "line": 2,
+                "column": 12
+              },
+              "end": {
+                "line": 2,
+                "column": 19
+              }
+            },
             "base": {
               "kind": "reference",
               "name": "string"
@@ -27,7 +38,18 @@ interface Array {
         {
           "name": "lessSimple",
           "type": {
-            "kind": "array",
+            "kind": "Array",
+            "loc": {
+              "source": "006.txt",
+              "start": {
+                "line": 3,
+                "column": 16
+              },
+              "end": {
+                "line": 3,
+                "column": 39
+              }
+            },
             "base": {
               "kind": "union",
               "types": [
@@ -50,7 +72,18 @@ interface Array {
         {
           "name": "complex",
           "type": {
-            "kind": "array",
+            "kind": "Array",
+            "loc": {
+              "source": "006.txt",
+              "start": {
+                "line": 4,
+                "column": 13
+              },
+              "end": {
+                "line": 7,
+                "column": 5
+              }
+            },
             "base": {
               "values": [
                 {
