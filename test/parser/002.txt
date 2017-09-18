@@ -24,14 +24,36 @@ interface Position {
         {
           "name": "type",
           "type": {
-            "kind": "reference",
+            "kind": "Reference",
+            "loc": {
+              "source": "002.txt",
+              "start": {
+                "line": 2,
+                "column": 10
+              },
+              "end": {
+                "line": 2,
+                "column": 15
+              }
+            },
             "name": "string"
           }
         },
         {
           "name": "loc",
           "type": {
-            "kind": "reference",
+            "kind": "Reference",
+            "loc": {
+              "source": "002.txt",
+              "start": {
+                "line": 3,
+                "column": 9
+              },
+              "end": {
+                "line": 3,
+                "column": 22
+              }
+            },
             "name": "SourceLocation"
           }
         }
@@ -47,21 +69,54 @@ interface Position {
         {
           "name": "source",
           "type": {
-            "kind": "reference",
+            "kind": "Reference",
+            "loc": {
+              "source": "002.txt",
+              "start": {
+                "line": 7,
+                "column": 12
+              },
+              "end": {
+                "line": 7,
+                "column": 17
+              }
+            },
             "name": "string"
           }
         },
         {
           "name": "start",
           "type": {
-            "kind": "reference",
+            "kind": "Reference",
+            "loc": {
+              "source": "002.txt",
+              "start": {
+                "line": 8,
+                "column": 11
+              },
+              "end": {
+                "line": 8,
+                "column": 18
+              }
+            },
             "name": "Position"
           }
         },
         {
           "name": "end",
           "type": {
-            "kind": "reference",
+            "kind": "Reference",
+            "loc": {
+              "source": "002.txt",
+              "start": {
+                "line": 9,
+                "column": 9
+              },
+              "end": {
+                "line": 9,
+                "column": 16
+              }
+            },
             "name": "Position"
           }
         }
@@ -77,14 +132,36 @@ interface Position {
         {
           "name": "line",
           "type": {
-            "kind": "reference",
+            "kind": "Reference",
+            "loc": {
+              "source": "002.txt",
+              "start": {
+                "line": 13,
+                "column": 10
+              },
+              "end": {
+                "line": 13,
+                "column": 15
+              }
+            },
             "name": "number"
           }
         },
         {
           "name": "column",
           "type": {
-            "kind": "reference",
+            "kind": "Reference",
+            "loc": {
+              "source": "002.txt",
+              "start": {
+                "line": 14,
+                "column": 12
+              },
+              "end": {
+                "line": 14,
+                "column": 17
+              }
+            },
             "name": "number"
           }
         }

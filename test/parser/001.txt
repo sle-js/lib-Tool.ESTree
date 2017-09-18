@@ -12,7 +12,18 @@ interface Node {
         {
           "name": "type",
           "type": {
-            "kind": "reference",
+            "kind": "Reference",
+            "loc": {
+              "source": "001.txt",
+              "start": {
+                "line": 2,
+                "column": 10
+              },
+              "end": {
+                "line": 2,
+                "column": 15
+              }
+            },
             "name": "string"
           }
         }

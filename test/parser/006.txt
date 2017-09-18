@@ -30,7 +30,18 @@ interface Array {
               }
             },
             "base": {
-              "kind": "reference",
+              "kind": "Reference",
+              "loc": {
+                "source": "006.txt",
+                "start": {
+                  "line": 2,
+                  "column": 13
+                },
+                "end": {
+                  "line": 2,
+                  "column": 18
+                }
+              },
               "name": "string"
             }
           }
@@ -54,11 +65,33 @@ interface Array {
               "kind": "union",
               "types": [
                 {
-                  "kind": "reference",
+                  "kind": "Reference",
+                  "loc": {
+                    "source": "006.txt",
+                    "start": {
+                      "line": 3,
+                      "column": 17
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 22
+                    }
+                  },
                   "name": "string"
                 },
                 {
-                  "kind": "reference",
+                  "kind": "Reference",
+                  "loc": {
+                    "source": "006.txt",
+                    "start": {
+                      "line": 3,
+                      "column": 26
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 31
+                    }
+                  },
                   "name": "number"
                 },
                 {
@@ -100,14 +133,36 @@ interface Array {
                 {
                   "name": "a",
                   "type": {
-                    "kind": "reference",
+                    "kind": "Reference",
+                    "loc": {
+                      "source": "006.txt",
+                      "start": {
+                        "line": 5,
+                        "column": 11
+                      },
+                      "end": {
+                        "line": 5,
+                        "column": 16
+                      }
+                    },
                     "name": "string"
                   }
                 },
                 {
                   "name": "b",
                   "type": {
-                    "kind": "reference",
+                    "kind": "Reference",
+                    "loc": {
+                      "source": "006.txt",
+                      "start": {
+                        "line": 6,
+                        "column": 11
+                      },
+                      "end": {
+                        "line": 6,
+                        "column": 16
+                      }
+                    },
                     "name": "number"
                   }
                 }

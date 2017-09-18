@@ -67,7 +67,7 @@ function unionType(lexer) {
 function type(lexer) {
     return C.or([
         literal,
-        C.tokenMap(Tokens.NAME)(t => ({kind: "reference", name: valueOf(t)})),
+        C.tokenMap(Tokens.NAME)(t => ESTreeAST.Reference(locationAt(t), valueOf(t))),
         C.andMap([
             C.token(Tokens.LSQUARE),
             unionType,
