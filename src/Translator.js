@@ -12,7 +12,7 @@ const flatten =
 
 
 const isLiteralProperty = property =>
-    property.type.kind === "literal";
+    property.type.kind === "Literal";
 
 
 const removeAll = needles => a =>

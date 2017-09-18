@@ -62,7 +62,18 @@ interface Array {
                   "name": "number"
                 },
                 {
-                  "kind": "literal",
+                  "kind": "Literal",
+                  "loc": {
+                    "source": "006.txt",
+                    "start": {
+                      "line": 3,
+                      "column": 35
+                    },
+                    "end": {
+                      "line": 3,
+                      "column": 38
+                    }
+                  },
                   "value": null
                 }
               ]

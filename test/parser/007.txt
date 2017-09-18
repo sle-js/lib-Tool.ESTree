@@ -10,31 +10,108 @@ enum UnaryOperator {
       "kind": "enum",
       "values": [
         {
-          "kind": "literal",
+          "kind": "Literal",
+          "loc": {
+            "source": "007.txt",
+            "start": {
+              "line": 2,
+              "column": 6
+            },
+            "end": {
+              "line": 2,
+              "column": 8
+            }
+          },
           "value": "-"
         },
         {
-          "kind": "literal",
+          "kind": "Literal",
+          "loc": {
+            "source": "007.txt",
+            "start": {
+              "line": 2,
+              "column": 12
+            },
+            "end": {
+              "line": 2,
+              "column": 14
+            }
+          },
           "value": "+"
         },
         {
-          "kind": "literal",
+          "kind": "Literal",
+          "loc": {
+            "source": "007.txt",
+            "start": {
+              "line": 2,
+              "column": 18
+            },
+            "end": {
+              "line": 2,
+              "column": 20
+            }
+          },
           "value": "!"
         },
         {
-          "kind": "literal",
+          "kind": "Literal",
+          "loc": {
+            "source": "007.txt",
+            "start": {
+              "line": 2,
+              "column": 24
+            },
+            "end": {
+              "line": 2,
+              "column": 26
+            }
+          },
           "value": "~"
         },
         {
-          "kind": "literal",
+          "kind": "Literal",
+          "loc": {
+            "source": "007.txt",
+            "start": {
+              "line": 2,
+              "column": 30
+            },
+            "end": {
+              "line": 2,
+              "column": 37
+            }
+          },
           "value": "typeof"
         },
         {
-          "kind": "literal",
+          "kind": "Literal",
+          "loc": {
+            "source": "007.txt",
+            "start": {
+              "line": 2,
+              "column": 41
+            },
+            "end": {
+              "line": 2,
+              "column": 46
+            }
+          },
           "value": "void"
         },
         {
-          "kind": "literal",
+          "kind": "Literal",
+          "loc": {
+            "source": "007.txt",
+            "start": {
+              "line": 2,
+              "column": 50
+            },
+            "end": {
+              "line": 2,
+              "column": 57
+            }
+          },
           "value": "delete"
         }
       ]

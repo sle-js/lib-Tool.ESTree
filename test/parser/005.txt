@@ -16,35 +16,90 @@ interface Literal {
         {
           "name": "stringLiteral",
           "type": {
-            "kind": "literal",
+            "kind": "Literal",
+            "loc": {
+              "source": "005.txt",
+              "start": {
+                "line": 2,
+                "column": 19
+              },
+              "end": {
+                "line": 2,
+                "column": 27
+              }
+            },
             "value": "Literal"
           }
         },
         {
           "name": "numberLiteral",
           "type": {
-            "kind": "literal",
+            "kind": "Literal",
+            "loc": {
+              "source": "005.txt",
+              "start": {
+                "line": 3,
+                "column": 19
+              },
+              "end": {
+                "line": 3,
+                "column": 21
+              }
+            },
             "value": 123
           }
         },
         {
           "name": "trueLiteral",
           "type": {
-            "kind": "literal",
+            "kind": "Literal",
+            "loc": {
+              "source": "005.txt",
+              "start": {
+                "line": 4,
+                "column": 17
+              },
+              "end": {
+                "line": 4,
+                "column": 20
+              }
+            },
             "value": true
           }
         },
         {
           "name": "falseLiteral",
           "type": {
-            "kind": "literal",
+            "kind": "Literal",
+            "loc": {
+              "source": "005.txt",
+              "start": {
+                "line": 5,
+                "column": 18
+              },
+              "end": {
+                "line": 5,
+                "column": 22
+              }
+            },
             "value": false
           }
         },
         {
           "name": "nullLiteral",
           "type": {
-            "kind": "literal",
+            "kind": "Literal",
+            "loc": {
+              "source": "005.txt",
+              "start": {
+                "line": 6,
+                "column": 17
+              },
+              "end": {
+                "line": 6,
+                "column": 20
+              }
+            },
             "value": null
           }
         }

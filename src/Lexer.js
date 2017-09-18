@@ -10,7 +10,7 @@ function LexerState(configuration, state) {
 }
 
 
-LexerState.prototype.source = function() {
+LexerState.prototype.source = function () {
     return this.state.source;
 };
 
@@ -21,12 +21,12 @@ LexerState.prototype.token = function () {
 
 
 LexerState.prototype.position = function () {
-    return this.state.oldPosition;
+    return this.state.tokenLocation;
 };
 
 
 LexerState.prototype.index = function () {
-    return this.state.oldIndex;
+    return this.state.tokenIndex;
 };
 
 
@@ -43,7 +43,9 @@ const next = lexer => {
         if (isEndOfFile(currentState.index)(currentState.input)) {
             return new LexerState(lexer.configuration, finalState(lexer.configuration)(currentState));
         } else {
-            const errorState = advanceState(currentState)(currentState.input[currentState.index])(lexer.configuration.err(currentState.input[currentState.index]));
+            const errorState =
+                advanceState(currentState)(currentState.input[currentState.index])(lexer.configuration.err(currentState.input[currentState.index]));
+
             const mapTokenPattern = tokenPattern =>
                 tokenPattern[0].matchFrom(currentState.input)(currentState.index).map(text => advanceState(currentState)(text)(tokenPattern[1](text)));
 
@@ -90,35 +92,52 @@ const skipWhitespaceComments = configuration => state => {
 };
 
 
-const mkRunningState = source => input => index => position => token => oldPosition => oldIndex => ({
+const mkRunningState = source => input => index => position => token => tokenLocation => tokenIndex => ({
     source: source,
     input: input,
     index: index,
     position: position,
     token: token,
-    oldPosition: oldPosition,
-    oldIndex: oldIndex
+    tokenLocation: tokenLocation,
+    tokenIndex: tokenIndex
 });
 
 
 const advanceState = currentState => matchedText => matchedToken => {
-    const advancedIndex = currentState.index + matchedText.length;
+    const advancedIndex =
+        currentState.index + matchedText.length;
+
+    const initialPosition = position =>
+        [currentState.position[0], currentState.position[1], currentState.position[0], currentState.position[1]];
+
     const advancePositionOnCharacter = position => item =>
         item === 10
-            ? [1, position[1] + 1]
-            : [position[0] + 1, position[1]];
-    const advancedPosition = String.foldl(currentState.position)(advancePositionOnCharacter)(matchedText);
+            ? [1, position[1] + 1, position[0], position[1]]
+            : [position[0] + 1, position[1], position[0], position[1]];
 
-    return mkRunningState(currentState.source)(currentState.input)(advancedIndex)(advancedPosition)(matchedToken)(currentState.position)(currentState.index);
+    const advancedPosition =
+        String.foldl(initialPosition(currentState.position))(advancePositionOnCharacter)(matchedText);
+
+    const newPosition =
+        [advancedPosition[0], advancedPosition[1]];
+
+    const tokenPosition =
+        [currentState.position[0], currentState.position[1], advancedPosition[2], advancedPosition[3]];
+
+    return mkRunningState(currentState.source)(currentState.input)(advancedIndex)(newPosition)(matchedToken)(tokenPosition)(currentState.index);
 };
 
 
 const initialState = source => input =>
-    mkRunningState(source)(input)(0)([1, 1])(undefined)([1, 1])(0);
+    mkRunningState(source)(input)(0)([1, 1])(undefined)([1, 1, 1, 1])(0);
 
 
-const finalState = configuration => state =>
-    mkRunningState(state.source)(state.input)(state.input.length)(state.position)(configuration.eof)(state.position)(state.input.length);
+const finalState = configuration => state => {
+    const tokenLocation =
+        [state.position[0], state.position[1], state.position[0], state.position[1]];
+
+    return mkRunningState(state.source)(state.input)(state.input.length)(state.position)(configuration.eof)(tokenLocation)(state.input.length);
+};
 
 
 const lexerAsStream = lexer =>

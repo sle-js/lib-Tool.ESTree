@@ -26,7 +26,18 @@ interface Position {
                 "name": "string"
               },
               {
-                "kind": "literal",
+                "kind": "Literal",
+                "loc": {
+                  "source": "003.txt",
+                  "start": {
+                    "line": 2,
+                    "column": 21
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 24
+                  }
+                },
                 "value": null
               }
             ]

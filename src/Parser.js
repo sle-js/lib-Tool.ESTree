@@ -79,13 +79,13 @@ function type(lexer) {
 
 
 function literal(lexer) {
-    return C.orMap([
+    return C.or([
         tokenConstant(Tokens.NULL)(null),
         tokenConstant(Tokens.TRUE)(true),
         tokenConstant(Tokens.FALSE)(false),
-        token(Tokens.constantInteger),
-        token(Tokens.constantString)
-    ])(a => ({kind: "literal", value: a}))(lexer);
+        C.tokenMap(Tokens.constantInteger)(t => ESTreeAST.Literal(locationAt(t), valueOf(t))),
+        C.tokenMap(Tokens.constantString)(t => ESTreeAST.Literal(locationAt(t), valueOf(t)))
+    ])(lexer);
 }
 
 
@@ -97,24 +97,24 @@ const token = t =>
     C.tokenMap(t)(valueOf);
 
 
-const tokenConstant = t => c =>
-    C.tokenMap(t)(_ => c);
+const tokenConstant = t => c => lexer =>
+    C.tokenMap(t)(_ => ESTreeAST.Literal(locationAt(_), c))(lexer);
 
 
 const location = fromToken => toToken =>
-    ESTreeAST.SourceLocation(fromToken.source().withDefault(null), positionAt(fromToken), positionAt(toToken));
+    ESTreeAST.SourceLocation(fromToken.source().withDefault(null), positionStart(fromToken), positionEnd(toToken));
 
 
-const locationAt = t => {
-    const position =
-        positionOf(t);
-
-    return ESTreeAST.SourceLocation(t.source().withDefault(null), position, position);
-};
+const locationAt = t =>
+    ESTreeAST.SourceLocation(t.source().withDefault(null), positionStart(t), positionEnd(t));
 
 
-const positionAt = t =>
+const positionStart = t =>
     ESTreeAST.Position(t.position()[1], t.position()[0] - 1);
+
+
+const positionEnd = t =>
+    ESTreeAST.Position(t.position()[3], t.position()[2] - 1);
 
 
 module.exports = {
