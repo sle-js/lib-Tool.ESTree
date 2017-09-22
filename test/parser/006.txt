@@ -62,7 +62,18 @@ interface Array {
               }
             },
             "base": {
-              "kind": "union",
+              "kind": "Union",
+              "loc": {
+                "source": "006.txt",
+                "start": {
+                  "line": 3,
+                  "column": 17
+                },
+                "end": {
+                  "line": 3,
+                  "column": 38
+                }
+              },
               "types": [
                 {
                   "kind": "Reference",

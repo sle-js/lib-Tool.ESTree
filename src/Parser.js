@@ -57,10 +57,10 @@ function prop(lexer) {
 
 
 function unionType(lexer) {
-    return C.chainl1Map(type)(C.token(Tokens.BAR))(a => Array.length(a) === 1 ? a[0] : ({
-        kind: "union",
-        types: a
-    }))(lexer);
+    const unionLocation = items =>
+        ESTreeAST.SourceLocation(items[0].loc.source, items[0].loc.start, items[items.length-1].loc.end);
+
+    return C.chainl1Map(type)(C.token(Tokens.BAR))(a => Array.length(a) === 1 ? a[0] : ESTreeAST.Union(unionLocation(a), a))(lexer);
 }
 
 

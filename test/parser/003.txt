@@ -19,7 +19,18 @@ interface Position {
         {
           "name": "source",
           "type": {
-            "kind": "union",
+            "kind": "Union",
+            "loc": {
+              "source": "003.txt",
+              "start": {
+                "line": 2,
+                "column": 12
+              },
+              "end": {
+                "line": 2,
+                "column": 24
+              }
+            },
             "types": [
               {
                 "kind": "Reference",
