@@ -18,14 +18,14 @@ function def(lexer) {
             C.token(Tokens.INTERFACE),
             C.token(Tokens.NAME),
             object
-        ])(a => ({name: valueOf(a[1]), value: {kind: "interface", props: a[2], base: []}})),
+        ])(a => ({name: valueOf(a[1]), value: {kind: "interface", props: a[2].properties, base: []}})),
         C.andMap([
             C.token(Tokens.INTERFACE),
             C.token(Tokens.NAME),
             C.token(Tokens.LESS_COLON),
             C.chainl1(token(Tokens.NAME))(C.token(Tokens.COMMA)),
             object
-        ])(a => ({name: valueOf(a[1]), value: {kind: "interface", props: a[4], base: a[3]}})),
+        ])(a => ({name: valueOf(a[1]), value: {kind: "interface", props: a[4].properties, base: a[3]}})),
         C.andMap([
             C.token(Tokens.ENUM),
             C.token(Tokens.NAME),
@@ -42,7 +42,7 @@ function object(lexer) {
         C.token(Tokens.LCURLY),
         C.many(prop),
         C.token(Tokens.RCURLY)
-    ])(a => a[1])(lexer);
+    ])(a => ({properties: a[1]}))(lexer);
 }
 
 
@@ -73,7 +73,7 @@ function type(lexer) {
             unionType,
             C.token(Tokens.RSQUARE)
         ])(a => ESTreeAST.Array(location(a[0])(a[2]), a[1])),
-        C.map(object)(v => ({kind: object, values: v}))
+        C.map(object)(v => ({kind: object, values: v.properties}))
     ])(lexer);
 }
 
