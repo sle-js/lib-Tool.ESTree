@@ -101,8 +101,8 @@ const tokenConstant = t => c => lexer =>
     C.tokenMap(t)(_ => ESTreeAST.Literal(locationAt(_), c))(lexer);
 
 
-const stretchSourceLocation = start => end =>
-    ESTreeAST.SourceLocation(start.source, start.start, end.end);
+const stretchSourceLocation = startLocation => endLocation =>
+    ESTreeAST.SourceLocation(startLocation.source, startLocation.start, endLocation.end);
 
 
 const location = fromToken => toToken =>
