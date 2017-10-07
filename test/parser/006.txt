@@ -10,239 +10,248 @@ interface Array {
 -- ast
 [
   {
+    "kind": "Interface",
+    "loc": {
+      "source": "006.txt",
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 8,
+        "column": 0
+      }
+    },
     "name": "Array",
-    "value": {
-      "kind": "interface",
-      "props": [
-        {
-          "kind": "Property",
+    "props": [
+      {
+        "kind": "Property",
+        "loc": {
+          "source": "006.txt",
+          "start": {
+            "line": 2,
+            "column": 4
+          },
+          "end": {
+            "line": 2,
+            "column": 20
+          }
+        },
+        "name": "simple",
+        "value": {
+          "kind": "Array",
           "loc": {
             "source": "006.txt",
             "start": {
               "line": 2,
-              "column": 4
+              "column": 12
             },
             "end": {
               "line": 2,
-              "column": 20
+              "column": 19
             }
           },
-          "name": "simple",
-          "value": {
-            "kind": "Array",
+          "base": {
+            "kind": "Reference",
             "loc": {
               "source": "006.txt",
               "start": {
                 "line": 2,
-                "column": 12
+                "column": 13
               },
               "end": {
                 "line": 2,
-                "column": 19
+                "column": 18
               }
             },
-            "base": {
-              "kind": "Reference",
-              "loc": {
-                "source": "006.txt",
-                "start": {
-                  "line": 2,
-                  "column": 13
-                },
-                "end": {
-                  "line": 2,
-                  "column": 18
-                }
-              },
-              "name": "string"
-            }
+            "name": "string"
+          }
+        }
+      },
+      {
+        "kind": "Property",
+        "loc": {
+          "source": "006.txt",
+          "start": {
+            "line": 3,
+            "column": 4
+          },
+          "end": {
+            "line": 3,
+            "column": 40
           }
         },
-        {
-          "kind": "Property",
+        "name": "lessSimple",
+        "value": {
+          "kind": "Array",
           "loc": {
             "source": "006.txt",
             "start": {
               "line": 3,
-              "column": 4
+              "column": 16
             },
             "end": {
               "line": 3,
-              "column": 40
+              "column": 39
             }
           },
-          "name": "lessSimple",
-          "value": {
-            "kind": "Array",
+          "base": {
+            "kind": "Union",
             "loc": {
               "source": "006.txt",
               "start": {
                 "line": 3,
-                "column": 16
+                "column": 17
               },
               "end": {
                 "line": 3,
-                "column": 39
+                "column": 38
               }
             },
-            "base": {
-              "kind": "Union",
-              "loc": {
-                "source": "006.txt",
-                "start": {
-                  "line": 3,
-                  "column": 17
+            "types": [
+              {
+                "kind": "Reference",
+                "loc": {
+                  "source": "006.txt",
+                  "start": {
+                    "line": 3,
+                    "column": 17
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 22
+                  }
                 },
-                "end": {
-                  "line": 3,
-                  "column": 38
-                }
+                "name": "string"
               },
-              "types": [
-                {
-                  "kind": "Reference",
-                  "loc": {
-                    "source": "006.txt",
-                    "start": {
-                      "line": 3,
-                      "column": 17
-                    },
-                    "end": {
-                      "line": 3,
-                      "column": 22
-                    }
+              {
+                "kind": "Reference",
+                "loc": {
+                  "source": "006.txt",
+                  "start": {
+                    "line": 3,
+                    "column": 26
                   },
-                  "name": "string"
+                  "end": {
+                    "line": 3,
+                    "column": 31
+                  }
                 },
-                {
-                  "kind": "Reference",
-                  "loc": {
-                    "source": "006.txt",
-                    "start": {
-                      "line": 3,
-                      "column": 26
-                    },
-                    "end": {
-                      "line": 3,
-                      "column": 31
-                    }
+                "name": "number"
+              },
+              {
+                "kind": "Literal",
+                "loc": {
+                  "source": "006.txt",
+                  "start": {
+                    "line": 3,
+                    "column": 35
                   },
-                  "name": "number"
+                  "end": {
+                    "line": 3,
+                    "column": 38
+                  }
                 },
-                {
-                  "kind": "Literal",
-                  "loc": {
-                    "source": "006.txt",
-                    "start": {
-                      "line": 3,
-                      "column": 35
-                    },
-                    "end": {
-                      "line": 3,
-                      "column": 38
-                    }
-                  },
-                  "value": null
-                }
-              ]
-            }
+                "value": null
+              }
+            ]
+          }
+        }
+      },
+      {
+        "kind": "Property",
+        "loc": {
+          "source": "006.txt",
+          "start": {
+            "line": 4,
+            "column": 4
+          },
+          "end": {
+            "line": 7,
+            "column": 6
           }
         },
-        {
-          "kind": "Property",
+        "name": "complex",
+        "value": {
+          "kind": "Array",
           "loc": {
             "source": "006.txt",
             "start": {
               "line": 4,
-              "column": 4
+              "column": 13
             },
             "end": {
               "line": 7,
-              "column": 6
+              "column": 5
             }
           },
-          "name": "complex",
-          "value": {
-            "kind": "Array",
-            "loc": {
-              "source": "006.txt",
-              "start": {
-                "line": 4,
-                "column": 13
-              },
-              "end": {
-                "line": 7,
-                "column": 5
-              }
-            },
-            "base": {
-              "values": [
-                {
-                  "kind": "Property",
-                  "loc": {
-                    "source": "006.txt",
-                    "start": {
-                      "line": 5,
-                      "column": 8
-                    },
-                    "end": {
-                      "line": 5,
-                      "column": 17
-                    }
+          "base": {
+            "values": [
+              {
+                "kind": "Property",
+                "loc": {
+                  "source": "006.txt",
+                  "start": {
+                    "line": 5,
+                    "column": 8
                   },
-                  "name": "a",
-                  "value": {
-                    "kind": "Reference",
-                    "loc": {
-                      "source": "006.txt",
-                      "start": {
-                        "line": 5,
-                        "column": 11
-                      },
-                      "end": {
-                        "line": 5,
-                        "column": 16
-                      }
-                    },
-                    "name": "string"
+                  "end": {
+                    "line": 5,
+                    "column": 17
                   }
                 },
-                {
-                  "kind": "Property",
+                "name": "a",
+                "value": {
+                  "kind": "Reference",
+                  "loc": {
+                    "source": "006.txt",
+                    "start": {
+                      "line": 5,
+                      "column": 11
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 16
+                    }
+                  },
+                  "name": "string"
+                }
+              },
+              {
+                "kind": "Property",
+                "loc": {
+                  "source": "006.txt",
+                  "start": {
+                    "line": 6,
+                    "column": 8
+                  },
+                  "end": {
+                    "line": 6,
+                    "column": 17
+                  }
+                },
+                "name": "b",
+                "value": {
+                  "kind": "Reference",
                   "loc": {
                     "source": "006.txt",
                     "start": {
                       "line": 6,
-                      "column": 8
+                      "column": 11
                     },
                     "end": {
                       "line": 6,
-                      "column": 17
+                      "column": 16
                     }
                   },
-                  "name": "b",
-                  "value": {
-                    "kind": "Reference",
-                    "loc": {
-                      "source": "006.txt",
-                      "start": {
-                        "line": 6,
-                        "column": 11
-                      },
-                      "end": {
-                        "line": 6,
-                        "column": 16
-                      }
-                    },
-                    "name": "number"
-                  }
+                  "name": "number"
                 }
-              ]
-            }
+              }
+            ]
           }
         }
-      ],
-      "base": []
-    }
+      }
+    ],
+    "base": []
   }
 ]

@@ -12,202 +12,220 @@ interface Position {
 -- ast
 [
   {
+    "kind": "Interface",
+    "loc": {
+      "source": "003.txt",
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 5,
+        "column": 0
+      }
+    },
     "name": "SourceLocation",
-    "value": {
-      "kind": "interface",
-      "props": [
-        {
-          "kind": "Property",
+    "props": [
+      {
+        "kind": "Property",
+        "loc": {
+          "source": "003.txt",
+          "start": {
+            "line": 2,
+            "column": 4
+          },
+          "end": {
+            "line": 2,
+            "column": 25
+          }
+        },
+        "name": "source",
+        "value": {
+          "kind": "Union",
           "loc": {
             "source": "003.txt",
             "start": {
               "line": 2,
-              "column": 4
+              "column": 12
             },
             "end": {
               "line": 2,
-              "column": 25
+              "column": 24
             }
           },
-          "name": "source",
-          "value": {
-            "kind": "Union",
-            "loc": {
-              "source": "003.txt",
-              "start": {
-                "line": 2,
-                "column": 12
-              },
-              "end": {
-                "line": 2,
-                "column": 24
-              }
-            },
-            "types": [
-              {
-                "kind": "Reference",
-                "loc": {
-                  "source": "003.txt",
-                  "start": {
-                    "line": 2,
-                    "column": 12
-                  },
-                  "end": {
-                    "line": 2,
-                    "column": 17
-                  }
+          "types": [
+            {
+              "kind": "Reference",
+              "loc": {
+                "source": "003.txt",
+                "start": {
+                  "line": 2,
+                  "column": 12
                 },
-                "name": "string"
+                "end": {
+                  "line": 2,
+                  "column": 17
+                }
               },
-              {
-                "kind": "Literal",
-                "loc": {
-                  "source": "003.txt",
-                  "start": {
-                    "line": 2,
-                    "column": 21
-                  },
-                  "end": {
-                    "line": 2,
-                    "column": 24
-                  }
+              "name": "string"
+            },
+            {
+              "kind": "Literal",
+              "loc": {
+                "source": "003.txt",
+                "start": {
+                  "line": 2,
+                  "column": 21
                 },
-                "value": null
-              }
-            ]
-          }
-        },
-        {
-          "kind": "Property",
-          "loc": {
-            "source": "003.txt",
-            "start": {
-              "line": 3,
-              "column": 4
-            },
-            "end": {
-              "line": 3,
-              "column": 19
-            }
-          },
-          "name": "start",
-          "value": {
-            "kind": "Reference",
-            "loc": {
-              "source": "003.txt",
-              "start": {
-                "line": 3,
-                "column": 11
+                "end": {
+                  "line": 2,
+                  "column": 24
+                }
               },
-              "end": {
-                "line": 3,
-                "column": 18
-              }
-            },
-            "name": "Position"
-          }
-        },
-        {
-          "kind": "Property",
-          "loc": {
-            "source": "003.txt",
-            "start": {
-              "line": 4,
-              "column": 4
-            },
-            "end": {
-              "line": 4,
-              "column": 17
+              "value": null
             }
-          },
-          "name": "end",
-          "value": {
-            "kind": "Reference",
-            "loc": {
-              "source": "003.txt",
-              "start": {
-                "line": 4,
-                "column": 9
-              },
-              "end": {
-                "line": 4,
-                "column": 16
-              }
-            },
-            "name": "Position"
-          }
+          ]
         }
-      ],
-      "base": []
-    }
-  },
-  {
-    "name": "Position",
-    "value": {
-      "kind": "interface",
-      "props": [
-        {
-          "kind": "Property",
-          "loc": {
-            "source": "003.txt",
-            "start": {
-              "line": 8,
-              "column": 4
-            },
-            "end": {
-              "line": 8,
-              "column": 16
-            }
+      },
+      {
+        "kind": "Property",
+        "loc": {
+          "source": "003.txt",
+          "start": {
+            "line": 3,
+            "column": 4
           },
-          "name": "line",
-          "value": {
-            "kind": "Reference",
-            "loc": {
-              "source": "003.txt",
-              "start": {
-                "line": 8,
-                "column": 10
-              },
-              "end": {
-                "line": 8,
-                "column": 15
-              }
-            },
-            "name": "number"
+          "end": {
+            "line": 3,
+            "column": 19
           }
         },
-        {
-          "kind": "Property",
+        "name": "start",
+        "value": {
+          "kind": "Reference",
           "loc": {
             "source": "003.txt",
             "start": {
-              "line": 9,
-              "column": 4
+              "line": 3,
+              "column": 11
             },
             "end": {
-              "line": 9,
+              "line": 3,
               "column": 18
             }
           },
-          "name": "column",
-          "value": {
-            "kind": "Reference",
-            "loc": {
-              "source": "003.txt",
-              "start": {
-                "line": 9,
-                "column": 12
-              },
-              "end": {
-                "line": 9,
-                "column": 17
-              }
-            },
-            "name": "number"
-          }
+          "name": "Position"
         }
-      ],
-      "base": []
-    }
+      },
+      {
+        "kind": "Property",
+        "loc": {
+          "source": "003.txt",
+          "start": {
+            "line": 4,
+            "column": 4
+          },
+          "end": {
+            "line": 4,
+            "column": 17
+          }
+        },
+        "name": "end",
+        "value": {
+          "kind": "Reference",
+          "loc": {
+            "source": "003.txt",
+            "start": {
+              "line": 4,
+              "column": 9
+            },
+            "end": {
+              "line": 4,
+              "column": 16
+            }
+          },
+          "name": "Position"
+        }
+      }
+    ],
+    "base": []
+  },
+  {
+    "kind": "Interface",
+    "loc": {
+      "source": "003.txt",
+      "start": {
+        "line": 7,
+        "column": 0
+      },
+      "end": {
+        "line": 10,
+        "column": 0
+      }
+    },
+    "name": "Position",
+    "props": [
+      {
+        "kind": "Property",
+        "loc": {
+          "source": "003.txt",
+          "start": {
+            "line": 8,
+            "column": 4
+          },
+          "end": {
+            "line": 8,
+            "column": 16
+          }
+        },
+        "name": "line",
+        "value": {
+          "kind": "Reference",
+          "loc": {
+            "source": "003.txt",
+            "start": {
+              "line": 8,
+              "column": 10
+            },
+            "end": {
+              "line": 8,
+              "column": 15
+            }
+          },
+          "name": "number"
+        }
+      },
+      {
+        "kind": "Property",
+        "loc": {
+          "source": "003.txt",
+          "start": {
+            "line": 9,
+            "column": 4
+          },
+          "end": {
+            "line": 9,
+            "column": 18
+          }
+        },
+        "name": "column",
+        "value": {
+          "kind": "Reference",
+          "loc": {
+            "source": "003.txt",
+            "start": {
+              "line": 9,
+              "column": 12
+            },
+            "end": {
+              "line": 9,
+              "column": 17
+            }
+          },
+          "name": "number"
+        }
+      }
+    ],
+    "base": []
   }
 ]

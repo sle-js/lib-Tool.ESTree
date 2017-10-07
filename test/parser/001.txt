@@ -5,42 +5,51 @@ interface Node {
 -- ast
 [
   {
+    "kind": "Interface",
+    "loc": {
+      "source": "001.txt",
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 3,
+        "column": 0
+      }
+    },
     "name": "Node",
-    "value": {
-      "kind": "interface",
-      "props": [
-        {
-          "kind": "Property",
+    "props": [
+      {
+        "kind": "Property",
+        "loc": {
+          "source": "001.txt",
+          "start": {
+            "line": 2,
+            "column": 4
+          },
+          "end": {
+            "line": 2,
+            "column": 16
+          }
+        },
+        "name": "type",
+        "value": {
+          "kind": "Reference",
           "loc": {
             "source": "001.txt",
             "start": {
               "line": 2,
-              "column": 4
+              "column": 10
             },
             "end": {
               "line": 2,
-              "column": 16
+              "column": 15
             }
           },
-          "name": "type",
-          "value": {
-            "kind": "Reference",
-            "loc": {
-              "source": "001.txt",
-              "start": {
-                "line": 2,
-                "column": 10
-              },
-              "end": {
-                "line": 2,
-                "column": 15
-              }
-            },
-            "name": "string"
-          }
+          "name": "string"
         }
-      ],
-      "base": []
-    }
+      }
+    ],
+    "base": []
   }
 ]

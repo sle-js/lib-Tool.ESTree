@@ -18,14 +18,14 @@ function def(lexer) {
             C.token(Tokens.INTERFACE),
             C.token(Tokens.NAME),
             object
-        ])(a => ({name: valueOf(a[1]), value: {kind: "interface", props: a[2].properties, base: []}})),
+        ])(a => ESTreeAST.Interface(stretchSourceLocation(locationAt(a[0]))(a[2].loc), valueOf(a[1]), a[2].properties, [])),
         C.andMap([
             C.token(Tokens.INTERFACE),
             C.token(Tokens.NAME),
             C.token(Tokens.LESS_COLON),
             C.chainl1(token(Tokens.NAME))(C.token(Tokens.COMMA)),
             object
-        ])(a => ({name: valueOf(a[1]), value: {kind: "interface", props: a[4].properties, base: a[3]}})),
+        ])(a => ESTreeAST.Interface(stretchSourceLocation(locationAt(a[0]))(a[4].loc), valueOf(a[1]), a[4].properties, a[3])),
         C.andMap([
             C.token(Tokens.ENUM),
             C.token(Tokens.NAME),
@@ -99,6 +99,10 @@ const token = t =>
 
 const tokenConstant = t => c => lexer =>
     C.tokenMap(t)(_ => ESTreeAST.Literal(locationAt(_), c))(lexer);
+
+
+const stretchSourceLocation = start => end =>
+    ESTreeAST.SourceLocation(start.source, start.start, end.end);
 
 
 const location = fromToken => toToken =>

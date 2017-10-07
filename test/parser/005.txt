@@ -9,162 +9,171 @@ interface Literal {
 -- ast
 [
   {
+    "kind": "Interface",
+    "loc": {
+      "source": "005.txt",
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 7,
+        "column": 0
+      }
+    },
     "name": "Literal",
-    "value": {
-      "kind": "interface",
-      "props": [
-        {
-          "kind": "Property",
-          "loc": {
-            "source": "005.txt",
-            "start": {
-              "line": 2,
-              "column": 4
-            },
-            "end": {
-              "line": 2,
-              "column": 28
-            }
+    "props": [
+      {
+        "kind": "Property",
+        "loc": {
+          "source": "005.txt",
+          "start": {
+            "line": 2,
+            "column": 4
           },
-          "name": "stringLiteral",
-          "value": {
-            "kind": "Literal",
-            "loc": {
-              "source": "005.txt",
-              "start": {
-                "line": 2,
-                "column": 19
-              },
-              "end": {
-                "line": 2,
-                "column": 27
-              }
-            },
-            "value": "Literal"
+          "end": {
+            "line": 2,
+            "column": 28
           }
         },
-        {
-          "kind": "Property",
+        "name": "stringLiteral",
+        "value": {
+          "kind": "Literal",
+          "loc": {
+            "source": "005.txt",
+            "start": {
+              "line": 2,
+              "column": 19
+            },
+            "end": {
+              "line": 2,
+              "column": 27
+            }
+          },
+          "value": "Literal"
+        }
+      },
+      {
+        "kind": "Property",
+        "loc": {
+          "source": "005.txt",
+          "start": {
+            "line": 3,
+            "column": 4
+          },
+          "end": {
+            "line": 3,
+            "column": 22
+          }
+        },
+        "name": "numberLiteral",
+        "value": {
+          "kind": "Literal",
           "loc": {
             "source": "005.txt",
             "start": {
               "line": 3,
-              "column": 4
+              "column": 19
             },
             "end": {
               "line": 3,
+              "column": 21
+            }
+          },
+          "value": 123
+        }
+      },
+      {
+        "kind": "Property",
+        "loc": {
+          "source": "005.txt",
+          "start": {
+            "line": 4,
+            "column": 4
+          },
+          "end": {
+            "line": 4,
+            "column": 21
+          }
+        },
+        "name": "trueLiteral",
+        "value": {
+          "kind": "Literal",
+          "loc": {
+            "source": "005.txt",
+            "start": {
+              "line": 4,
+              "column": 17
+            },
+            "end": {
+              "line": 4,
+              "column": 20
+            }
+          },
+          "value": true
+        }
+      },
+      {
+        "kind": "Property",
+        "loc": {
+          "source": "005.txt",
+          "start": {
+            "line": 5,
+            "column": 4
+          },
+          "end": {
+            "line": 5,
+            "column": 23
+          }
+        },
+        "name": "falseLiteral",
+        "value": {
+          "kind": "Literal",
+          "loc": {
+            "source": "005.txt",
+            "start": {
+              "line": 5,
+              "column": 18
+            },
+            "end": {
+              "line": 5,
               "column": 22
             }
           },
-          "name": "numberLiteral",
-          "value": {
-            "kind": "Literal",
-            "loc": {
-              "source": "005.txt",
-              "start": {
-                "line": 3,
-                "column": 19
-              },
-              "end": {
-                "line": 3,
-                "column": 21
-              }
-            },
-            "value": 123
-          }
-        },
-        {
-          "kind": "Property",
-          "loc": {
-            "source": "005.txt",
-            "start": {
-              "line": 4,
-              "column": 4
-            },
-            "end": {
-              "line": 4,
-              "column": 21
-            }
-          },
-          "name": "trueLiteral",
-          "value": {
-            "kind": "Literal",
-            "loc": {
-              "source": "005.txt",
-              "start": {
-                "line": 4,
-                "column": 17
-              },
-              "end": {
-                "line": 4,
-                "column": 20
-              }
-            },
-            "value": true
-          }
-        },
-        {
-          "kind": "Property",
-          "loc": {
-            "source": "005.txt",
-            "start": {
-              "line": 5,
-              "column": 4
-            },
-            "end": {
-              "line": 5,
-              "column": 23
-            }
-          },
-          "name": "falseLiteral",
-          "value": {
-            "kind": "Literal",
-            "loc": {
-              "source": "005.txt",
-              "start": {
-                "line": 5,
-                "column": 18
-              },
-              "end": {
-                "line": 5,
-                "column": 22
-              }
-            },
-            "value": false
-          }
-        },
-        {
-          "kind": "Property",
-          "loc": {
-            "source": "005.txt",
-            "start": {
-              "line": 6,
-              "column": 4
-            },
-            "end": {
-              "line": 6,
-              "column": 21
-            }
-          },
-          "name": "nullLiteral",
-          "value": {
-            "kind": "Literal",
-            "loc": {
-              "source": "005.txt",
-              "start": {
-                "line": 6,
-                "column": 17
-              },
-              "end": {
-                "line": 6,
-                "column": 20
-              }
-            },
-            "value": null
-          }
+          "value": false
         }
-      ],
-      "base": []
-    }
+      },
+      {
+        "kind": "Property",
+        "loc": {
+          "source": "005.txt",
+          "start": {
+            "line": 6,
+            "column": 4
+          },
+          "end": {
+            "line": 6,
+            "column": 21
+          }
+        },
+        "name": "nullLiteral",
+        "value": {
+          "kind": "Literal",
+          "loc": {
+            "source": "005.txt",
+            "start": {
+              "line": 6,
+              "column": 17
+            },
+            "end": {
+              "line": 6,
+              "column": 20
+            }
+          },
+          "value": null
+        }
+      }
+    ],
+    "base": []
   }
 ]
