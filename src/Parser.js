@@ -52,7 +52,7 @@ function prop(lexer) {
         C.token(Tokens.COLON),
         unionType,
         C.token(Tokens.SEMICOLON)
-    ])(a => ({name: valueOf(a[0]), type: a[2]}))(lexer);
+    ])(a => ESTreeAST.Property(location(a[0])(a[3]), valueOf(a[0]), a[2]))(lexer);
 }
 
 

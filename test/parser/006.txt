@@ -15,8 +15,20 @@ interface Array {
       "kind": "interface",
       "props": [
         {
+          "kind": "Property",
+          "loc": {
+            "source": "006.txt",
+            "start": {
+              "line": 2,
+              "column": 4
+            },
+            "end": {
+              "line": 2,
+              "column": 20
+            }
+          },
           "name": "simple",
-          "type": {
+          "value": {
             "kind": "Array",
             "loc": {
               "source": "006.txt",
@@ -47,8 +59,20 @@ interface Array {
           }
         },
         {
+          "kind": "Property",
+          "loc": {
+            "source": "006.txt",
+            "start": {
+              "line": 3,
+              "column": 4
+            },
+            "end": {
+              "line": 3,
+              "column": 40
+            }
+          },
           "name": "lessSimple",
-          "type": {
+          "value": {
             "kind": "Array",
             "loc": {
               "source": "006.txt",
@@ -125,8 +149,20 @@ interface Array {
           }
         },
         {
+          "kind": "Property",
+          "loc": {
+            "source": "006.txt",
+            "start": {
+              "line": 4,
+              "column": 4
+            },
+            "end": {
+              "line": 7,
+              "column": 6
+            }
+          },
           "name": "complex",
-          "type": {
+          "value": {
             "kind": "Array",
             "loc": {
               "source": "006.txt",
@@ -142,8 +178,20 @@ interface Array {
             "base": {
               "values": [
                 {
+                  "kind": "Property",
+                  "loc": {
+                    "source": "006.txt",
+                    "start": {
+                      "line": 5,
+                      "column": 8
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 17
+                    }
+                  },
                   "name": "a",
-                  "type": {
+                  "value": {
                     "kind": "Reference",
                     "loc": {
                       "source": "006.txt",
@@ -160,8 +208,20 @@ interface Array {
                   }
                 },
                 {
+                  "kind": "Property",
+                  "loc": {
+                    "source": "006.txt",
+                    "start": {
+                      "line": 6,
+                      "column": 8
+                    },
+                    "end": {
+                      "line": 6,
+                      "column": 17
+                    }
+                  },
                   "name": "b",
-                  "type": {
+                  "value": {
                     "kind": "Reference",
                     "loc": {
                       "source": "006.txt",

@@ -10,8 +10,20 @@ interface Node {
       "kind": "interface",
       "props": [
         {
+          "kind": "Property",
+          "loc": {
+            "source": "001.txt",
+            "start": {
+              "line": 2,
+              "column": 4
+            },
+            "end": {
+              "line": 2,
+              "column": 16
+            }
+          },
           "name": "type",
-          "type": {
+          "value": {
             "kind": "Reference",
             "loc": {
               "source": "001.txt",

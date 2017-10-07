@@ -14,8 +14,20 @@ interface Literal {
       "kind": "interface",
       "props": [
         {
+          "kind": "Property",
+          "loc": {
+            "source": "005.txt",
+            "start": {
+              "line": 2,
+              "column": 4
+            },
+            "end": {
+              "line": 2,
+              "column": 28
+            }
+          },
           "name": "stringLiteral",
-          "type": {
+          "value": {
             "kind": "Literal",
             "loc": {
               "source": "005.txt",
@@ -32,8 +44,20 @@ interface Literal {
           }
         },
         {
+          "kind": "Property",
+          "loc": {
+            "source": "005.txt",
+            "start": {
+              "line": 3,
+              "column": 4
+            },
+            "end": {
+              "line": 3,
+              "column": 22
+            }
+          },
           "name": "numberLiteral",
-          "type": {
+          "value": {
             "kind": "Literal",
             "loc": {
               "source": "005.txt",
@@ -50,8 +74,20 @@ interface Literal {
           }
         },
         {
+          "kind": "Property",
+          "loc": {
+            "source": "005.txt",
+            "start": {
+              "line": 4,
+              "column": 4
+            },
+            "end": {
+              "line": 4,
+              "column": 21
+            }
+          },
           "name": "trueLiteral",
-          "type": {
+          "value": {
             "kind": "Literal",
             "loc": {
               "source": "005.txt",
@@ -68,8 +104,20 @@ interface Literal {
           }
         },
         {
+          "kind": "Property",
+          "loc": {
+            "source": "005.txt",
+            "start": {
+              "line": 5,
+              "column": 4
+            },
+            "end": {
+              "line": 5,
+              "column": 23
+            }
+          },
           "name": "falseLiteral",
-          "type": {
+          "value": {
             "kind": "Literal",
             "loc": {
               "source": "005.txt",
@@ -86,8 +134,20 @@ interface Literal {
           }
         },
         {
+          "kind": "Property",
+          "loc": {
+            "source": "005.txt",
+            "start": {
+              "line": 6,
+              "column": 4
+            },
+            "end": {
+              "line": 6,
+              "column": 21
+            }
+          },
           "name": "nullLiteral",
-          "type": {
+          "value": {
             "kind": "Literal",
             "loc": {
               "source": "005.txt",

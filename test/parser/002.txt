@@ -22,8 +22,20 @@ interface Position {
       "kind": "interface",
       "props": [
         {
+          "kind": "Property",
+          "loc": {
+            "source": "002.txt",
+            "start": {
+              "line": 2,
+              "column": 4
+            },
+            "end": {
+              "line": 2,
+              "column": 16
+            }
+          },
           "name": "type",
-          "type": {
+          "value": {
             "kind": "Reference",
             "loc": {
               "source": "002.txt",
@@ -40,8 +52,20 @@ interface Position {
           }
         },
         {
+          "kind": "Property",
+          "loc": {
+            "source": "002.txt",
+            "start": {
+              "line": 3,
+              "column": 4
+            },
+            "end": {
+              "line": 3,
+              "column": 23
+            }
+          },
           "name": "loc",
-          "type": {
+          "value": {
             "kind": "Reference",
             "loc": {
               "source": "002.txt",
@@ -67,8 +91,20 @@ interface Position {
       "kind": "interface",
       "props": [
         {
+          "kind": "Property",
+          "loc": {
+            "source": "002.txt",
+            "start": {
+              "line": 7,
+              "column": 4
+            },
+            "end": {
+              "line": 7,
+              "column": 18
+            }
+          },
           "name": "source",
-          "type": {
+          "value": {
             "kind": "Reference",
             "loc": {
               "source": "002.txt",
@@ -85,8 +121,20 @@ interface Position {
           }
         },
         {
+          "kind": "Property",
+          "loc": {
+            "source": "002.txt",
+            "start": {
+              "line": 8,
+              "column": 4
+            },
+            "end": {
+              "line": 8,
+              "column": 19
+            }
+          },
           "name": "start",
-          "type": {
+          "value": {
             "kind": "Reference",
             "loc": {
               "source": "002.txt",
@@ -103,8 +151,20 @@ interface Position {
           }
         },
         {
+          "kind": "Property",
+          "loc": {
+            "source": "002.txt",
+            "start": {
+              "line": 9,
+              "column": 4
+            },
+            "end": {
+              "line": 9,
+              "column": 17
+            }
+          },
           "name": "end",
-          "type": {
+          "value": {
             "kind": "Reference",
             "loc": {
               "source": "002.txt",
@@ -130,8 +190,20 @@ interface Position {
       "kind": "interface",
       "props": [
         {
+          "kind": "Property",
+          "loc": {
+            "source": "002.txt",
+            "start": {
+              "line": 13,
+              "column": 4
+            },
+            "end": {
+              "line": 13,
+              "column": 16
+            }
+          },
           "name": "line",
-          "type": {
+          "value": {
             "kind": "Reference",
             "loc": {
               "source": "002.txt",
@@ -148,8 +220,20 @@ interface Position {
           }
         },
         {
+          "kind": "Property",
+          "loc": {
+            "source": "002.txt",
+            "start": {
+              "line": 14,
+              "column": 4
+            },
+            "end": {
+              "line": 14,
+              "column": 18
+            }
+          },
           "name": "column",
-          "type": {
+          "value": {
             "kind": "Reference",
             "loc": {
               "source": "002.txt",

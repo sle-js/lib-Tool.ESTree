@@ -17,8 +17,20 @@ interface Position {
       "kind": "interface",
       "props": [
         {
+          "kind": "Property",
+          "loc": {
+            "source": "003.txt",
+            "start": {
+              "line": 2,
+              "column": 4
+            },
+            "end": {
+              "line": 2,
+              "column": 25
+            }
+          },
           "name": "source",
-          "type": {
+          "value": {
             "kind": "Union",
             "loc": {
               "source": "003.txt",
@@ -66,8 +78,20 @@ interface Position {
           }
         },
         {
+          "kind": "Property",
+          "loc": {
+            "source": "003.txt",
+            "start": {
+              "line": 3,
+              "column": 4
+            },
+            "end": {
+              "line": 3,
+              "column": 19
+            }
+          },
           "name": "start",
-          "type": {
+          "value": {
             "kind": "Reference",
             "loc": {
               "source": "003.txt",
@@ -84,8 +108,20 @@ interface Position {
           }
         },
         {
+          "kind": "Property",
+          "loc": {
+            "source": "003.txt",
+            "start": {
+              "line": 4,
+              "column": 4
+            },
+            "end": {
+              "line": 4,
+              "column": 17
+            }
+          },
           "name": "end",
-          "type": {
+          "value": {
             "kind": "Reference",
             "loc": {
               "source": "003.txt",
@@ -111,8 +147,20 @@ interface Position {
       "kind": "interface",
       "props": [
         {
+          "kind": "Property",
+          "loc": {
+            "source": "003.txt",
+            "start": {
+              "line": 8,
+              "column": 4
+            },
+            "end": {
+              "line": 8,
+              "column": 16
+            }
+          },
           "name": "line",
-          "type": {
+          "value": {
             "kind": "Reference",
             "loc": {
               "source": "003.txt",
@@ -129,8 +177,20 @@ interface Position {
           }
         },
         {
+          "kind": "Property",
+          "loc": {
+            "source": "003.txt",
+            "start": {
+              "line": 9,
+              "column": 4
+            },
+            "end": {
+              "line": 9,
+              "column": 18
+            }
+          },
           "name": "column",
-          "type": {
+          "value": {
             "kind": "Reference",
             "loc": {
               "source": "003.txt",

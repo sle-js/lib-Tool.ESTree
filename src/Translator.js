@@ -12,7 +12,7 @@ const flatten =
 
 
 const isLiteralProperty = property =>
-    property.type.kind === "Literal";
+    property.value.kind === "Literal";
 
 
 const removeAll = needles => a =>
@@ -57,9 +57,9 @@ const translate = ast => {
             Array.findMap(prop => prop.name === name && isLiteralProperty(prop) ? Maybe.Just(prop) : Maybe.Nothing)(constructorAST.value.props);
 
         const renderPropLiteralValue = prop =>
-            typeof prop.type.value === "string"
-                ? '"' + prop.type.value + '"'
-                : prop.type.value;
+            typeof prop.value.value === "string"
+                ? '"' + prop.value.value + '"'
+                : prop.value.value;
 
         const renderPropLiteral = prop =>
             prop.name + ": " + (renderPropLiteralValue(prop));
