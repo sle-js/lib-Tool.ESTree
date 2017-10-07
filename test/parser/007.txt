@@ -5,116 +5,125 @@ enum UnaryOperator {
 -- ast
 [
   {
+    "kind": "Enum",
+    "loc": {
+      "source": "007.txt",
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 3,
+        "column": 0
+      }
+    },
     "name": "UnaryOperator",
-    "value": {
-      "kind": "enum",
-      "values": [
-        {
-          "kind": "Literal",
-          "loc": {
-            "source": "007.txt",
-            "start": {
-              "line": 2,
-              "column": 6
-            },
-            "end": {
-              "line": 2,
-              "column": 8
-            }
+    "values": [
+      {
+        "kind": "Literal",
+        "loc": {
+          "source": "007.txt",
+          "start": {
+            "line": 2,
+            "column": 6
           },
-          "value": "-"
+          "end": {
+            "line": 2,
+            "column": 8
+          }
         },
-        {
-          "kind": "Literal",
-          "loc": {
-            "source": "007.txt",
-            "start": {
-              "line": 2,
-              "column": 12
-            },
-            "end": {
-              "line": 2,
-              "column": 14
-            }
+        "value": "-"
+      },
+      {
+        "kind": "Literal",
+        "loc": {
+          "source": "007.txt",
+          "start": {
+            "line": 2,
+            "column": 12
           },
-          "value": "+"
+          "end": {
+            "line": 2,
+            "column": 14
+          }
         },
-        {
-          "kind": "Literal",
-          "loc": {
-            "source": "007.txt",
-            "start": {
-              "line": 2,
-              "column": 18
-            },
-            "end": {
-              "line": 2,
-              "column": 20
-            }
+        "value": "+"
+      },
+      {
+        "kind": "Literal",
+        "loc": {
+          "source": "007.txt",
+          "start": {
+            "line": 2,
+            "column": 18
           },
-          "value": "!"
+          "end": {
+            "line": 2,
+            "column": 20
+          }
         },
-        {
-          "kind": "Literal",
-          "loc": {
-            "source": "007.txt",
-            "start": {
-              "line": 2,
-              "column": 24
-            },
-            "end": {
-              "line": 2,
-              "column": 26
-            }
+        "value": "!"
+      },
+      {
+        "kind": "Literal",
+        "loc": {
+          "source": "007.txt",
+          "start": {
+            "line": 2,
+            "column": 24
           },
-          "value": "~"
+          "end": {
+            "line": 2,
+            "column": 26
+          }
         },
-        {
-          "kind": "Literal",
-          "loc": {
-            "source": "007.txt",
-            "start": {
-              "line": 2,
-              "column": 30
-            },
-            "end": {
-              "line": 2,
-              "column": 37
-            }
+        "value": "~"
+      },
+      {
+        "kind": "Literal",
+        "loc": {
+          "source": "007.txt",
+          "start": {
+            "line": 2,
+            "column": 30
           },
-          "value": "typeof"
+          "end": {
+            "line": 2,
+            "column": 37
+          }
         },
-        {
-          "kind": "Literal",
-          "loc": {
-            "source": "007.txt",
-            "start": {
-              "line": 2,
-              "column": 41
-            },
-            "end": {
-              "line": 2,
-              "column": 46
-            }
+        "value": "typeof"
+      },
+      {
+        "kind": "Literal",
+        "loc": {
+          "source": "007.txt",
+          "start": {
+            "line": 2,
+            "column": 41
           },
-          "value": "void"
+          "end": {
+            "line": 2,
+            "column": 46
+          }
         },
-        {
-          "kind": "Literal",
-          "loc": {
-            "source": "007.txt",
-            "start": {
-              "line": 2,
-              "column": 50
-            },
-            "end": {
-              "line": 2,
-              "column": 57
-            }
+        "value": "void"
+      },
+      {
+        "kind": "Literal",
+        "loc": {
+          "source": "007.txt",
+          "start": {
+            "line": 2,
+            "column": 50
           },
-          "value": "delete"
-        }
-      ]
-    }
+          "end": {
+            "line": 2,
+            "column": 57
+          }
+        },
+        "value": "delete"
+      }
+    ]
   }
 ]

@@ -32,7 +32,7 @@ function def(lexer) {
             C.token(Tokens.LCURLY),
             C.chainl1(literal)(C.token(Tokens.BAR)),
             C.token(Tokens.RCURLY)
-        ])(a => ({name: valueOf(a[1]), value: {kind: "enum", values: a[3]}}))
+        ])(a => ESTreeAST.Enum(location(a[0])(a[4]), valueOf(a[1]), a[3]))
     ])(lexer);
 }
 
