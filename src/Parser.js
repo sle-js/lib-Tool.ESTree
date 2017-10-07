@@ -73,7 +73,7 @@ function type(lexer) {
             unionType,
             C.token(Tokens.RSQUARE)
         ])(a => ESTreeAST.Array(location(a[0])(a[2]), a[1])),
-        C.map(object)(v => ({kind: "object", values: v.properties}))
+        C.map(object)(v => ESTreeAST.$Object(v.loc, v.properties))
     ])(lexer);
 }
 

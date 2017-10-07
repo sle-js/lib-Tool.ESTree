@@ -61,6 +61,10 @@
  * interface Array <: Type {
  *      kind: "Array";
  *      base: Type;
+ *
+ * interface Object <: Type {
+ *      kind: "Object";
+ *      items: [ Property ];
  * }
  */
 
@@ -129,6 +133,12 @@ const Array = (loc, base) =>
         {kind: "Array", base});
 
 
+const $Object = (loc, items) =>
+    Object.assign({},
+        Type("Object", loc),
+        {kind: "Object", items});
+
+
 module.exports = {
     Node,
     SourceLocation,
@@ -141,5 +151,6 @@ module.exports = {
     Union,
     Literal,
     Reference,
-    Array
+    Array,
+    $Object
 };

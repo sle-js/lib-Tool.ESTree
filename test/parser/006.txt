@@ -186,8 +186,19 @@ interface Array {
             }
           },
           "base": {
-            "kind": "object",
-            "values": [
+            "kind": "Object",
+            "loc": {
+              "source": "006.txt",
+              "start": {
+                "line": 4,
+                "column": 14
+              },
+              "end": {
+                "line": 7,
+                "column": 4
+              }
+            },
+            "items": [
               {
                 "kind": "Property",
                 "loc": {
