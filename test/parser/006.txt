@@ -186,6 +186,7 @@ interface Array {
             }
           },
           "base": {
+            "kind": "object",
             "values": [
               {
                 "kind": "Property",
