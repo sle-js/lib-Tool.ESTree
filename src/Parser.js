@@ -42,7 +42,7 @@ function object(lexer) {
         C.token(Tokens.LCURLY),
         C.many(prop),
         C.token(Tokens.RCURLY)
-    ])(a => ({properties: a[1]}))(lexer);
+    ])(a => ({loc: location(a[0])(a[2]), properties: a[1]}))(lexer);
 }
 
 
