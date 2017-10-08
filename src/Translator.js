@@ -15,13 +15,24 @@ const isLiteralProperty = property =>
     property.value.kind === "Literal";
 
 
+const isInterface = declaration =>
+    declaration.kind === "Interface";
+
+
+const isEnum = declaration =>
+    declaration.kind === "Enum";
+
+
 const removeAll = needles => a =>
     Array.filter(item => !Array.any(i => i.name === item.name)(needles))(a);
 
 
 const translate = ast => {
     const interfaces =
-        Array.filter(x => x.kind === "Interface")(ast);
+        Array.filter(isInterface)(ast);
+
+    const enumAndInterfaces =
+        Array.filter(x => isInterface(x) || isEnum(x))(ast);
 
     const find = name =>
         Array.findMap(object => object.name === name ? Maybe.Just(object) : Maybe.Nothing)(ast);
@@ -46,7 +57,7 @@ const translate = ast => {
             nonLiteralProps);
     };
 
-    const constructor = constructorAST => {
+    const interfaceConstructor = constructorAST => {
         const properties =
             allProperties(constructorAST);
 
@@ -86,16 +97,16 @@ const translate = ast => {
         ].join("\n");
     };
 
-    const constructors =
-        interfaces.map(constructor).map(c => c + "\n\n\n").join("");
+    const interfaceConstructors =
+        interfaces.map(interfaceConstructor).map(c => c + "\n\n\n").join("");
 
     const moduleExports = [
         "module.exports = {",
-        interfaces.map(i => tab + i.name).join(",\n"),
+        enumAndInterfaces.map(i => tab + i.name).join(",\n"),
         "};"
     ];
 
-    return Result.Okay(constructors + moduleExports.join("\n"));
+    return Result.Okay(interfaceConstructors + moduleExports.join("\n"));
 };
 
 
