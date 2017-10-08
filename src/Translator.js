@@ -28,9 +28,6 @@ const removeAll = needles => a =>
 
 
 const translate = ast => {
-    const interfaces =
-        Array.filter(isInterface)(ast);
-
     const enumAndInterfaces =
         Array.filter(x => isInterface(x) || isEnum(x))(ast);
 
