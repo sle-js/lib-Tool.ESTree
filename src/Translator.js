@@ -97,8 +97,8 @@ const translate = ast => {
         ].join("\n");
     };
 
-    const interfaceConstructors =
-        interfaces.map(interfaceConstructor).map(c => c + "\n\n\n").join("");
+    const constructors =
+        enumAndInterfaces.filter(isInterface).map(interfaceConstructor).map(c => c + "\n\n\n").join("");
 
     const moduleExports = [
         "module.exports = {",
@@ -106,7 +106,7 @@ const translate = ast => {
         "};"
     ];
 
-    return Result.Okay(interfaceConstructors + moduleExports.join("\n"));
+    return Result.Okay(constructors + moduleExports.join("\n"));
 };
 
 
