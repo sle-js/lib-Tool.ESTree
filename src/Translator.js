@@ -54,15 +54,15 @@ const translate = ast => {
             nonLiteralProps);
     };
 
-    const interfaceConstructor = constructorAST => {
+    const interfaceConstructor = interfaceAST => {
         const properties =
-            allProperties(constructorAST);
+            allProperties(interfaceAST);
 
         const nonLP =
-            nonLiteralProperties(constructorAST);
+            nonLiteralProperties(interfaceAST);
 
         const findLiteralProp = name =>
-            Array.findMap(prop => prop.name === name && isLiteralProperty(prop) ? Maybe.Just(prop) : Maybe.Nothing)(constructorAST.props);
+            Array.findMap(prop => prop.name === name && isLiteralProperty(prop) ? Maybe.Just(prop) : Maybe.Nothing)(interfaceAST.props);
 
         const renderPropLiteralValue = prop =>
             typeof prop.value.value === "string"
@@ -78,18 +78,18 @@ const translate = ast => {
                 : findLiteralProp(prop.name).map(renderPropLiteralValue).withDefault(prop.name);
 
         const constructorBody =
-            Array.length(constructorAST.base) === 0
+            Array.length(interfaceAST.base) === 0
                 ? tab + "({" + properties.map(renderProp).join(", ") + "});"
-                : tab + "Object.assign({}" + constructorAST.base.map(find).map(c => c.map(base => ",\n" + tab + tab + base.name + "(" + nonLiteralProperties(base).map(renderProp).join(", ") + ")").withDefault("")).join("") +
+                : tab + "Object.assign({}" + interfaceAST.base.map(find).map(c => c.map(base => ",\n" + tab + tab + base.name + "(" + nonLiteralProperties(base).map(renderProp).join(", ") + ")").withDefault("")).join("") +
 
-                (Array.length(constructorAST.props) > 0
-                    ? ",\n" + tab + tab + "{" + constructorAST.props.map(renderProp).join(", ") + "}"
+                (Array.length(interfaceAST.props) > 0
+                    ? ",\n" + tab + tab + "{" + interfaceAST.props.map(renderProp).join(", ") + "}"
                     : "") +
 
                 ");";
 
         return [
-            "const " + constructorAST.name + " = (" + nonLP.map(p => p.name).join(", ") + ") =>",
+            "const " + interfaceAST.name + " = (" + nonLP.map(p => p.name).join(", ") + ") =>",
             constructorBody
         ].join("\n");
     };
