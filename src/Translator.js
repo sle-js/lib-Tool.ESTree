@@ -54,6 +54,11 @@ const translate = ast => {
             nonLiteralProps);
     };
 
+    const renderValue = value =>
+        typeof value === "string"
+            ? '"' + value + '"'
+            : value;
+
     const interfaceConstructor = interfaceAST => {
         const properties =
             allProperties(interfaceAST);
@@ -65,9 +70,7 @@ const translate = ast => {
             Array.findMap(prop => prop.name === name && isLiteralProperty(prop) ? Maybe.Just(prop) : Maybe.Nothing)(interfaceAST.props);
 
         const renderPropLiteralValue = prop =>
-            typeof prop.value.value === "string"
-                ? '"' + prop.value.value + '"'
-                : prop.value.value;
+            renderValue(prop.value.value);
 
         const renderPropLiteral = prop =>
             prop.name + ": " + (renderPropLiteralValue(prop));
@@ -98,7 +101,7 @@ const translate = ast => {
     const enumConstructor = enumAST => {
         return [
             "const " + enumAST.name + " = (value) =>",
-            tab + "(" + enumAST.values.map(i => 'value === "' + i.value + '"').join("\n" + tab + "|| ") + ")",
+            tab + "(" + enumAST.values.map(i => "value === " + renderValue(i.value)).join("\n" + tab + "|| ") + ")",
             tab + tab + "? value",
             tab + tab + ": undefined;"
         ].join("\n");
