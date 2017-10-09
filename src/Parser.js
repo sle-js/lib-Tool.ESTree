@@ -20,6 +20,12 @@ function def(lexer) {
             object
         ])(a => ESTreeAST.Interface(stretchSourceLocation(locationAt(a[0]))(a[2].loc), valueOf(a[1]), a[2].properties, [])),
         C.andMap([
+            C.token(Tokens.EXTEND),
+            C.token(Tokens.INTERFACE),
+            C.token(Tokens.NAME),
+            object
+        ])(a => ESTreeAST.ExtendInterface(stretchSourceLocation(locationAt(a[0]))(a[3].loc), valueOf(a[2]), a[3].properties)),
+        C.andMap([
             C.token(Tokens.INTERFACE),
             C.token(Tokens.NAME),
             C.token(Tokens.LESS_COLON),
