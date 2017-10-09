@@ -30,6 +30,11 @@
  *      base: [ string ];
  * }
  *
+ * interface ExtendInterface <: Declaration {
+ *      kind: "ExtendInterface";
+ *      props: [ Property ];
+ * }
+ *
  * interface Enum <: Declaration {
  *      kind: "Enum";
  *      values: [ Literal ];
@@ -92,6 +97,12 @@ const Interface = (loc, name, props, base) =>
         {kind: "Interface", props, base});
 
 
+const ExtendInterface = (loc, name, props) =>
+    Object.assign({},
+        Declaration("ExtendInterface", loc, name),
+        {kind: "ExtendInterface", props});
+
+
 const Enum = (loc, name, values) =>
     Object.assign({},
         Declaration("Enum", loc, name),
@@ -145,6 +156,7 @@ module.exports = {
     Position,
     Declaration,
     Interface,
+    ExtendInterface,
     Enum,
     Property,
     Type,
