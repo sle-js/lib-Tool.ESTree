@@ -32,7 +32,7 @@
  *
  * interface Enum <: Declaration {
  *      kind: "Enum";
- *      values: [ string ];
+ *      values: [ Literal ];
  * }
  *
  * interface Property <: Node {
