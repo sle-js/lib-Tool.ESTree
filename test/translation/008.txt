@@ -1,0 +1,51 @@
+-- Enum values
+enum UpdateOperator {
+    "++" | "--"
+}
+
+enum BinaryOperator {
+    "==" | "!=" | "===" | "!=="
+        | "<" | "<=" | ">" | ">="
+        | "<<" | ">>" | ">>>"
+        | "+" | "-" | "*" | "/" | "%"
+        | "|" | "^" | "&" | "in"
+        | "instanceof"
+}
+-- js
+const UpdateOperator = (value) =>
+    (value === "++"
+    || value === "--")
+        ? value
+        : undefined;
+
+
+const BinaryOperator = (value) =>
+    (value === "=="
+    || value === "!="
+    || value === "==="
+    || value === "!=="
+    || value === "<"
+    || value === "<="
+    || value === ">"
+    || value === ">="
+    || value === "<<"
+    || value === ">>"
+    || value === ">>>"
+    || value === "+"
+    || value === "-"
+    || value === "*"
+    || value === "/"
+    || value === "%"
+    || value === "|"
+    || value === "^"
+    || value === "&"
+    || value === "in"
+    || value === "instanceof")
+        ? value
+        : undefined;
+
+
+module.exports = {
+    UpdateOperator,
+    BinaryOperator
+};

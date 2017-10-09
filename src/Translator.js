@@ -94,8 +94,20 @@ const translate = ast => {
         ].join("\n");
     };
 
+
+    const enumConstructor = enumAST => {
+        return [
+            "const " + enumAST.name + " = (value) =>",
+            tab + "(" + enumAST.values.map(i => 'value === "' + i.value + '"').join("\n" + tab + "|| ") + ")",
+            tab + tab + "? value",
+            tab + tab + ": undefined;"
+        ].join("\n");
+    };
+
+
     const constructors =
-        enumAndInterfaces.filter(isInterface).map(interfaceConstructor).map(c => c + "\n\n\n").join("");
+        enumAndInterfaces.map(d =>  isInterface(d) ? interfaceConstructor(d) : enumConstructor(d)).map(c => c + "\n\n\n").join("");
+
 
     const moduleExports = [
         "module.exports = {",
