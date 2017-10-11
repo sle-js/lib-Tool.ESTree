@@ -2,6 +2,7 @@ const Array = require("./Libs").Array;
 const Assertion = require("./Libs").Assertion;
 const FileSystem = require("../src/FileSystem");
 const String = require("./Libs").String;
+const Transform = require("../src/Transform");
 const Translator = require("../src/Translator");
 const Unit = require("./Libs").Unit;
 
@@ -56,7 +57,7 @@ const processFile = name => content => assertion => {
                 .isTrue(ast.isOkay());
 
     if (content.js) {
-        const translation = Translator.translate(ast.content[1].result);
+        const translation = Translator.translate(Transform.applyExtend(ast.content[1].result));
 
         return parseAST
             .isTrue(translation.isOkay())

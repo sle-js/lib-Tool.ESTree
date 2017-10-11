@@ -1,0 +1,36 @@
+-- Extend interface
+interface Node {
+    type: string;
+}
+
+extend interface Node {
+    loc: string;
+}
+
+interface Statement <: Node {}
+
+interface Program <: Statement {
+    type: "Program";
+    body: [ Statement ];
+}
+-- js
+const Node = (type, loc) =>
+    ({type, loc});
+
+
+const Statement = (type, loc) =>
+    Object.assign({},
+        Node(type, loc));
+
+
+const Program = (loc, body) =>
+    Object.assign({},
+        Statement("Program", loc),
+        {type: "Program", body});
+
+
+module.exports = {
+    Node,
+    Statement,
+    Program
+};
