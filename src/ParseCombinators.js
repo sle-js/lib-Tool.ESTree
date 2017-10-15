@@ -1,5 +1,4 @@
 const Array = require("./Libs").Array;
-const Errors = require("./Errors");
 const Maybe = require("./Libs").Maybe;
 const Result = require("./Result");
 
@@ -50,7 +49,7 @@ const many1Map = parser => f =>
     map(many1(parser)(f));
 
 
-const or = parsers => lexer => {
+const or = error => parsers => lexer => {
     const parseOption = parser => {
         const optionResult = parser(lexer);
 
@@ -59,12 +58,12 @@ const or = parsers => lexer => {
             : Maybe.Nothing;
     };
 
-    return Array.findMap(parseOption)(parsers).withDefault(Result.Error(Errors.orFailed(lexer.head())));
+    return Array.findMap(parseOption)(parsers).withDefault(Result.Error(error.orFailed(lexer.head())));
 };
 
 
-const orMap = parsers => f =>
-    map(or(parsers))(f);
+const orMap = error => parsers => f =>
+    map(or(error)(parsers))(f);
 
 
 const chainl1 = parser => sep => lexer => {
@@ -86,22 +85,22 @@ const chainl1Map = parser => sep => f =>
     map(chainl1(parser)(sep))(f);
 
 
-const condition = f => lexer =>
+const condition = error => f => lexer =>
     f(lexer.head())
         ? okayResult(lexer.tail())(lexer.head())
-        : Result.Error(Errors.conditionFailed(lexer.head()));
+        : Result.Error(error.conditionFailed(lexer.head()));
 
 
-const conditionMap = predicate => f =>
-    map(condition(predicate))(f);
+const conditionMap = error => predicate => f =>
+    map(condition(error)(predicate))(f);
 
 
-const token = tokenID =>
-    condition(h => h.token().id === tokenID);
+const token = error => tokenID =>
+    condition(error)(h => h.token().id === tokenID);
 
 
-const tokenMap = tokenID => f =>
-    map(token(tokenID))(f);
+const tokenMap = error => tokenID => f =>
+    map(token(error)(tokenID))(f);
 
 
 const optional = parser => lexer => {

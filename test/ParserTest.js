@@ -53,17 +53,23 @@ const processFile = name => content => assertion => {
             ? assertion
                 .isTrue(ast.isOkay())
                 .equals(asString(ast.content[1].result).trim())(content.ast.join("\n").trim())
-            : assertion
-                .isTrue(ast.isOkay());
+            : assertion;
+
+    const syntaxErrors =
+        content.syntax
+            ? parseAST
+                .isTrue(ast.isError())
+                .equals(asString(ast.content[1]).trim())(content.syntax.join("\n").trim())
+            : parseAST;
 
     if (content.js) {
         const translation = Translator.translate(Transform.applyExtend(ast.content[1].result));
 
-        return parseAST
+        return syntaxErrors
             .isTrue(translation.isOkay())
             .equals(translation.content[1].trim())(content.js.join("\n").trim());
     } else {
-        return parseAST;
+        return syntaxErrors;
     }
 };
 
@@ -87,5 +93,6 @@ const loadSuite = suiteName => fileSystemName =>
 module.exports =
     Unit.Suite("ESTree")([
         loadSuite("Parser")("./test/parser"),
+        loadSuite("Syntax Errors")("./test/syntaxerrors"),
         loadSuite("Translation")("./test/translation")
     ]);
