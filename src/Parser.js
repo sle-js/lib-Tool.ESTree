@@ -30,7 +30,7 @@ function def(lexer) {
             C.token(Errors)(Tokens.INTERFACE),
             C.token(Errors)(Tokens.NAME),
             C.token(Errors)(Tokens.LESS_COLON),
-            C.chainl1(token(Tokens.NAME))(C.token(Errors)(Tokens.COMMA)),
+            C.chainl1(tokenValue(Tokens.NAME))(C.token(Errors)(Tokens.COMMA)),
             object
         ])(a => ESTreeAST.Interface(stretchSourceLocation(locationAt(a[0]))(a[4].loc), valueOf(a[1]), a[4].properties, a[3])),
         C.andMap([
@@ -100,7 +100,7 @@ const valueOf = token =>
     token.state.token.value;
 
 
-const token = t =>
+const tokenValue = t =>
     C.tokenMap(Errors)(t)(valueOf);
 
 
