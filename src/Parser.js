@@ -9,6 +9,10 @@ const token =
     C.token(Errors);
 
 
+const or =
+    C.or(Errors);
+
+
 function program(lexer) {
     return C.andMap([
         C.many(def),
@@ -18,7 +22,7 @@ function program(lexer) {
 
 
 function def(lexer) {
-    return C.or(Errors)([
+    return or([
         C.andMap([
             token(Tokens.INTERFACE),
             token(Tokens.NAME),
@@ -76,7 +80,7 @@ function unionType(lexer) {
 
 
 function type(lexer) {
-    return C.or(Errors)([
+    return or([
         literal,
         C.tokenMap(Errors)(Tokens.NAME)(t => ESTreeAST.Reference(locationAt(t), valueOf(t))),
         C.andMap([
@@ -90,7 +94,7 @@ function type(lexer) {
 
 
 function literal(lexer) {
-    return C.or(Errors)([
+    return or([
         tokenConstant(Tokens.NULL)(null),
         tokenConstant(Tokens.TRUE)(true),
         tokenConstant(Tokens.FALSE)(false),
