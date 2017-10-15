@@ -6,11 +6,15 @@ const Tokens = require("./Tokens");
 
 
 const token =
-    C.token(Errors);
+    C.token(Errors.conditionFailed);
+
+
+const tokenMap =
+    C.tokenMap(Errors.conditionFailed);
 
 
 const or =
-    C.or(Errors);
+    C.or(Errors.orFailed);
 
 
 function program(lexer) {
@@ -82,7 +86,7 @@ function unionType(lexer) {
 function type(lexer) {
     return or([
         literal,
-        C.tokenMap(Errors)(Tokens.NAME)(t => ESTreeAST.Reference(locationAt(t), valueOf(t))),
+        tokenMap(Tokens.NAME)(t => ESTreeAST.Reference(locationAt(t), valueOf(t))),
         C.andMap([
             token(Tokens.LSQUARE),
             unionType,
@@ -98,8 +102,8 @@ function literal(lexer) {
         tokenConstant(Tokens.NULL)(null),
         tokenConstant(Tokens.TRUE)(true),
         tokenConstant(Tokens.FALSE)(false),
-        C.tokenMap(Errors)(Tokens.constantInteger)(t => ESTreeAST.Literal(locationAt(t), valueOf(t))),
-        C.tokenMap(Errors)(Tokens.constantString)(t => ESTreeAST.Literal(locationAt(t), valueOf(t)))
+        tokenMap(Tokens.constantInteger)(t => ESTreeAST.Literal(locationAt(t), valueOf(t))),
+        tokenMap(Tokens.constantString)(t => ESTreeAST.Literal(locationAt(t), valueOf(t)))
     ])(lexer);
 }
 
@@ -109,11 +113,11 @@ const valueOf = token =>
 
 
 const tokenValue = t =>
-    C.tokenMap(Errors)(t)(valueOf);
+    tokenMap(t)(valueOf);
 
 
 const tokenConstant = t => c => lexer =>
-    C.tokenMap(Errors)(t)(_ => ESTreeAST.Literal(locationAt(_), c))(lexer);
+    tokenMap(t)(_ => ESTreeAST.Literal(locationAt(_), c))(lexer);
 
 
 const stretchSourceLocation = startLocation => endLocation =>
