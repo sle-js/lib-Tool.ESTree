@@ -5,10 +5,14 @@ const ESTreeAST = require("./ESTreeAST");
 const Tokens = require("./Tokens");
 
 
+const token =
+    C.token(Errors);
+
+
 function program(lexer) {
     return C.andMap([
         C.many(def),
-        C.token(Errors)(Tokens.eof)
+        token(Tokens.eof)
     ])(a => a[0])(lexer);
 }
 
@@ -16,29 +20,29 @@ function program(lexer) {
 function def(lexer) {
     return C.or(Errors)([
         C.andMap([
-            C.token(Errors)(Tokens.INTERFACE),
-            C.token(Errors)(Tokens.NAME),
+            token(Tokens.INTERFACE),
+            token(Tokens.NAME),
             object
         ])(a => ESTreeAST.Interface(stretchSourceLocation(locationAt(a[0]))(a[2].loc), valueOf(a[1]), a[2].properties, [])),
         C.andMap([
-            C.token(Errors)(Tokens.EXTEND),
-            C.token(Errors)(Tokens.INTERFACE),
-            C.token(Errors)(Tokens.NAME),
+            token(Tokens.EXTEND),
+            token(Tokens.INTERFACE),
+            token(Tokens.NAME),
             object
         ])(a => ESTreeAST.ExtendInterface(stretchSourceLocation(locationAt(a[0]))(a[3].loc), valueOf(a[2]), a[3].properties)),
         C.andMap([
-            C.token(Errors)(Tokens.INTERFACE),
-            C.token(Errors)(Tokens.NAME),
-            C.token(Errors)(Tokens.LESS_COLON),
-            C.chainl1(tokenValue(Tokens.NAME))(C.token(Errors)(Tokens.COMMA)),
+            token(Tokens.INTERFACE),
+            token(Tokens.NAME),
+            token(Tokens.LESS_COLON),
+            C.chainl1(tokenValue(Tokens.NAME))(token(Tokens.COMMA)),
             object
         ])(a => ESTreeAST.Interface(stretchSourceLocation(locationAt(a[0]))(a[4].loc), valueOf(a[1]), a[4].properties, a[3])),
         C.andMap([
-            C.token(Errors)(Tokens.ENUM),
-            C.token(Errors)(Tokens.NAME),
-            C.token(Errors)(Tokens.LCURLY),
-            C.chainl1(literal)(C.token(Errors)(Tokens.BAR)),
-            C.token(Errors)(Tokens.RCURLY)
+            token(Tokens.ENUM),
+            token(Tokens.NAME),
+            token(Tokens.LCURLY),
+            C.chainl1(literal)(token(Tokens.BAR)),
+            token(Tokens.RCURLY)
         ])(a => ESTreeAST.Enum(location(a[0])(a[4]), valueOf(a[1]), a[3]))
     ])(lexer);
 }
@@ -46,19 +50,19 @@ function def(lexer) {
 
 function object(lexer) {
     return C.andMap([
-        C.token(Errors)(Tokens.LCURLY),
+        token(Tokens.LCURLY),
         C.many(prop),
-        C.token(Errors)(Tokens.RCURLY)
+        token(Tokens.RCURLY)
     ])(a => ({loc: location(a[0])(a[2]), properties: a[1]}))(lexer);
 }
 
 
 function prop(lexer) {
     return C.andMap([
-        C.token(Errors)(Tokens.NAME),
-        C.token(Errors)(Tokens.COLON),
+        token(Tokens.NAME),
+        token(Tokens.COLON),
         unionType,
-        C.token(Errors)(Tokens.SEMICOLON)
+        token(Tokens.SEMICOLON)
     ])(a => ESTreeAST.Property(location(a[0])(a[3]), valueOf(a[0]), a[2]))(lexer);
 }
 
@@ -67,7 +71,7 @@ function unionType(lexer) {
     const unionLocation = items =>
         ESTreeAST.SourceLocation(items[0].loc.source, items[0].loc.start, items[items.length-1].loc.end);
 
-    return C.chainl1Map(type)(C.token(Errors)(Tokens.BAR))(a => Array.length(a) === 1 ? a[0] : ESTreeAST.Union(unionLocation(a), a))(lexer);
+    return C.chainl1Map(type)(token(Tokens.BAR))(a => Array.length(a) === 1 ? a[0] : ESTreeAST.Union(unionLocation(a), a))(lexer);
 }
 
 
@@ -76,9 +80,9 @@ function type(lexer) {
         literal,
         C.tokenMap(Errors)(Tokens.NAME)(t => ESTreeAST.Reference(locationAt(t), valueOf(t))),
         C.andMap([
-            C.token(Errors)(Tokens.LSQUARE),
+            token(Tokens.LSQUARE),
             unionType,
-            C.token(Errors)(Tokens.RSQUARE)
+            token(Tokens.RSQUARE)
         ])(a => ESTreeAST.Array(location(a[0])(a[2]), a[1])),
         C.map(object)(v => ESTreeAST.$Object(v.loc, v.properties))
     ])(lexer);
