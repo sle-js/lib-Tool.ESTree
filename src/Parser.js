@@ -5,12 +5,16 @@ const ESTreeAST = require("./ESTreeAST");
 const Tokens = require("./Tokens");
 
 
-const token =
-    C.token(Errors.conditionFailed);
+const errorLocation = lexer =>
+    Errors.Location(lexer.state.source.withDefault(""))(Errors.Position(lexer.state.position[1])(lexer.state.position[0]));
+
+
+const token = t =>
+    C.token(lexer => Errors.ExpectedTokens(errorLocation(lexer))({id: lexer.state.token.id, symbol: Tokens.names[lexer.state.token.id], value: lexer.state.token.value})([{id: t, symbol: Tokens.names[t]}]))(t);
 
 
 const tokenMap =
-    C.tokenMap(Errors.conditionFailed);
+    C.tokenMap(Errors.ConditionFailed);
 
 
 const or =
