@@ -9,8 +9,20 @@ const errorLocation = lexer =>
     Errors.Location(lexer.state.source.withDefault(""))(Errors.Position(lexer.state.position[1])(lexer.state.position[0]));
 
 
-const expectedTokenError = t =>
-    lexer => Errors.ExpectedTokens(errorLocation(lexer))({id: lexer.state.token.id, symbol: Tokens.names[lexer.state.token.id], value: lexer.state.token.value})([{id: t, symbol: Tokens.names[t]}]);
+const expectedTokenError = tokenID => lexer => {
+    const foundToken = token => ({
+        id: token.id,
+        symbol: Tokens.names[token.id],
+        value: token.value
+    });
+
+    const expectedToken = tokenID => ({
+        id: tokenID,
+        symbol: Tokens.names[tokenID]
+    });
+
+    return Errors.ExpectedTokens(errorLocation(lexer))(foundToken(lexer.state.token))([expectedToken(tokenID)]);
+};
 
 
 const token = t =>
@@ -85,7 +97,7 @@ function prop(lexer) {
 
 function unionType(lexer) {
     const unionLocation = items =>
-        ESTreeAST.SourceLocation(items[0].loc.source, items[0].loc.start, items[items.length-1].loc.end);
+        ESTreeAST.SourceLocation(items[0].loc.source, items[0].loc.start, items[items.length - 1].loc.end);
 
     return C.chainl1Map(type)(token(Tokens.BAR))(a => Array.length(a) === 1 ? a[0] : ESTreeAST.Union(unionLocation(a), a))(lexer);
 }
