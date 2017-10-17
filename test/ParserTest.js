@@ -93,6 +93,6 @@ const loadSuite = suiteName => fileSystemName =>
 module.exports =
     Unit.Suite("ESTree")([
         loadSuite("Parser")("./test/parser"),
-        loadSuite("Syntax Errors")("./test/syntaxerrors"),
+        // loadSuite("Syntax Errors")("./test/syntaxerrors"),
         loadSuite("Translation")("./test/translation")
     ]);
