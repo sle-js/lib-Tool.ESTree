@@ -7,6 +7,10 @@ const okayResult = lexer => result =>
     Result.Okay({lexer: lexer, result: result});
 
 
+const errorResult = lexer => result =>
+    Result.Error({lexer: lexer, result: result});
+
+
 const mapResult = f => result =>
     result.map(r => ({lexer: r.lexer, result: f(r.result)}));
 
@@ -58,7 +62,7 @@ const or = errorFn => parsers => lexer => {
             : Maybe.Nothing;
     };
 
-    return Array.findMap(parseOption)(parsers).withDefault(Result.Error(errorFn(lexer.head())));
+    return Array.findMap(parseOption)(parsers).withDefault(errorResult(lexer.tail())(errorFn(lexer.head())));
 };
 
 
@@ -88,7 +92,7 @@ const chainl1Map = parser => sep => f =>
 const condition = errorFn => f => lexer =>
     f(lexer.head())
         ? okayResult(lexer.tail())(lexer.head())
-        : Result.Error(errorFn(lexer.head()));
+        : errorResult(lexer.tail())(errorFn(lexer.head()));
 
 
 const conditionMap = errorFn => predicate => f =>

@@ -59,7 +59,7 @@ const processFile = name => content => assertion => {
         content.syntax
             ? parseAST
                 .isTrue(ast.isError())
-                .equals(asString(ast.content[1]).trim())(content.syntax.join("\n").trim())
+                .equals(asString(ast.content[1].result).trim())(content.syntax.join("\n").trim())
             : parseAST;
 
     if (content.js) {
