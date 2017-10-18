@@ -66,7 +66,7 @@ const backtrackingOr = errorFn => parsers => lexer => {
 };
 
 
-const newOr = errorFn => parsers => lexer => {
+const or = errorFn => parsers => lexer => {
     const parseOption = parser => {
         const optionResult = parser(lexer);
 
@@ -160,6 +160,7 @@ module.exports = {
     map,
     optional,
     optionalMap,
+    or,
     backtrackingOr,
     orMap,
     token,
