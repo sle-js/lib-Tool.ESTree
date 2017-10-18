@@ -34,7 +34,7 @@ const tokenMap = t =>
 
 
 const or =
-    C.or(Errors.orFailed);
+    C.backtrackingOr(Errors.orFailed);
 
 
 function program(lexer) {

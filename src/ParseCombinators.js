@@ -53,7 +53,7 @@ const many1Map = parser => f =>
     map(many1(parser)(f));
 
 
-const or = errorFn => parsers => lexer => {
+const backtrackingOr = errorFn => parsers => lexer => {
     const parseOption = parser => {
         const optionResult = parser(lexer);
 
@@ -66,8 +66,24 @@ const or = errorFn => parsers => lexer => {
 };
 
 
+const newOr = errorFn => parsers => lexer => {
+    const parseOption = parser => {
+        const optionResult = parser(lexer);
+
+        return optionResult.isOkay()
+            ? Maybe.Just(optionResult)
+            : optionResult.errorWithDefault(null).lexer.head().index() === lexer.head().index()
+                ? Maybe.Nothing
+                : Maybe.Just(optionResult);
+    };
+
+    return Array.findMap(parseOption)(parsers).withDefault(errorResult(lexer.tail())(errorFn(lexer.head())));
+};
+
+
+
 const orMap = error => parsers => f =>
-    map(or(error)(parsers))(f);
+    map(backtrackingOr(error)(parsers))(f);
 
 
 const chainl1 = parser => sep => lexer => {
@@ -120,9 +136,20 @@ const optionalMap = parser => f =>
     map(optional(parser))(f);
 
 
+const backtrack = parser => lexer => {
+    const result = parser(lexer);
+
+    return result.isOkay()
+        ? result
+        : result.mapError(error => ({lexer: lexer, result: error.result}));
+};
+
+
+
 module.exports = {
     and,
     andMap,
+    backtrack,
     chainl1,
     chainl1Map,
     condition,
@@ -133,8 +160,8 @@ module.exports = {
     map,
     optional,
     optionalMap,
-    or,
+    backtrackingOr,
     orMap,
     token,
-    tokenMap
+    tokenMap,
 };
