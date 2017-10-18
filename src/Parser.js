@@ -33,8 +33,12 @@ const tokenMap = t =>
     C.tokenMap(expectedTokenError(t))(t);
 
 
-const or =
+const backtrackingOr =
     C.backtrackingOr(Errors.orFailed);
+
+
+const or =
+    C.or(Errors.orFailed);
 
 
 function program(lexer) {
@@ -46,7 +50,7 @@ function program(lexer) {
 
 
 function def(lexer) {
-    return or([
+    return backtrackingOr([
         C.andMap([
             token(Tokens.INTERFACE),
             token(Tokens.NAME),
@@ -104,7 +108,7 @@ function unionType(lexer) {
 
 
 function type(lexer) {
-    return or([
+    return backtrackingOr([
         literal,
         tokenMap(Tokens.NAME)(t => ESTreeAST.Reference(locationAt(t), valueOf(t))),
         C.andMap([
@@ -118,7 +122,7 @@ function type(lexer) {
 
 
 function literal(lexer) {
-    return or([
+    return backtrackingOr([
         tokenConstant(Tokens.NULL)(null),
         tokenConstant(Tokens.TRUE)(true),
         tokenConstant(Tokens.FALSE)(false),
