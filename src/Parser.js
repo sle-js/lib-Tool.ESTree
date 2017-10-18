@@ -5,8 +5,16 @@ const ESTreeAST = require("./ESTreeAST");
 const Tokens = require("./Tokens");
 
 
+const transformColumn = column =>
+    column;
+
+
+const transformRow = row =>
+    row - 1;
+
+
 const errorLocation = lexer =>
-    Errors.Location(lexer.state.source.withDefault(""))(Errors.Position(lexer.state.position[1])(lexer.state.position[0]));
+    Errors.Location(lexer.state.source.withDefault(""))(Errors.Position(transformColumn(lexer.position()[1]))(transformRow(lexer.position()[0])));
 
 
 const expectedTokenError = tokenID => lexer => {
@@ -39,7 +47,7 @@ const or =
 
 function program(lexer) {
     return C.andMap([
-        C.many(def),
+        C.many1(def),
         token(Tokens.eof)
     ])(a => a[0])(lexer);
 }
@@ -152,11 +160,11 @@ const locationAt = t =>
 
 
 const positionStart = t =>
-    ESTreeAST.Position(t.position()[1], t.position()[0] - 1);
+    ESTreeAST.Position(transformColumn(t.position()[1]), transformRow(t.position()[0]));
 
 
 const positionEnd = t =>
-    ESTreeAST.Position(t.position()[3], t.position()[2] - 1);
+    ESTreeAST.Position(transformColumn(t.position()[3]), transformRow(t.position()[2]));
 
 
 module.exports = {

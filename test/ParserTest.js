@@ -59,7 +59,7 @@ const processFile = name => content => assertion => {
         content.syntax
             ? parseAST
                 .isTrue(ast.isError())
-                .equals(asString(ast.content[1].result).trim())(content.syntax.join("\n").trim())
+                .equals(asString(ast.content[1].result.content).trim())(content.syntax.join("\n").trim())
             : parseAST;
 
     if (content.js) {
@@ -93,6 +93,6 @@ const loadSuite = suiteName => fileSystemName =>
 module.exports =
     Unit.Suite("ESTree")([
         loadSuite("Parser")("./test/parser"),
-        // loadSuite("Syntax Errors")("./test/syntaxerrors"),
+        loadSuite("Syntax Errors")("./test/syntaxerrors"),
         loadSuite("Translation")("./test/translation")
     ]);

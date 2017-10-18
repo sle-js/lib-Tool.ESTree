@@ -15,6 +15,10 @@ const mapResult = f => result =>
     result.map(r => ({lexer: r.lexer, result: f(r.result)}));
 
 
+const hasBacktracked = lexer => newLexer =>
+    lexer.head().index() === newLexer.head().index();
+
+
 const map = parser => f => lexer =>
     mapResult(f)(parser(lexer));
 
@@ -70,20 +74,17 @@ const or = errorFn => parsers => lexer => {
     const parseOption = parser => {
         const optionResult = parser(lexer);
 
-        return optionResult.isOkay()
+        return optionResult.isOkay() || !hasBacktracked(lexer)(optionResult.errorWithDefault(null).lexer)
             ? Maybe.Just(optionResult)
-            : optionResult.errorWithDefault(null).lexer.head().index() === lexer.head().index()
-                ? Maybe.Nothing
-                : Maybe.Just(optionResult);
+            : Maybe.Nothing;
     };
 
     return Array.findMap(parseOption)(parsers).withDefault(errorResult(lexer.tail())(errorFn(lexer.head())));
 };
 
 
-
 const orMap = error => parsers => f =>
-    map(backtrackingOr(error)(parsers))(f);
+    map(or(error)(parsers))(f);
 
 
 const chainl1 = parser => sep => lexer => {
@@ -143,7 +144,6 @@ const backtrack = parser => lexer => {
         ? result
         : result.mapError(error => ({lexer: lexer, result: error.result}));
 };
-
 
 
 module.exports = {
