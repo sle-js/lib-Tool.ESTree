@@ -33,10 +33,6 @@ const tokenMap = t =>
     C.tokenMap(expectedTokenError(t))(t);
 
 
-const backtrackingOr =
-    C.backtrackingOr(Errors.orFailed);
-
-
 const or =
     C.or(Errors.orFailed);
 
@@ -50,27 +46,26 @@ function program(lexer) {
 
 
 function def(lexer) {
-    return backtrackingOr([
+    return or([
         C.andMap([
-            token(Tokens.INTERFACE),
+            C.backtrack(token(Tokens.INTERFACE)),
             token(Tokens.NAME),
+            C.optionalMap(
+                C.andMap([
+                    token(Tokens.LESS_COLON),
+                    C.chainl1(tokenValue(Tokens.NAME))(token(Tokens.COMMA))
+                ])(a => a[1])
+            )(a => a.withDefault([])),
             object
-        ])(a => ESTreeAST.Interface(stretchSourceLocation(locationAt(a[0]))(a[2].loc), valueOf(a[1]), a[2].properties, [])),
+        ])(a => ESTreeAST.Interface(stretchSourceLocation(locationAt(a[0]))(a[3].loc), valueOf(a[1]), a[3].properties, a[2])),
         C.andMap([
-            token(Tokens.EXTEND),
+            C.backtrack(token(Tokens.EXTEND)),
             token(Tokens.INTERFACE),
             token(Tokens.NAME),
             object
         ])(a => ESTreeAST.ExtendInterface(stretchSourceLocation(locationAt(a[0]))(a[3].loc), valueOf(a[2]), a[3].properties)),
         C.andMap([
-            token(Tokens.INTERFACE),
-            token(Tokens.NAME),
-            token(Tokens.LESS_COLON),
-            C.chainl1(tokenValue(Tokens.NAME))(token(Tokens.COMMA)),
-            object
-        ])(a => ESTreeAST.Interface(stretchSourceLocation(locationAt(a[0]))(a[4].loc), valueOf(a[1]), a[4].properties, a[3])),
-        C.andMap([
-            token(Tokens.ENUM),
+            C.backtrack(token(Tokens.ENUM)),
             token(Tokens.NAME),
             token(Tokens.LCURLY),
             C.chainl1(literal)(token(Tokens.BAR)),
@@ -108,11 +103,11 @@ function unionType(lexer) {
 
 
 function type(lexer) {
-    return backtrackingOr([
-        literal,
-        tokenMap(Tokens.NAME)(t => ESTreeAST.Reference(locationAt(t), valueOf(t))),
+    return or([
+        C.backtrack(literal),
+        C.backtrack(tokenMap(Tokens.NAME)(t => ESTreeAST.Reference(locationAt(t), valueOf(t)))),
         C.andMap([
-            token(Tokens.LSQUARE),
+            C.backtrack(token(Tokens.LSQUARE)),
             unionType,
             token(Tokens.RSQUARE)
         ])(a => ESTreeAST.Array(location(a[0])(a[2]), a[1])),
@@ -122,12 +117,12 @@ function type(lexer) {
 
 
 function literal(lexer) {
-    return backtrackingOr([
-        tokenConstant(Tokens.NULL)(null),
-        tokenConstant(Tokens.TRUE)(true),
-        tokenConstant(Tokens.FALSE)(false),
-        tokenMap(Tokens.constantInteger)(t => ESTreeAST.Literal(locationAt(t), valueOf(t))),
-        tokenMap(Tokens.constantString)(t => ESTreeAST.Literal(locationAt(t), valueOf(t)))
+    return or([
+        C.backtrack(tokenConstant(Tokens.NULL)(null)),
+        C.backtrack(tokenConstant(Tokens.TRUE)(true)),
+        C.backtrack(tokenConstant(Tokens.FALSE)(false)),
+        C.backtrack(tokenMap(Tokens.constantInteger)(t => ESTreeAST.Literal(locationAt(t), valueOf(t)))),
+        C.backtrack(tokenMap(Tokens.constantString)(t => ESTreeAST.Literal(locationAt(t), valueOf(t))))
     ])(lexer);
 }
 
