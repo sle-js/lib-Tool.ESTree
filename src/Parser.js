@@ -86,7 +86,7 @@ function def(lexer) {
 function object(lexer) {
     return C.andMap([
         token(Tokens.LCURLY),
-        C.many(prop),
+        C.backtrackingMany(prop),
         token(Tokens.RCURLY)
     ])(a => ({loc: location(a[0])(a[2]), properties: a[1]}))(lexer);
 }

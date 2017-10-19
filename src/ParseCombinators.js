@@ -45,7 +45,7 @@ const manyResult = currentResult => parser => {
 };
 
 
-const many = parser => lexer =>
+const backtrackingMany = parser => lexer =>
     manyResult(okayResult(lexer)([]))(parser);
 
 
@@ -154,7 +154,7 @@ module.exports = {
     backtrackChainl1Map,
     condition,
     conditionMap,
-    many,
+    backtrackingMany,
     many1,
     many1Map,
     map,
