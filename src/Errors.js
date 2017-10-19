@@ -6,7 +6,7 @@
 //
 // data Errors =
 //      ConditionFailed { loc :: Location }
-//    | ExpectedTokens { loc :: Location, found :: { id :: Int, symbol :: String, value :: String }, tokens :: Array { id :: Int, symbol :: String } }
+//    | ExpectedTokens { loc :: Location, found :: { id :: Int, symbol :: String, value :: String }, expected :: Array { id :: Int, symbol :: String } }
 
 
 const Position = line => column =>
