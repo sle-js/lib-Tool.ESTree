@@ -1,0 +1,30 @@
+-- Interface declaration missing opening '{' on second declaration
+interface Node {
+    type: string;
+}
+
+interface AnotherNode
+    type: string;
+}
+-- syntax
+{
+  "kind": "ExpectedToken",
+  "loc": {
+    "source": "002.txt",
+    "position": {
+      "line": 6,
+      "column": 4
+    }
+  },
+  "found": {
+    "id": 9,
+    "symbol": "name",
+    "value": "type"
+  },
+  "tokens": [
+    {
+      "id": 11,
+      "symbol": "{"
+    }
+  ]
+}

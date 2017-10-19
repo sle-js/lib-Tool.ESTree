@@ -47,7 +47,7 @@ const or =
 
 function program(lexer) {
     return C.andMap([
-        C.many1(def),
+        C.many(def),
         token(Tokens.eof)
     ])(a => a[0])(lexer);
 }

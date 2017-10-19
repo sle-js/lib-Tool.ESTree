@@ -41,16 +41,32 @@ const manyResult = currentResult => parser => {
 
     return nextResult.isOkay()
         ? manyResult(nextResult)(parser)
+        : hasBacktracked(currentResult.content[1].lexer)(nextResult.content[1].lexer)
+            ? currentResult
+            : nextResult;
+};
+
+
+const many = parser => lexer =>
+    manyResult(okayResult(lexer)([]))(parser);
+
+
+const backtrackingManyResult = currentResult => parser => {
+    const nextResult =
+        andThen(currentResult)(parser);
+
+    return nextResult.isOkay()
+        ? backtrackingManyResult(nextResult)(parser)
         : currentResult;
 };
 
 
 const backtrackingMany = parser => lexer =>
-    manyResult(okayResult(lexer)([]))(parser);
+    backtrackingManyResult(okayResult(lexer)([]))(parser);
 
 
 const many1 = parser => lexer =>
-    manyResult(mapResult(r => [r])(parser(lexer)))(parser);
+    backtrackingManyResult(mapResult(r => [r])(parser(lexer)))(parser);
 
 
 const many1Map = parser => f =>
@@ -95,7 +111,7 @@ const backtrackChainl1 = parser => sep => lexer => {
         andMap([sep, parser])(a => a[1]);
 
     if (initialResult.isOkay()) {
-        return manyResult(initialResult)(tailParser);
+        return backtrackingManyResult(initialResult)(tailParser);
     } else {
         return initialResult;
     }
@@ -154,6 +170,7 @@ module.exports = {
     backtrackChainl1Map,
     condition,
     conditionMap,
+    many,
     backtrackingMany,
     many1,
     many1Map,
