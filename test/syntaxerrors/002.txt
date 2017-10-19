@@ -8,7 +8,7 @@ interface AnotherNode
 }
 -- syntax
 {
-  "kind": "ExpectedToken",
+  "kind": "ExpectedTokens",
   "loc": {
     "source": "002.txt",
     "position": {
@@ -21,7 +21,7 @@ interface AnotherNode
     "symbol": "name",
     "value": "type"
   },
-  "tokens": [
+  "expected": [
     {
       "id": 11,
       "symbol": "{"

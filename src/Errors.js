@@ -26,8 +26,8 @@ const ConditionFailed = loc =>
     new ErrorsType({kind: "ConditionFailed", loc});
 
 
-const ExpectedTokens = loc => found => tokens =>
-    new ErrorsType({kind: "ExpectedToken", loc, found, tokens});
+const ExpectedTokens = loc => found => expected =>
+    new ErrorsType({kind: "ExpectedTokens", loc, found, expected});
 
 
 const orFailed = lexer =>
