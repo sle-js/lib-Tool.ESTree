@@ -61,31 +61,6 @@ const backtrackingManyResult = currentResult => parser => {
 };
 
 
-const backtrackingMany = parser => lexer =>
-    backtrackingManyResult(okayResult(lexer)([]))(parser);
-
-
-const many1 = parser => lexer =>
-    backtrackingManyResult(mapResult(r => [r])(parser(lexer)))(parser);
-
-
-const many1Map = parser => f =>
-    map(many1(parser)(f));
-
-
-const backtrackingOr = errorFn => parsers => lexer => {
-    const parseOption = parser => {
-        const optionResult = parser(lexer);
-
-        return optionResult.isOkay()
-            ? Maybe.Just(optionResult)
-            : Maybe.Nothing;
-    };
-
-    return Array.findMap(parseOption)(parsers).withDefault(errorResult(lexer.tail())(errorFn(lexer.head())));
-};
-
-
 const or = errorFn => parsers => lexer => {
     const parseOption = parser => {
         const optionResult = parser(lexer);
@@ -171,14 +146,10 @@ module.exports = {
     condition,
     conditionMap,
     many,
-    backtrackingMany,
-    many1,
-    many1Map,
     map,
     optional,
     optionalMap,
     or,
-    backtrackingOr,
     orMap,
     token,
     tokenMap,
