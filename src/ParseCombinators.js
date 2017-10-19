@@ -15,8 +15,16 @@ const mapResult = f => result =>
     result.map(r => ({lexer: r.lexer, result: f(r.result)}));
 
 
-const hasBacktracked = lexer => newLexer =>
-    lexer.head().index() === newLexer.head().index();
+const hasBacktrackedOnLexer = lexer => otherLexer =>
+    lexer.head().index() === otherLexer.head().index();
+
+
+const hasBacktrackedOnLexerResult = lexer => otherResult =>
+    hasBacktrackedOnLexer(lexer)(otherResult.content[1].lexer);
+
+
+const hasBacktrackedOnResult = result => otherResult =>
+    hasBacktrackedOnLexerResult(result.content[1].lexer)(otherResult);
 
 
 const map = parser => f => lexer =>
@@ -41,7 +49,7 @@ const manyResult = currentResult => parser => {
 
     return nextResult.isOkay()
         ? manyResult(nextResult)(parser)
-        : hasBacktracked(currentResult.content[1].lexer)(nextResult.content[1].lexer)
+        : hasBacktrackedOnResult(currentResult)(nextResult)
             ? currentResult
             : nextResult;
 };
@@ -65,7 +73,7 @@ const or = errorFn => parsers => lexer => {
     const parseOption = parser => {
         const optionResult = parser(lexer);
 
-        return optionResult.isOkay() || !hasBacktracked(lexer)(optionResult.errorWithDefault(null).lexer)
+        return optionResult.isOkay() || !hasBacktrackedOnLexerResult(lexer)(optionResult)
             ? Maybe.Just(optionResult)
             : Maybe.Nothing;
     };
