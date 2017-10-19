@@ -87,7 +87,7 @@ const orMap = error => parsers => f =>
     map(or(error)(parsers))(f);
 
 
-const chainl1 = parser => sep => lexer => {
+const backtrackChainl1 = parser => sep => lexer => {
     const initialResult =
         mapResult(r => [r])(parser(lexer));
 
@@ -102,8 +102,8 @@ const chainl1 = parser => sep => lexer => {
 };
 
 
-const chainl1Map = parser => sep => f =>
-    map(chainl1(parser)(sep))(f);
+const backtrackChainl1Map = parser => sep => f =>
+    map(backtrackChainl1(parser)(sep))(f);
 
 
 const condition = errorFn => f => lexer =>
@@ -150,8 +150,8 @@ module.exports = {
     and,
     andMap,
     backtrack,
-    chainl1,
-    chainl1Map,
+    backtrackChainl1,
+    backtrackChainl1Map,
     condition,
     conditionMap,
     many,

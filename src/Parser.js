@@ -61,7 +61,7 @@ function def(lexer) {
             C.optionalMap(
                 C.andMap([
                     token(Tokens.LESS_COLON),
-                    C.chainl1(tokenValue(Tokens.NAME))(token(Tokens.COMMA))
+                    C.backtrackChainl1(tokenValue(Tokens.NAME))(token(Tokens.COMMA))
                 ])(a => a[1])
             )(a => a.withDefault([])),
             object
@@ -76,7 +76,7 @@ function def(lexer) {
             C.backtrack(token(Tokens.ENUM)),
             token(Tokens.NAME),
             token(Tokens.LCURLY),
-            C.chainl1(literal)(token(Tokens.BAR)),
+            C.backtrackChainl1(literal)(token(Tokens.BAR)),
             token(Tokens.RCURLY)
         ])(a => ESTreeAST.Enum(location(a[0])(a[4]), valueOf(a[1]), a[3]))
     ])(lexer);
@@ -106,7 +106,7 @@ function unionType(lexer) {
     const unionLocation = items =>
         ESTreeAST.SourceLocation(items[0].loc.source, items[0].loc.start, items[items.length - 1].loc.end);
 
-    return C.chainl1Map(type)(token(Tokens.BAR))(a => Array.length(a) === 1 ? a[0] : ESTreeAST.Union(unionLocation(a), a))(lexer);
+    return C.backtrackChainl1Map(type)(token(Tokens.BAR))(a => Array.length(a) === 1 ? a[0] : ESTreeAST.Union(unionLocation(a), a))(lexer);
 }
 
 
