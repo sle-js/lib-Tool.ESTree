@@ -86,7 +86,7 @@ function def(lexer) {
 function object(lexer) {
     return C.andMap([
         token(Tokens.LCURLY),
-        C.backtrackingMany(prop),
+        C.many(prop),
         token(Tokens.RCURLY)
     ])(a => ({loc: location(a[0])(a[2]), properties: a[1]}))(lexer);
 }
@@ -94,7 +94,7 @@ function object(lexer) {
 
 function prop(lexer) {
     return C.andMap([
-        token(Tokens.NAME),
+        C.backtrack(token(Tokens.NAME)),
         token(Tokens.COLON),
         unionType,
         token(Tokens.SEMICOLON)

@@ -1,0 +1,28 @@
+-- Property missing semicolon on final definition
+interface Node {
+    type: string;
+    name : String
+}
+
+-- syntax
+{
+  "kind": "ExpectedTokens",
+  "loc": {
+    "source": "003.txt",
+    "position": {
+      "line": 4,
+      "column": 0
+    }
+  },
+  "found": {
+    "id": 12,
+    "symbol": "}",
+    "value": "}"
+  },
+  "expected": [
+    {
+      "id": 16,
+      "symbol": ";"
+    }
+  ]
+}
