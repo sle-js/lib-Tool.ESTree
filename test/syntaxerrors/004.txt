@@ -1,0 +1,27 @@
+-- Interface inheritance missing comma reported as expecting a '{'
+interface Node <: A, ,B {
+    type: string;
+    name : String;
+}
+-- syntax
+{
+  "kind": "ExpectedTokens",
+  "loc": {
+    "source": "004.txt",
+    "position": {
+      "line": 1,
+      "column": 21
+    }
+  },
+  "found": {
+    "id": 13,
+    "symbol": ",",
+    "value": ","
+  },
+  "expected": [
+    {
+      "id": 9,
+      "symbol": "name"
+    }
+  ]
+}

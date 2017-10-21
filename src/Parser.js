@@ -60,8 +60,8 @@ function def(lexer) {
             token(Tokens.NAME),
             C.optionalMap(
                 C.andMap([
-                    token(Tokens.LESS_COLON),
-                    C.backtrackChainl1(tokenValue(Tokens.NAME))(token(Tokens.COMMA))
+                    C.backtrack(token(Tokens.LESS_COLON)),
+                    C.chainl1(tokenValue(Tokens.NAME))(C.backtrack(token(Tokens.COMMA)))
                 ])(a => a[1])
             )(a => a.withDefault([])),
             object

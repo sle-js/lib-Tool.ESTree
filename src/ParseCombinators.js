@@ -86,6 +86,31 @@ const orMap = error => parsers => f =>
     map(or(error)(parsers))(f);
 
 
+const manyResult2 = currentResult => parser => {
+    const nextResult =
+        andThen(currentResult)(parser);
+
+    return nextResult.isOkay()
+        ? manyResult2(nextResult)(parser)
+        : hasBacktrackedOnResult(currentResult)(nextResult)
+            ? currentResult
+            : nextResult;
+};
+
+
+const chainl1 = parser => sep => lexer => {
+    const initialResult =
+        mapResult(r => [r])(parser(lexer));
+
+    const tailParser =
+        andMap([sep, parser])(a => a[1]);
+
+    return initialResult.isOkay()
+        ? manyResult2(initialResult)(tailParser)
+        : initialResult;
+};
+
+
 const backtrackChainl1 = parser => sep => lexer => {
     const initialResult =
         mapResult(r => [r])(parser(lexer));
@@ -93,11 +118,9 @@ const backtrackChainl1 = parser => sep => lexer => {
     const tailParser =
         andMap([sep, parser])(a => a[1]);
 
-    if (initialResult.isOkay()) {
-        return backtrackingManyResult(initialResult)(tailParser);
-    } else {
-        return initialResult;
-    }
+    return initialResult.isOkay()
+        ? backtrackingManyResult(initialResult)(tailParser)
+        : initialResult;
 };
 
 
@@ -128,7 +151,9 @@ const optional = parser => lexer => {
 
     return result.isOkay()
         ? mapResult(Maybe.Just)(result)
-        : okayResult(lexer)(Maybe.Nothing);
+        : hasBacktrackedOnLexerResult(lexer)(result)
+            ? okayResult(lexer)(Maybe.Nothing)
+            : result;
 };
 
 
@@ -149,6 +174,7 @@ module.exports = {
     and,
     andMap,
     backtrack,
+    chainl1,
     backtrackChainl1,
     backtrackChainl1Map,
     condition,
