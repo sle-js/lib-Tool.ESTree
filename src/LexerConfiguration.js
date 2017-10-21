@@ -7,6 +7,7 @@ const Tokens = require("./Tokens");
 
 const identifiers = {
     interface: Tokens.INTERFACE,
+    import: Tokens.IMPORT,
     enum: Tokens.ENUM,
     extend: Tokens.EXTEND,
     true: Tokens.TRUE,
@@ -31,6 +32,7 @@ module.exports = Lexer.setup({
     tokenPatterns: [
         [Regex.from(/\d+/iy), text => ({id: Tokens.constantInteger, value: Int.fromString(text).withDefault(0)})],
         [Regex.from(/"(\\.|[^"\\])*"/iy), text => ({id: Tokens.constantString, value: text.substring(1, text.length - 1)})],
+        [Regex.from(/file:(\\.|[^\s;])+/iy), text => ({id: Tokens.constantURL, value: text.split(":")})],
 
         [Regex.from(/\|/iy), text => ({id: Tokens.BAR, value: text})],
         [Regex.from(/:/iy), text => ({id: Tokens.COLON, value: text})],
