@@ -63,7 +63,7 @@ const processFile = name => content => assertion => {
             : parseAST;
 
     if (content.js) {
-        const translation = Translator.translate(Transform.applyExtend(ast.content[1].result));
+        const translation = Translator.translate(Transform.applyExtend(ast.content[1].result.declarations));
 
         return syntaxErrors
             .isTrue(translation.isOkay())

@@ -2,6 +2,7 @@ const Array = require("./Libs").Array;
 const C = require("./ParseCombinators");
 const Errors = require("./Errors");
 const ESTreeAST = require("./ESTreeAST");
+const Maybe = require("./Libs").Maybe;
 const Tokens = require("./Tokens");
 
 
@@ -53,7 +54,7 @@ function program(lexer) {
     return C.andMap([
         C.many(def),
         token(Tokens.eof)
-    ])(a => a[0])(lexer);
+    ])(a => ESTreeAST.Program(stretchSourceLocation(locationFromNodes(a[0]).withDefault(a[1]))(locationAt(a[1])), null, a[0]))(lexer);
 }
 
 
@@ -107,10 +108,7 @@ function prop(lexer) {
 
 
 function unionType(lexer) {
-    const unionLocation = items =>
-        ESTreeAST.SourceLocation(items[0].loc.source, items[0].loc.start, items[items.length - 1].loc.end);
-
-    return C.chainl1Map(type)(C.backtrack(token(Tokens.BAR)))(a => Array.length(a) === 1 ? a[0] : ESTreeAST.Union(unionLocation(a), a))(lexer);
+    return C.chainl1Map(type)(C.backtrack(token(Tokens.BAR)))(a => Array.length(a) === 1 ? a[0] : ESTreeAST.Union(locationFromNodes(a).withDefault(null), a))(lexer);
 }
 
 
@@ -169,6 +167,12 @@ const positionStart = t =>
 
 const positionEnd = t =>
     ESTreeAST.Position(transformColumn(t.position()[3]), transformRow(t.position()[2]));
+
+
+const locationFromNodes = nodes =>
+    Array.length(nodes) === 0
+        ? Maybe.Nothing
+        : Maybe.Just(ESTreeAST.SourceLocation(nodes[0].loc.source, nodes[0].loc.start, nodes[nodes.length - 1].loc.end));
 
 
 module.exports = {

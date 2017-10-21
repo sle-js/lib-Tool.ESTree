@@ -3,127 +3,142 @@ enum UnaryOperator {
       "-" | "+" | "!" | "~" | "typeof" | "void" | "delete"
 }
 -- ast
-[
-  {
-    "kind": "Enum",
-    "loc": {
-      "source": "007.txt",
-      "start": {
-        "line": 1,
-        "column": 0
-      },
-      "end": {
-        "line": 3,
-        "column": 0
-      }
+{
+  "kind": "Program",
+  "loc": {
+    "source": "007.txt",
+    "start": {
+      "line": 1,
+      "column": 0
     },
-    "name": "UnaryOperator",
-    "values": [
-      {
-        "kind": "Literal",
-        "loc": {
-          "source": "007.txt",
-          "start": {
-            "line": 2,
-            "column": 6
-          },
-          "end": {
-            "line": 2,
-            "column": 8
-          }
+    "end": {
+      "line": 3,
+      "column": 1
+    }
+  },
+  "importURL": null,
+  "declarations": [
+    {
+      "kind": "Enum",
+      "loc": {
+        "source": "007.txt",
+        "start": {
+          "line": 1,
+          "column": 0
         },
-        "value": "-"
+        "end": {
+          "line": 3,
+          "column": 0
+        }
       },
-      {
-        "kind": "Literal",
-        "loc": {
-          "source": "007.txt",
-          "start": {
-            "line": 2,
-            "column": 12
+      "name": "UnaryOperator",
+      "values": [
+        {
+          "kind": "Literal",
+          "loc": {
+            "source": "007.txt",
+            "start": {
+              "line": 2,
+              "column": 6
+            },
+            "end": {
+              "line": 2,
+              "column": 8
+            }
           },
-          "end": {
-            "line": 2,
-            "column": 14
-          }
+          "value": "-"
         },
-        "value": "+"
-      },
-      {
-        "kind": "Literal",
-        "loc": {
-          "source": "007.txt",
-          "start": {
-            "line": 2,
-            "column": 18
+        {
+          "kind": "Literal",
+          "loc": {
+            "source": "007.txt",
+            "start": {
+              "line": 2,
+              "column": 12
+            },
+            "end": {
+              "line": 2,
+              "column": 14
+            }
           },
-          "end": {
-            "line": 2,
-            "column": 20
-          }
+          "value": "+"
         },
-        "value": "!"
-      },
-      {
-        "kind": "Literal",
-        "loc": {
-          "source": "007.txt",
-          "start": {
-            "line": 2,
-            "column": 24
+        {
+          "kind": "Literal",
+          "loc": {
+            "source": "007.txt",
+            "start": {
+              "line": 2,
+              "column": 18
+            },
+            "end": {
+              "line": 2,
+              "column": 20
+            }
           },
-          "end": {
-            "line": 2,
-            "column": 26
-          }
+          "value": "!"
         },
-        "value": "~"
-      },
-      {
-        "kind": "Literal",
-        "loc": {
-          "source": "007.txt",
-          "start": {
-            "line": 2,
-            "column": 30
+        {
+          "kind": "Literal",
+          "loc": {
+            "source": "007.txt",
+            "start": {
+              "line": 2,
+              "column": 24
+            },
+            "end": {
+              "line": 2,
+              "column": 26
+            }
           },
-          "end": {
-            "line": 2,
-            "column": 37
-          }
+          "value": "~"
         },
-        "value": "typeof"
-      },
-      {
-        "kind": "Literal",
-        "loc": {
-          "source": "007.txt",
-          "start": {
-            "line": 2,
-            "column": 41
+        {
+          "kind": "Literal",
+          "loc": {
+            "source": "007.txt",
+            "start": {
+              "line": 2,
+              "column": 30
+            },
+            "end": {
+              "line": 2,
+              "column": 37
+            }
           },
-          "end": {
-            "line": 2,
-            "column": 46
-          }
+          "value": "typeof"
         },
-        "value": "void"
-      },
-      {
-        "kind": "Literal",
-        "loc": {
-          "source": "007.txt",
-          "start": {
-            "line": 2,
-            "column": 50
+        {
+          "kind": "Literal",
+          "loc": {
+            "source": "007.txt",
+            "start": {
+              "line": 2,
+              "column": 41
+            },
+            "end": {
+              "line": 2,
+              "column": 46
+            }
           },
-          "end": {
-            "line": 2,
-            "column": 57
-          }
+          "value": "void"
         },
-        "value": "delete"
-      }
-    ]
-  }
-]
+        {
+          "kind": "Literal",
+          "loc": {
+            "source": "007.txt",
+            "start": {
+              "line": 2,
+              "column": 50
+            },
+            "end": {
+              "line": 2,
+              "column": 57
+            }
+          },
+          "value": "delete"
+        }
+      ]
+    }
+  ]
+}

@@ -5,72 +5,87 @@ interface Node {
 
 interface Expression <: Node { }
 -- ast
-[
-  {
-    "kind": "Interface",
-    "loc": {
-      "source": "004.txt",
-      "start": {
-        "line": 1,
-        "column": 0
-      },
-      "end": {
-        "line": 3,
-        "column": 0
-      }
+{
+  "kind": "Program",
+  "loc": {
+    "source": "004.txt",
+    "start": {
+      "line": 1,
+      "column": 0
     },
-    "name": "Node",
-    "props": [
-      {
-        "kind": "Property",
-        "loc": {
-          "source": "004.txt",
-          "start": {
-            "line": 2,
-            "column": 4
-          },
-          "end": {
-            "line": 2,
-            "column": 16
-          }
+    "end": {
+      "line": 5,
+      "column": 32
+    }
+  },
+  "importURL": null,
+  "declarations": [
+    {
+      "kind": "Interface",
+      "loc": {
+        "source": "004.txt",
+        "start": {
+          "line": 1,
+          "column": 0
         },
-        "name": "type",
-        "value": {
-          "kind": "Reference",
+        "end": {
+          "line": 3,
+          "column": 0
+        }
+      },
+      "name": "Node",
+      "props": [
+        {
+          "kind": "Property",
           "loc": {
             "source": "004.txt",
             "start": {
               "line": 2,
-              "column": 10
+              "column": 4
             },
             "end": {
               "line": 2,
-              "column": 15
+              "column": 16
             }
           },
-          "name": "string"
+          "name": "type",
+          "value": {
+            "kind": "Reference",
+            "loc": {
+              "source": "004.txt",
+              "start": {
+                "line": 2,
+                "column": 10
+              },
+              "end": {
+                "line": 2,
+                "column": 15
+              }
+            },
+            "name": "string"
+          }
         }
-      }
-    ],
-    "base": []
-  },
-  {
-    "kind": "Interface",
-    "loc": {
-      "source": "004.txt",
-      "start": {
-        "line": 5,
-        "column": 0
-      },
-      "end": {
-        "line": 5,
-        "column": 31
-      }
+      ],
+      "base": []
     },
-    "name": "Expression",
-    "props": [],
-    "base": [
-      "Node"
-    ]
-  }
-]
+    {
+      "kind": "Interface",
+      "loc": {
+        "source": "004.txt",
+        "start": {
+          "line": 5,
+          "column": 0
+        },
+        "end": {
+          "line": 5,
+          "column": 31
+        }
+      },
+      "name": "Expression",
+      "props": [],
+      "base": [
+        "Node"
+      ]
+    }
+  ]
+}
