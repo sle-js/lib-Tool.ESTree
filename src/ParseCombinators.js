@@ -111,21 +111,8 @@ const chainl1 = parser => sep => lexer => {
 };
 
 
-const backtrackChainl1 = parser => sep => lexer => {
-    const initialResult =
-        mapResult(r => [r])(parser(lexer));
-
-    const tailParser =
-        andMap([sep, parser])(a => a[1]);
-
-    return initialResult.isOkay()
-        ? backtrackingManyResult(initialResult)(tailParser)
-        : initialResult;
-};
-
-
-const backtrackChainl1Map = parser => sep => f =>
-    map(backtrackChainl1(parser)(sep))(f);
+const chainl1Map = parser => sep => f =>
+    map(chainl1(parser)(sep))(f);
 
 
 const condition = errorFn => f => lexer =>
@@ -175,8 +162,7 @@ module.exports = {
     andMap,
     backtrack,
     chainl1,
-    backtrackChainl1,
-    backtrackChainl1Map,
+    chainl1Map,
     condition,
     conditionMap,
     many,
