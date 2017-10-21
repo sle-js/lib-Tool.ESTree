@@ -144,6 +144,7 @@ module.exports = {
     chainl1Map,
     many,
     map,
+    optional,
     optionalMap,
     or,
     token,

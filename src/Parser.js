@@ -52,9 +52,14 @@ const or = expectedTokens =>
 
 function program(lexer) {
     return C.andMap([
+        C.optional(C.andMap([
+            C.backtrack(token(Tokens.IMPORT)),
+            tokenValue(Tokens.constantURL),
+            token(Tokens.SEMICOLON)
+        ])(a => a[1])),
         C.many(def),
         token(Tokens.eof)
-    ])(a => ESTreeAST.Program(stretchSourceLocation(locationFromNodes(a[0]).withDefault(a[1]))(locationAt(a[1])), null, a[0]))(lexer);
+    ])(a => ESTreeAST.Program(stretchSourceLocation(locationFromNodes(a[1]).withDefault(a[2]))(locationAt(a[2])), a[0].withDefault(null), a[1]))(lexer);
 }
 
 
