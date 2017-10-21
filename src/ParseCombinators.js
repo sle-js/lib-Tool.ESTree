@@ -82,10 +82,6 @@ const or = errorFn => parsers => lexer => {
 };
 
 
-const orMap = error => parsers => f =>
-    map(or(error)(parsers))(f);
-
-
 const manyResult2 = currentResult => parser => {
     const nextResult =
         andThen(currentResult)(parser);
@@ -121,10 +117,6 @@ const condition = errorFn => f => lexer =>
         : errorResult(lexer.tail())(errorFn(lexer.head()));
 
 
-const conditionMap = errorFn => predicate => f =>
-    map(condition(errorFn)(predicate))(f);
-
-
 const token = errorFn => tokenID =>
     condition(errorFn)(h => h.token().id === tokenID);
 
@@ -158,19 +150,14 @@ const backtrack = parser => lexer => {
 
 
 module.exports = {
-    and,
     andMap,
     backtrack,
     chainl1,
     chainl1Map,
-    condition,
-    conditionMap,
     many,
     map,
-    optional,
     optionalMap,
     or,
-    orMap,
     token,
     tokenMap,
 };
