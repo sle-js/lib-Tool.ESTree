@@ -61,7 +61,7 @@ function def(lexer) {
             C.optionalMap(
                 C.andMap([
                     C.backtrack(token(Tokens.LESS_COLON)),
-                    C.chainl1(tokenValue(Tokens.NAME))(C.backtrack(token(Tokens.COMMA)))
+                    C.sepBy1(tokenValue(Tokens.NAME))(C.backtrack(token(Tokens.COMMA)))
                 ])(a => a[1])
             )(a => a.withDefault([])),
             object
@@ -76,7 +76,7 @@ function def(lexer) {
             C.backtrack(token(Tokens.ENUM)),
             token(Tokens.NAME),
             token(Tokens.LCURLY),
-            C.chainl1(literal)(C.backtrack(token(Tokens.BAR))),
+            C.sepBy1(literal)(C.backtrack(token(Tokens.BAR))),
             token(Tokens.RCURLY)
         ])(a => ESTreeAST.Enum(location(a[0])(a[4]), valueOf(a[1]), a[3]))
     ])(lexer);

@@ -94,7 +94,7 @@ const manyResult2 = currentResult => parser => {
 };
 
 
-const chainl1 = parser => sep => lexer => {
+const sepBy1 = parser => sep => lexer => {
     const initialResult =
         mapResult(r => [r])(parser(lexer));
 
@@ -108,7 +108,7 @@ const chainl1 = parser => sep => lexer => {
 
 
 const chainl1Map = parser => sep => f =>
-    map(chainl1(parser)(sep))(f);
+    map(sepBy1(parser)(sep))(f);
 
 
 const condition = errorFn => f => lexer =>
@@ -152,7 +152,7 @@ const backtrack = parser => lexer => {
 module.exports = {
     andMap,
     backtrack,
-    chainl1,
+    sepBy1,
     chainl1Map,
     many,
     map,
