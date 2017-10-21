@@ -30,8 +30,8 @@ const ExpectedTokens = loc => found => expected =>
     new ErrorsType({kind: "ExpectedTokens", loc, found, expected});
 
 
-const orFailed = lexer =>
-    new ErrorsType([2, lexer]);
+const orFailed = loc =>
+    new ErrorsType({kind: "OrFailed", loc});
 
 
 module.exports = {

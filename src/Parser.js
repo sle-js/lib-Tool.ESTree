@@ -13,24 +13,28 @@ const transformRow = row =>
     row - 1;
 
 
-const errorLocation = lexer =>
-    Errors.Location(lexer.state.source.withDefault(""))(Errors.Position(transformColumn(lexer.position()[1]))(transformRow(lexer.position()[0])));
+const errorLocation = token =>
+    Errors.Location(token.state.source.withDefault(""))(Errors.Position(transformColumn(token.position()[1]))(transformRow(token.position()[0])));
 
 
-const expectedTokenError = tokenID => lexer => {
+const expectedTokensError = tokenIDs => token => {
     const foundToken = token => ({
         id: token.id,
         symbol: Tokens.names[token.id],
         value: token.value
     });
 
-    const expectedToken = tokenID => ({
+    const expectedTokens = Array.map(tokenID => ({
         id: tokenID,
         symbol: Tokens.names[tokenID]
-    });
+    }))(tokenIDs);
 
-    return Errors.ExpectedTokens(errorLocation(lexer))(foundToken(lexer.state.token))([expectedToken(tokenID)]);
+    return Errors.ExpectedTokens(errorLocation(token))(foundToken(token.state.token))(expectedTokens);
 };
+
+
+const expectedTokenError = tokenID =>
+    expectedTokensError([tokenID]);
 
 
 const token = t =>
@@ -41,8 +45,8 @@ const tokenMap = t =>
     C.tokenMap(expectedTokenError(t))(t);
 
 
-const or =
-    C.or(Errors.orFailed);
+const or = lexer =>
+    C.or(Errors.orFailed)(lexer);
 
 
 function program(lexer) {
