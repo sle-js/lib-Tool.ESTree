@@ -71,6 +71,12 @@
  *      kind: "Object";
  *      items: [ Property ];
  * }
+ *
+ * interface Program <: Node {
+ *      kind: "Program";
+ *      importURL: string | null;
+ *      declarations: [ Declaration ];
+ * }
  */
 
 const Node = (kind, loc) =>
@@ -150,6 +156,12 @@ const $Object = (loc, items) =>
         {kind: "Object", items});
 
 
+const Program = (loc, importURL, declarations) =>
+    Object.assign({},
+        Node("Program", loc),
+        {kind: "Program", importURL, declarations});
+
+
 module.exports = {
     Node,
     SourceLocation,
@@ -164,5 +176,6 @@ module.exports = {
     Literal,
     Reference,
     Array,
-    $Object
+    $Object,
+    Program
 };
