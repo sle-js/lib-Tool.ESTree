@@ -45,8 +45,8 @@ const tokenMap = t =>
     C.tokenMap(expectedTokenError(t))(t);
 
 
-const or = lexer =>
-    C.or(Errors.orFailed)(lexer);
+const or = parsers => lexer =>
+    C.or(Errors.orFailed)(parsers)(lexer);
 
 
 function program(lexer) {
