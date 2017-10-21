@@ -82,18 +82,6 @@ const or = errorFn => parsers => lexer => {
 };
 
 
-const manyResult2 = currentResult => parser => {
-    const nextResult =
-        andThen(currentResult)(parser);
-
-    return nextResult.isOkay()
-        ? manyResult2(nextResult)(parser)
-        : hasBacktrackedOnResult(currentResult)(nextResult)
-            ? currentResult
-            : nextResult;
-};
-
-
 const sepBy1 = parser => sep => lexer => {
     const initialResult =
         mapResult(r => [r])(parser(lexer));
@@ -102,7 +90,7 @@ const sepBy1 = parser => sep => lexer => {
         andMap([sep, parser])(a => a[1]);
 
     return initialResult.isOkay()
-        ? manyResult2(initialResult)(tailParser)
+        ? manyResult(initialResult)(tailParser)
         : initialResult;
 };
 
