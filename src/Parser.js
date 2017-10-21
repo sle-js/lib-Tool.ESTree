@@ -129,7 +129,7 @@ function type(lexer) {
 
 
 function literal(lexer) {
-    return or([])([
+    return or([Tokens.NULL, Tokens.TRUE, Tokens.FALSE, Tokens.constantInteger, Tokens.constantString])([
         C.backtrack(tokenConstant(Tokens.NULL)(null)),
         C.backtrack(tokenConstant(Tokens.TRUE)(true)),
         C.backtrack(tokenConstant(Tokens.FALSE)(false)),

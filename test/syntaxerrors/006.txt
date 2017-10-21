@@ -1,0 +1,42 @@
+-- A literal is unable to be matched
+enum Node {
+    "hello" | | "world"
+}
+-- syntax
+{
+  "kind": "ExpectedTokens",
+  "loc": {
+    "source": "006.txt",
+    "position": {
+      "line": 2,
+      "column": 14
+    }
+  },
+  "found": {
+    "id": 14,
+    "symbol": "|",
+    "value": "|"
+  },
+  "expected": [
+    {
+      "id": 8,
+      "symbol": "null"
+    },
+    {
+      "id": 6,
+      "symbol": "true"
+    },
+    {
+      "id": 7,
+      "symbol": "false"
+    },
+    {
+      "id": 1,
+      "symbol": "constant integer"
+    },
+    {
+      "id": 2,
+      "symbol": "constant string"
+    }
+  ]
+}
