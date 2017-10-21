@@ -89,7 +89,7 @@ function def(lexer) {
 
 function object(lexer) {
     return C.andMap([
-        token(Tokens.LCURLY),
+        C.backtrack(token(Tokens.LCURLY)),
         C.many(prop),
         token(Tokens.RCURLY)
     ])(a => ({loc: location(a[0])(a[2]), properties: a[1]}))(lexer);
@@ -115,7 +115,7 @@ function unionType(lexer) {
 
 
 function type(lexer) {
-    return or([])([
+    return or([Tokens.NULL, Tokens.TRUE, Tokens.FALSE, Tokens.constantInteger, Tokens.constantString, Tokens.NAME, Tokens.LSQUARE, Tokens.LCURLY])([
         C.backtrack(literal),
         C.backtrack(tokenMap(Tokens.NAME)(t => ESTreeAST.Reference(locationAt(t), valueOf(t)))),
         C.andMap([
