@@ -1,4 +1,4 @@
--- A literal is unable to be matched
+-- A type is unable to be matched
 interface Node {
     a: string;
     b: |;
