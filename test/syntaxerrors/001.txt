@@ -13,13 +13,13 @@ interface Node
     }
   },
   "found": {
-    "id": 9,
+    "id": 10,
     "symbol": "name",
     "value": "type"
   },
   "expected": [
     {
-      "id": 11,
+      "id": 13,
       "symbol": "{"
     }
   ]

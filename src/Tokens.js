@@ -10,6 +10,7 @@ const eof = nextToken();
 
 const constantInteger = nextToken();
 const constantString = nextToken();
+const constantURL = nextToken();
 
 const INTERFACE = nextToken();
 const ENUM = nextToken();
@@ -18,6 +19,7 @@ const TRUE = nextToken();
 const FALSE = nextToken();
 const NULL = nextToken();
 const NAME = nextToken();
+const IMPORT = nextToken();
 
 const LESS_COLON = nextToken();
 const LCURLY = nextToken();
@@ -36,9 +38,11 @@ names[err] = "error";
 names[eof] = "end-of-file";
 names[constantInteger] = "constant integer";
 names[constantString] = "constant string";
+names[constantURL] = "constant URL";
 names[INTERFACE] = "interface";
 names[ENUM] = "enum";
 names[EXTEND] = "extend";
+names[IMPORT] = "import";
 names[TRUE] = "true";
 names[FALSE] = "false";
 names[NULL] = "null";
@@ -61,6 +65,7 @@ module.exports = {
     eof,
     constantInteger,
     constantString,
+    constantURL,
 
     INTERFACE,
     ENUM,
@@ -69,6 +74,7 @@ module.exports = {
     FALSE,
     NULL,
     NAME,
+    IMPORT,
     LESS_COLON,
     LCURLY,
     RCURLY,

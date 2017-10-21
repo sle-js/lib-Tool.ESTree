@@ -14,21 +14,21 @@ interface Node {
     }
   },
   "found": {
-    "id": 14,
+    "id": 16,
     "symbol": "|",
     "value": "|"
   },
   "expected": [
     {
-      "id": 8,
+      "id": 9,
       "symbol": "null"
     },
     {
-      "id": 6,
+      "id": 7,
       "symbol": "true"
     },
     {
-      "id": 7,
+      "id": 8,
       "symbol": "false"
     },
     {
@@ -40,15 +40,15 @@ interface Node {
       "symbol": "constant string"
     },
     {
-      "id": 9,
+      "id": 10,
       "symbol": "name"
     },
     {
-      "id": 17,
+      "id": 19,
       "symbol": "["
     },
     {
-      "id": 11,
+      "id": 13,
       "symbol": "{"
     }
   ]

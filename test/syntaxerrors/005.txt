@@ -19,21 +19,21 @@ inteface Node  {
     }
   },
   "found": {
-    "id": 9,
+    "id": 10,
     "symbol": "name",
     "value": "inteface"
   },
   "expected": [
     {
-      "id": 3,
+      "id": 4,
       "symbol": "interface"
     },
     {
-      "id": 5,
+      "id": 6,
       "symbol": "extend"
     },
     {
-      "id": 4,
+      "id": 5,
       "symbol": "enum"
     }
   ]
