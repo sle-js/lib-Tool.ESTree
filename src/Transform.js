@@ -10,26 +10,24 @@ const isExtendInterface = declaration =>
     declaration.kind === "ExtendInterface";
 
 
-const extendInterface = interfaceDeclaration => extendInterfaceDeclaration =>
-    ESTreeAST.Interface(
-        interfaceDeclaration.loc,
-        interfaceDeclaration.name,
-        Array.concat(interfaceDeclaration.props)(extendInterfaceDeclaration.props),
-        interfaceDeclaration.base);
+const applyExtend = declarations => {
+    const extendInterface = interfaceDeclaration => extendInterfaceDeclaration =>
+        ESTreeAST.Interface(
+            interfaceDeclaration.loc,
+            interfaceDeclaration.name,
+            Array.concat(interfaceDeclaration.props)(extendInterfaceDeclaration.props),
+            interfaceDeclaration.base);
 
+    const applyExtendToDeclaration = extendInterfaceDeclaration =>
+        Array.map(d => isInterface(d) && d.name === extendInterfaceDeclaration.name ? extendInterface(d)(extendInterfaceDeclaration) : d);
 
-const applyExtendToDeclaration = extendInterfaceDeclaration =>
-    Array.map(d => isInterface(d) && d.name === extendInterfaceDeclaration.name ? extendInterface(d)(extendInterfaceDeclaration) : d);
+    const foldFunction = acc => declaration =>
+        isExtendInterface(declaration)
+            ? applyExtendToDeclaration(declaration)(acc)
+            : Array.append(declaration)(acc);
 
-
-const foldFunction = acc => declaration =>
-    isExtendInterface(declaration)
-        ? applyExtendToDeclaration(declaration)(acc)
-        : Array.append(declaration)(acc);
-
-
-const applyExtend =
-    Array.foldl([])(foldFunction);
+    return Array.foldl([])(foldFunction)(declarations);
+};
 
 
 module.exports = {
