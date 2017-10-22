@@ -72,6 +72,21 @@ assumptionEqual(Okay(10).mapError(n => n * 10), Okay(10));
 assumptionEqual(Error(10).mapError(n => n * 10), Error(100));
 
 
+
+Result$.prototype.asPromise = function() {
+    const This =
+        this;
+
+    return new Promise(function(resolve, reject) {
+        if (This.isOkay()) {
+            resolve(This.content[1]);
+        } else {
+            reject(This.content[1]);
+        }
+    });
+};
+
+
 module.exports = {
     Error,
     Okay,
