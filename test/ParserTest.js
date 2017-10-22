@@ -45,32 +45,46 @@ const parseFile = content => {
 
 
 const processFile = name => content => assertion => {
-    const ast =
-        Parser.program(LexerConfiguration.fromNamedString(name)(content.src.join("\n")));
+    return Parser.program(LexerConfiguration.fromNamedString(name)(content.src.join("\n"))).asPromise()
+        .then(ast => {
+            const astAssertion =
+                content.ast
+                    ? assertion.equals(asString(ast.result).trim())(content.ast.join("\n").trim())
+                    : assertion.isTrue(true);
 
-    const parseAST =
-        content.ast
-            ? assertion
-                .isTrue(ast.isOkay())
-                .equals(asString(ast.content[1].result).trim())(content.ast.join("\n").trim())
-            : assertion;
+            const syntaxAssertion =
+                content.syntax
+                    ? astAssertion.fail("Expected a parsing error")
+                    : astAssertion;
 
-    const syntaxErrors =
-        content.syntax
-            ? parseAST
-                .isTrue(ast.isError())
-                .equals(asString(ast.content[1].result.content).trim())(content.syntax.join("\n").trim())
-            : parseAST;
+            return content.js
+                ? Translator
+                    .translate(Transform.applyExtend(ast.result.declarations))
+                    .reduce(
+                        okay =>
+                            syntaxAssertion.equals(okay.trim())(content.js.join("\n").trim()))(
+                        err =>
+                            syntaxAssertion.fail(err))
+                : syntaxAssertion;
+        })
+        .catch(err => {
+            const errContent =
+                err.result.content;
 
-    if (content.js) {
-        const translation = Translator.translate(Transform.applyExtend(ast.content[1].result.declarations));
+            const astAssertion =
+                content.ast
+                    ? assertion.fail(asString(errContent))
+                    : assertion.isTrue(true);
 
-        return syntaxErrors
-            .isTrue(translation.isOkay())
-            .equals(translation.content[1].trim())(content.js.join("\n").trim());
-    } else {
-        return syntaxErrors;
-    }
+            const syntaxAssertion =
+                content.syntax
+                    ? astAssertion.equals(asString(errContent).trim())(content.syntax.join("\n").trim())
+                    : astAssertion;
+
+            return content.js
+                ? syntaxAssertion.fail(JSON.stringify(errContent, null, 2))
+                : syntaxAssertion;
+        });
 };
 
 
@@ -82,8 +96,11 @@ const loadSuite = suiteName => fileSystemName =>
                 ? FileSystem
                     .readFile(fileSystemName)
                     .then(content => parseFile(content.split("\n")))
-                    .then(content => Unit.Test(suiteName + ": " + content.name)(processFile(suiteName)(content)(Assertion)))
-                    .catch(error => Unit.Test(suiteName)(Assertion.fail(error)))
+                    .then(content =>
+                        Promise.all([content, processFile(suiteName)(content)(Assertion)]))
+                    .then(result =>
+                        Unit.Test(suiteName + ": " + result[0].name)(result[1]))
+                    .catch(error => Unit.Test(suiteName)(Assertion.fail(JSON.stringify(error))))
 
                 : FileSystem
                     .readdir(fileSystemName)
