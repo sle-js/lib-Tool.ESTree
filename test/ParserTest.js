@@ -44,13 +44,13 @@ const parseFile = content => {
 };
 
 
-const processFile = name => content => assertion => {
+const processFile = name => content => {
     return Parser.program(LexerConfiguration.fromNamedString(name)(content.src.join("\n"))).asPromise()
         .then(ast => {
             const astAssertion =
                 content.ast
-                    ? assertion.equals(asString(ast.result).trim())(content.ast.join("\n").trim())
-                    : assertion.isTrue(true);
+                    ? Assertion.equals(asString(ast.result).trim())(content.ast.join("\n").trim())
+                    : Assertion.AllGood;
 
             const syntaxAssertion =
                 content.syntax
@@ -73,8 +73,8 @@ const processFile = name => content => assertion => {
 
             const astAssertion =
                 content.ast
-                    ? assertion.fail(asString(errContent))
-                    : assertion.isTrue(true);
+                    ? Assertion.fail(asString(errContent))
+                    : Assertion.AllGood;
 
             const syntaxAssertion =
                 content.syntax
@@ -97,7 +97,7 @@ const loadSuite = suiteName => fileSystemName =>
                     .readFile(fileSystemName)
                     .then(content => parseFile(content.split("\n")))
                     .then(content =>
-                        Promise.all([content, processFile(suiteName)(content)(Assertion)]))
+                        Promise.all([content, processFile(suiteName)(content)]))
                     .then(result =>
                         Unit.Test(suiteName + ": " + result[0].name)(result[1]))
                     .catch(error => Unit.Test(suiteName)(Assertion.fail(JSON.stringify(error))))
