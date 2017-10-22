@@ -82,7 +82,7 @@ const processFile = name => content => {
                     : astAssertion;
 
             return content.js
-                ? syntaxAssertion.fail(JSON.stringify(errContent, null, 2))
+                ? syntaxAssertion.fail(asString(errContent))
                 : syntaxAssertion;
         });
 };
