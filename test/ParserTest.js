@@ -74,7 +74,7 @@ const processFile = fileName => name => content => {
         })
         .catch(err => {
             const errContent =
-                err.result ? err.result.content : err;
+                err.result ? err.result.content : err.content ? err.content : err;
 
             const astAssertion =
                 content.ast

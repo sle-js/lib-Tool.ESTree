@@ -1,6 +1,7 @@
 const Path = require("path");
 
 const Array = require("./Libs").Array;
+const Errors = require("./Errors");
 const ESTreeAST = require("./ESTreeAST");
 const FileSystem = require("./FileSystem");
 const LexerConfiguration = require("./LexerConfiguration");
@@ -50,12 +51,14 @@ const applyImport = programFileName => programAST => {
             Path.dirname(programFileName);
 
         const importFileName =
-            Path.resolve(programDirectoryName, String.drop(5)(programAST.importURL));
+            Path.resolve(programDirectoryName, String.drop(5)(programAST.importURL.value));
 
         return loadFile(importFileName)
             .then(content => parseString(Path.relative(programDirectoryName, importFileName))(content))
             .then(astResult => applyImport(importFileName)(astResult.result))
-            .then(ast => ESTreeAST.Program(programAST.loc, null, Array.concat(ast.declarations)(programAST.declarations)));
+            .then(ast => ESTreeAST.Program(programAST.loc, null, Array.concat(ast.declarations)(programAST.declarations)))
+            .catch(err =>
+                Promise.reject(Errors.InvalidImport(programAST.importURL.loc)(programAST.importURL.value)(err.code)));
     }
 };
 

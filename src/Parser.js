@@ -54,7 +54,7 @@ function program(lexer) {
     return C.andMap([
         C.optional(C.and([
             C.backtrack(token(Tokens.IMPORT)),
-            tokenValue(Tokens.constantURL),
+            tokenMap(Tokens.constantURL)(t => ESTreeAST.Literal(locationAt(t), valueOf(t))),
             token(Tokens.SEMICOLON)
         ])),
         C.many(def),
