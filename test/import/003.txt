@@ -1,0 +1,23 @@
+-- Attempt to import a directory
+import file:./../import;
+
+interface Expression <: Node {
+    type: "Hello";
+}
+-- syntax
+{
+  "kind": "InvalidImport",
+  "loc": {
+    "source": "003.txt",
+    "start": {
+      "line": 1,
+      "column": 7
+    },
+    "end": {
+      "line": 1,
+      "column": 22
+    }
+  },
+  "url": "file:./../import",
+  "code": "EISDIR"
+}
