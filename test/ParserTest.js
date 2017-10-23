@@ -13,7 +13,9 @@ const Parser = require("../src/Parser");
 
 
 const asString = o =>
-    JSON.stringify(o, null, 2);
+    o.kind
+        ? JSON.stringify(o, null, 2)
+        : o;
 
 
 const parseFile = content => {
@@ -72,7 +74,7 @@ const processFile = name => content => {
         })
         .catch(err => {
             const errContent =
-                err.result.content;
+                err.result ? err.result.content : err;
 
             const astAssertion =
                 content.ast
