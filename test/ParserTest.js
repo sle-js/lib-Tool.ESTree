@@ -48,9 +48,9 @@ const parseFile = content => {
 };
 
 
-const processFile = name => content => {
+const processFile = fileName => name => content => {
     return Parser.program(LexerConfiguration.fromNamedString(name)(content.src.join("\n"))).asPromise()
-        .then(astResult => Transform.applyImport(Path.resolve(__dirname, name))(astResult.result))
+        .then(astResult => Transform.applyImport(fileName)(astResult.result))
         .then(ast => {
             const astAssertion =
                 content.ast
@@ -102,19 +102,20 @@ const loadSuite = suiteName => fileSystemName =>
                     .readFile(fileSystemName)
                     .then(content => parseFile(content.split("\n")))
                     .then(content =>
-                        Promise.all([content, processFile(suiteName)(content)]))
+                        Promise.all([content, processFile(fileSystemName)(suiteName)(content)]))
                     .then(result =>
                         Unit.Test(suiteName + ": " + result[0].name)(result[1]))
                     .catch(error => Unit.Test(suiteName)(Assertion.fail(JSON.stringify(error))))
 
                 : FileSystem
                     .readdir(fileSystemName)
-                    .then(directoryContents => Unit.Suite(suiteName)(directoryContents.map(file => loadSuite(file)(fileSystemName + "/" + file)))));
+                    .then(directoryContents => Unit.Suite(suiteName)(directoryContents.filter(file =>file.endsWith(".txt")).map(file => loadSuite(file)(Path.resolve(fileSystemName, file))))));
 
 
 module.exports =
     Unit.Suite("ESTree")([
         loadSuite("Parser")("./test/parser"),
         loadSuite("Syntax Errors")("./test/syntaxerrors"),
+        loadSuite("Import")("./test/import"),
         loadSuite("Translation")("./test/translation")
     ]);

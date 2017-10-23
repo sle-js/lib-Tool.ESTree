@@ -1,5 +1,11 @@
+const Path = require("path");
+
 const Array = require("./Libs").Array;
 const ESTreeAST = require("./ESTreeAST");
+const FileSystem = require("./FileSystem");
+const LexerConfiguration = require("./LexerConfiguration");
+const Parser = require("./Parser");
+const String = require("./Libs").String;
 
 
 const isInterface = declaration =>
@@ -30,10 +36,28 @@ const applyExtend = declarations => {
 };
 
 
-const applyImport = context => programAST =>
-    programAST.importURL === null
-        ? Promise.resolve(programAST)
-        : Promise.resolve(programAST);
+const applyImport = programFileName => programAST => {
+    const loadFile = fileName =>
+        FileSystem.readFile(fileName);
+
+    const parseString = fileName => content =>
+        Parser.program(LexerConfiguration.fromNamedString(fileName)(content)).asPromise();
+
+    if (programAST.importURL === null) {
+        return Promise.resolve(programAST);
+    } else {
+        const programDirectoryName =
+            Path.dirname(programFileName);
+
+        const importFileName =
+            Path.resolve(programDirectoryName, String.drop(5)(programAST.importURL));
+
+        return loadFile(importFileName)
+            .then(content => parseString(Path.relative(programDirectoryName, importFileName))(content))
+            .then(astResult => applyImport(importFileName)(astResult.result))
+            .then(ast => ESTreeAST.Program(programAST.loc, null, Array.concat(ast.declarations)(programAST.declarations)));
+    }
+};
 
 
 module.exports = {
