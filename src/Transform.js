@@ -30,11 +30,10 @@ const applyExtend = declarations => {
 };
 
 
-const applyImport = context => programAST => {
+const applyImport = context => programAST =>
     programAST.importURL === null
         ? Promise.resolve(programAST)
         : Promise.resolve(programAST);
-};
 
 
 module.exports = {
