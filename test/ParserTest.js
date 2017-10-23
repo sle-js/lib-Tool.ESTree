@@ -1,3 +1,5 @@
+const Path = require("path");
+
 const Array = require("./Libs").Array;
 const Assertion = require("./Libs").Assertion;
 const FileSystem = require("../src/FileSystem");
@@ -46,10 +48,11 @@ const parseFile = content => {
 
 const processFile = name => content => {
     return Parser.program(LexerConfiguration.fromNamedString(name)(content.src.join("\n"))).asPromise()
+        .then(astResult => Transform.applyImport(Path.resolve(__dirname, name))(astResult.result))
         .then(ast => {
             const astAssertion =
                 content.ast
-                    ? Assertion.equals(asString(ast.result).trim())(content.ast.join("\n").trim())
+                    ? Assertion.equals(asString(ast).trim())(content.ast.join("\n").trim())
                     : Assertion.AllGood;
 
             const syntaxAssertion =
@@ -59,7 +62,7 @@ const processFile = name => content => {
 
             return content.js
                 ? Translator
-                    .translate(Transform.applyExtend(ast.result.declarations))
+                    .translate(Transform.applyExtend(ast.declarations))
                     .reduce(
                         okay =>
                             syntaxAssertion.equals(okay.trim())(content.js.join("\n").trim()))(
