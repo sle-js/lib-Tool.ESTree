@@ -138,6 +138,7 @@ const backtrack = parser => lexer => {
 
 
 module.exports = {
+    and,
     andMap,
     backtrack,
     sepBy1,
