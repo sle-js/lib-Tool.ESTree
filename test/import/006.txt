@@ -1,0 +1,28 @@
+-- An attempt to import an non-existent file from an imported file should return the nested error
+import file:./006.estree;
+
+interface Expression <: Node {
+    type: "Hello";
+}
+-- syntax
+{
+  "kind": "ExpectedTokens",
+  "loc": {
+    "source": "006.estree",
+    "position": {
+      "line": 2,
+      "column": 4
+    }
+  },
+  "found": {
+    "id": 10,
+    "symbol": "name",
+    "value": "type"
+  },
+  "expected": [
+    {
+      "id": 13,
+      "symbol": "{"
+    }
+  ]
+}
