@@ -17,20 +17,21 @@ const Location = source => position =>
     ({source, position});
 
 
-function ErrorsType(content) {
+function Errors$(content) {
     this.content = content;
 }
 
 
 const ExpectedTokens = loc => found => expected =>
-    new ErrorsType({kind: "ExpectedTokens", loc, found, expected});
+    new Errors$({kind: "ExpectedTokens", loc, found, expected});
 
 
 const InvalidImport = loc => url => code =>
-    new ErrorsType({kind: "InvalidImport", loc, url, code});
+    new Errors$({kind: "InvalidImport", loc, url, code});
 
 
 module.exports = {
+    Errors$,
     Location,
     Position,
     ExpectedTokens,
