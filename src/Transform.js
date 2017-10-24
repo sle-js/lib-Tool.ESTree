@@ -51,7 +51,7 @@ const applyImport = programFileName => programAST => {
             Path.resolve(programDirectoryName, String.drop(5)(programAST.importURL.value));
 
         const mergeImport = ast =>
-            ESTreeAST.Program(programAST.loc, null, Array.concat(ast.declarations)(programAST.declarations))
+            ESTreeAST.Program(programAST.loc, null, Array.concat(ast.declarations)(programAST.declarations));
 
         return FileSystem.readFile(importFileName)
             .then(parseString(Path.relative(programDirectoryName, importFileName)))
