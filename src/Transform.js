@@ -39,7 +39,7 @@ const applyExtend = declarations => {
 
 const applyImport = programFileName => programAST => {
     const parseString = fileName => content =>
-        Parser.program(LexerConfiguration.fromNamedString(fileName)(content)).asPromise();
+        Parser.program(LexerConfiguration.fromNamedString(fileName)(content)).map(astResult => astResult.result).asPromise();
 
     if (programAST.importURL === null) {
         return Promise.resolve(programAST);
@@ -52,7 +52,7 @@ const applyImport = programFileName => programAST => {
 
         return FileSystem.readFile(importFileName)
             .then(content => parseString(Path.relative(programDirectoryName, importFileName))(content))
-            .then(astResult => applyImport(importFileName)(astResult.result))
+            .then(astResult => applyImport(importFileName)(astResult))
             .then(ast => ESTreeAST.Program(programAST.loc, null, Array.concat(ast.declarations)(programAST.declarations)))
             .catch(err =>
                 err instanceof Errors.Errors$
