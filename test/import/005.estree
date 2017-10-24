@@ -1,0 +1,6 @@
+import file:./005b.estree;
+
+interface Node {
+    type: string;
+    loc: Location;
+}

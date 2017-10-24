@@ -58,7 +58,9 @@ const applyImport = programFileName => programAST => {
             .then(astResult => applyImport(importFileName)(astResult.result))
             .then(ast => ESTreeAST.Program(programAST.loc, null, Array.concat(ast.declarations)(programAST.declarations)))
             .catch(err =>
-                Promise.reject(Errors.InvalidImport(programAST.importURL.loc)(programAST.importURL.value)(err.code)));
+                err instanceof Errors.Errors$
+                    ? Promise.reject(err)
+                    : Promise.reject(Errors.InvalidImport(programAST.importURL.loc)(programAST.importURL.value)(err.code)));
     }
 };
 
