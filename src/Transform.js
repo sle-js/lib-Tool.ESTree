@@ -38,12 +38,12 @@ const applyExtend = declarations => {
 
 
 const applyImport = programFileName => programAST => {
-    const parseString = fileName => content =>
-        Parser.program(LexerConfiguration.fromNamedString(fileName)(content)).map(astResult => astResult.result).asPromise();
-
     if (programAST.importURL === null) {
         return Promise.resolve(programAST);
     } else {
+        const parseString = fileName => content =>
+            Parser.program(LexerConfiguration.fromNamedString(fileName)(content)).map(astResult => astResult.result).asPromise();
+
         const programDirectoryName =
             Path.dirname(programFileName);
 
