@@ -117,5 +117,6 @@ module.exports =
         loadSuite("Parser")("./test/parser"),
         loadSuite("Syntax Errors")("./test/syntaxerrors"),
         loadSuite("Import")("./test/import"),
-        loadSuite("Translation")("./test/translation")
+        loadSuite("Translation")("./test/translation"),
+        loadSuite("Validation Errors")("./test/validationerrors")
     ]);

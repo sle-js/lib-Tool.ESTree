@@ -1,0 +1,90 @@
+-- Duplicate declaration names
+interface Node {
+    type: string;
+}
+
+enum Range {
+    "a" | "b"
+}
+
+interface Node {
+    type: string;
+}
+
+enum Range {
+    "a" | "b"
+}
+
+interface Node {
+    type: string;
+}
+-- validation
+[
+    {
+      "kind": "DuplicateIdentifier",
+      "locs": [
+          {
+            "source": "001.txt",
+            "start": {
+              "line": 1,
+              "column": 10
+            },
+            "end": {
+              "line": 1,
+              "column": 13
+            }
+          },
+          {
+            "source": "001.txt",
+            "start": {
+              "line": 9,
+              "column": 10
+            },
+            "end": {
+              "line": 9,
+              "column": 13
+            }
+          },
+          {
+            "source": "001.txt",
+            "start": {
+              "line": 17,
+              "column": 10
+            },
+            "end": {
+              "line": 17,
+              "column": 13
+            }
+          }
+      ],
+      "name": "Node"
+    },
+    {
+      "kind": "DuplicateIdentifier",
+      "locs": [
+          {
+            "source": "001.txt",
+            "start": {
+              "line": 5,
+              "column": 5
+            },
+            "end": {
+              "line": 5,
+              "column": 9
+            }
+          },
+          {
+            "source": "001.txt",
+            "start": {
+              "line": 13,
+              "column": 5
+            },
+            "end": {
+              "line": 13,
+              "column": 9
+            }
+          }
+      ],
+      "name": "Range"
+    }
+]
