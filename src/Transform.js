@@ -41,6 +41,10 @@ const applyImport = programFileName => programAST => {
     if (programAST.importURL === null) {
         return Promise.resolve(programAST);
     } else {
+        const loadImportedFile = fileName =>
+            FileSystem.readFile(fileName)
+                .catch(err => Promise.reject(Errors.InvalidImport(programAST.importURL.loc)(programAST.importURL.value)(err.code)));
+
         const parseString = fileName => content =>
             Parser.program(LexerConfiguration.fromNamedString(fileName)(content)).map(astResult => astResult.result).asPromise();
 
@@ -53,14 +57,10 @@ const applyImport = programFileName => programAST => {
         const mergeImport = ast =>
             ESTreeAST.Program(programAST.loc, null, Array.concat(ast.declarations)(programAST.declarations));
 
-        return FileSystem.readFile(importFileName)
+        return loadImportedFile(importFileName)
             .then(parseString(Path.relative(programDirectoryName, importFileName)))
             .then(applyImport(importFileName))
-            .then(mergeImport)
-            .catch(err =>
-                err instanceof Errors.Errors$
-                    ? Promise.reject(err)
-                    : Promise.reject(Errors.InvalidImport(programAST.importURL.loc)(programAST.importURL.value)(err.code)));
+            .then(mergeImport);
     }
 };
 
