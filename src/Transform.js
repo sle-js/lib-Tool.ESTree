@@ -50,10 +50,13 @@ const applyImport = programFileName => programAST => {
         const importFileName =
             Path.resolve(programDirectoryName, String.drop(5)(programAST.importURL.value));
 
+        const mergeImport = ast =>
+            ESTreeAST.Program(programAST.loc, null, Array.concat(ast.declarations)(programAST.declarations))
+
         return FileSystem.readFile(importFileName)
-            .then(content => parseString(Path.relative(programDirectoryName, importFileName))(content))
-            .then(astResult => applyImport(importFileName)(astResult))
-            .then(ast => ESTreeAST.Program(programAST.loc, null, Array.concat(ast.declarations)(programAST.declarations)))
+            .then(parseString(Path.relative(programDirectoryName, importFileName)))
+            .then(applyImport(importFileName))
+            .then(mergeImport)
             .catch(err =>
                 err instanceof Errors.Errors$
                     ? Promise.reject(err)
