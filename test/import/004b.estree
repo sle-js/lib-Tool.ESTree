@@ -1,0 +1,10 @@
+interface Position {
+    column: int;
+    row: int;
+}
+
+
+interface Location {
+    name: string;
+    position: Position;
+}
