@@ -1,4 +1,4 @@
--- An attempt to import an non-existent file from an imported file should return the nested error
+-- A syntax error reported on an imported file should propagate through to the top
 import file:./006.estree;
 
 interface Expression <: Node {
