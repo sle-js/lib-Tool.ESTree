@@ -20,71 +20,71 @@ interface Node {
 }
 -- validation
 [
-    {
-      "kind": "DuplicateIdentifier",
-      "locs": [
-          {
-            "source": "001.txt",
-            "start": {
-              "line": 1,
-              "column": 10
-            },
-            "end": {
-              "line": 1,
-              "column": 13
-            }
-          },
-          {
-            "source": "001.txt",
-            "start": {
-              "line": 9,
-              "column": 10
-            },
-            "end": {
-              "line": 9,
-              "column": 13
-            }
-          },
-          {
-            "source": "001.txt",
-            "start": {
-              "line": 17,
-              "column": 10
-            },
-            "end": {
-              "line": 17,
-              "column": 13
-            }
-          }
-      ],
-      "name": "Node"
-    },
-    {
-      "kind": "DuplicateIdentifier",
-      "locs": [
-          {
-            "source": "001.txt",
-            "start": {
-              "line": 5,
-              "column": 5
-            },
-            "end": {
-              "line": 5,
-              "column": 9
-            }
-          },
-          {
-            "source": "001.txt",
-            "start": {
-              "line": 13,
-              "column": 5
-            },
-            "end": {
-              "line": 13,
-              "column": 9
-            }
-          }
-      ],
-      "name": "Range"
-    }
+  {
+    "kind": "DuplicateIdentifier",
+    "locs": [
+      {
+        "source": "001.txt",
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 3,
+          "column": 0
+        }
+      },
+      {
+        "source": "001.txt",
+        "start": {
+          "line": 9,
+          "column": 0
+        },
+        "end": {
+          "line": 11,
+          "column": 0
+        }
+      },
+      {
+        "source": "001.txt",
+        "start": {
+          "line": 17,
+          "column": 0
+        },
+        "end": {
+          "line": 19,
+          "column": 0
+        }
+      }
+    ],
+    "name": "Node"
+  },
+  {
+    "kind": "DuplicateIdentifier",
+    "locs": [
+      {
+        "source": "001.txt",
+        "start": {
+          "line": 5,
+          "column": 0
+        },
+        "end": {
+          "line": 7,
+          "column": 0
+        }
+      },
+      {
+        "source": "001.txt",
+        "start": {
+          "line": 13,
+          "column": 0
+        },
+        "end": {
+          "line": 15,
+          "column": 0
+        }
+      }
+    ],
+    "name": "Range"
+  }
 ]

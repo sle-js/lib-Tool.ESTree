@@ -1,19 +1,20 @@
 const Path = require("path");
 
-const Array = require("./Libs").Array;
+const $Array = require("./Libs").Array;
 const Assertion = require("./Libs").Assertion;
 const FileSystem = require("../src/FileSystem");
 const String = require("./Libs").String;
 const Transform = require("../src/Transform");
 const Translator = require("../src/Translator");
 const Unit = require("./Libs").Unit;
+const Validation = require("../src/Validation");
 
 const LexerConfiguration = require("../src/LexerConfiguration");
 const Parser = require("../src/Parser");
 
 
 const asString = o =>
-    o.kind
+    o.kind || Array.isArray(o)
         ? JSON.stringify(o, null, 2)
         : o;
 
@@ -34,17 +35,17 @@ const parseFile = content => {
             const result =
                 Object.assign({}, acc);
 
-            result[result.current] = Array.append(item)(result[result.current]);
+            result[result.current] = $Array.append(item)(result[result.current]);
 
             return result;
         }
     };
 
-    return Array.foldl({
+    return $Array.foldl({
         current: "src",
         name: String.trim(String.drop(2)(content[0])),
         src: []
-    })(newLine)(Array.drop(1)(content));
+    })(newLine)($Array.drop(1)(content));
 };
 
 
@@ -62,15 +63,20 @@ const processFile = fileName => name => content => {
                     ? astAssertion.fail("Expected a parsing error")
                     : astAssertion;
 
+            const validationAssertion =
+                content.validation
+                    ? syntaxAssertion.equals(asString(Validation.duplicateIdentifiers(ast)).trim())(content.validation.join("\n").trim())
+                    : syntaxAssertion;
+
             return content.js
                 ? Translator
                     .translate(Transform.applyExtend(ast.declarations))
                     .reduce(
                         okay =>
-                            syntaxAssertion.equals(okay.trim())(content.js.join("\n").trim()))(
+                            validationAssertion.equals(okay.trim())(content.js.join("\n").trim()))(
                         err =>
-                            syntaxAssertion.fail(err))
-                : syntaxAssertion;
+                            validationAssertion.fail(err))
+                : validationAssertion;
         })
         .catch(err => {
             const errContent =
@@ -86,9 +92,14 @@ const processFile = fileName => name => content => {
                     ? astAssertion.equals(asString(errContent).trim())(content.syntax.join("\n").trim())
                     : astAssertion;
 
+            const validationAssertion =
+                content.ast
+                    ? syntaxAssertion.fail(asString(errContent))
+                    : syntaxAssertion;
+
             return content.js
-                ? syntaxAssertion.fail(asString(errContent))
-                : syntaxAssertion;
+                ? validationAssertion.fail(asString(errContent))
+                : validationAssertion;
         });
 };
 
