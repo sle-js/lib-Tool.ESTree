@@ -18,11 +18,6 @@ const Location = source => position =>
     ({source, position});
 
 
-function Errors$(content) {
-    this.content = content;
-}
-
-
 const ExpectedTokens = loc => found => expected =>
     ({kind: "ExpectedTokens", loc, found, expected});
 
@@ -36,7 +31,6 @@ const DuplicateIdentifier = locs => name =>
 
 
 module.exports = {
-    Errors$,
     Location,
     Position,
     DuplicateIdentifier,
