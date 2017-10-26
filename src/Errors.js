@@ -24,11 +24,11 @@ function Errors$(content) {
 
 
 const ExpectedTokens = loc => found => expected =>
-    new Errors$({kind: "ExpectedTokens", loc, found, expected});
+    ({kind: "ExpectedTokens", loc, found, expected});
 
 
 const InvalidImport = loc => url => code =>
-    new Errors$({kind: "InvalidImport", loc, url, code});
+    ({kind: "InvalidImport", loc, url, code});
 
 
 const DuplicateIdentifier = locs => name =>
