@@ -31,7 +31,7 @@ const declarationMap = ast => {
 
 
 const duplicateIdentifiers = ast => {
-    return Array.map(node => Errors.DuplicateIdentifier(Array.map(declaration => declaration.loc)(node[1]))(node[0]))(Array.filter(node => Array.length(node[1]) > 1)(Map.entries(declarationMap(ast))));
+    return Array.map(node => Errors.DuplicateIdentifier(Array.map(declaration => declaration.name.loc)(node[1]))(node[0]))(Array.filter(node => Array.length(node[1]) > 1)(Map.entries(declarationMap(ast))));
 };
 
 
