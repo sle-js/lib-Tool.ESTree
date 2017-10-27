@@ -8,6 +8,7 @@
 //      ExpectedTokens { loc :: Location, found :: { id :: Int, symbol :: String, value :: String }, expected :: Array { id :: Int, symbol :: String } }
 //    | InvalidImport { loc :: Location, url :: String, reason :: String }
 //    | DuplicateIdentifier { locs :: Array Location, name :: String }
+//    | UnknownInterface { loc :: Location, name :: String }
 
 
 const Position = line => column =>
@@ -30,10 +31,15 @@ const DuplicateIdentifier = locs => name =>
     ({kind: "DuplicateIdentifier", locs, name});
 
 
+const UnknownInterface = loc => name =>
+    ({kind: "UnknownInterface", loc, name});
+
+
 module.exports = {
     Location,
     Position,
     DuplicateIdentifier,
     ExpectedTokens,
-    InvalidImport
+    InvalidImport,
+    UnknownInterface
 };
