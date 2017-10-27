@@ -36,7 +36,21 @@ interface Array {
           "column": 0
         }
       },
-      "name": "Array",
+      "name": {
+        "kind": "Name",
+        "loc": {
+          "source": "006.txt",
+          "start": {
+            "line": 1,
+            "column": 10
+          },
+          "end": {
+            "line": 1,
+            "column": 14
+          }
+        },
+        "value": "Array"
+      },
       "props": [
         {
           "kind": "Property",
@@ -51,7 +65,21 @@ interface Array {
               "column": 20
             }
           },
-          "name": "simple",
+          "name": {
+            "kind": "Name",
+            "loc": {
+              "source": "006.txt",
+              "start": {
+                "line": 2,
+                "column": 4
+              },
+              "end": {
+                "line": 2,
+                "column": 9
+              }
+            },
+            "value": "simple"
+          },
           "value": {
             "kind": "Array",
             "loc": {
@@ -78,7 +106,21 @@ interface Array {
                   "column": 18
                 }
               },
-              "name": "string"
+              "name": {
+                "kind": "Name",
+                "loc": {
+                  "source": "006.txt",
+                  "start": {
+                    "line": 2,
+                    "column": 13
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 18
+                  }
+                },
+                "value": "string"
+              }
             }
           }
         },
@@ -95,7 +137,21 @@ interface Array {
               "column": 40
             }
           },
-          "name": "lessSimple",
+          "name": {
+            "kind": "Name",
+            "loc": {
+              "source": "006.txt",
+              "start": {
+                "line": 3,
+                "column": 4
+              },
+              "end": {
+                "line": 3,
+                "column": 13
+              }
+            },
+            "value": "lessSimple"
+          },
           "value": {
             "kind": "Array",
             "loc": {
@@ -136,7 +192,21 @@ interface Array {
                       "column": 22
                     }
                   },
-                  "name": "string"
+                  "name": {
+                    "kind": "Name",
+                    "loc": {
+                      "source": "006.txt",
+                      "start": {
+                        "line": 3,
+                        "column": 17
+                      },
+                      "end": {
+                        "line": 3,
+                        "column": 22
+                      }
+                    },
+                    "value": "string"
+                  }
                 },
                 {
                   "kind": "Reference",
@@ -151,7 +221,21 @@ interface Array {
                       "column": 31
                     }
                   },
-                  "name": "number"
+                  "name": {
+                    "kind": "Name",
+                    "loc": {
+                      "source": "006.txt",
+                      "start": {
+                        "line": 3,
+                        "column": 26
+                      },
+                      "end": {
+                        "line": 3,
+                        "column": 31
+                      }
+                    },
+                    "value": "number"
+                  }
                 },
                 {
                   "kind": "Literal",
@@ -185,7 +269,21 @@ interface Array {
               "column": 6
             }
           },
-          "name": "complex",
+          "name": {
+            "kind": "Name",
+            "loc": {
+              "source": "006.txt",
+              "start": {
+                "line": 4,
+                "column": 4
+              },
+              "end": {
+                "line": 4,
+                "column": 10
+              }
+            },
+            "value": "complex"
+          },
           "value": {
             "kind": "Array",
             "loc": {
@@ -226,7 +324,21 @@ interface Array {
                       "column": 17
                     }
                   },
-                  "name": "a",
+                  "name": {
+                    "kind": "Name",
+                    "loc": {
+                      "source": "006.txt",
+                      "start": {
+                        "line": 5,
+                        "column": 8
+                      },
+                      "end": {
+                        "line": 5,
+                        "column": 8
+                      }
+                    },
+                    "value": "a"
+                  },
                   "value": {
                     "kind": "Reference",
                     "loc": {
@@ -240,7 +352,21 @@ interface Array {
                         "column": 16
                       }
                     },
-                    "name": "string"
+                    "name": {
+                      "kind": "Name",
+                      "loc": {
+                        "source": "006.txt",
+                        "start": {
+                          "line": 5,
+                          "column": 11
+                        },
+                        "end": {
+                          "line": 5,
+                          "column": 16
+                        }
+                      },
+                      "value": "string"
+                    }
                   }
                 },
                 {
@@ -256,7 +382,21 @@ interface Array {
                       "column": 17
                     }
                   },
-                  "name": "b",
+                  "name": {
+                    "kind": "Name",
+                    "loc": {
+                      "source": "006.txt",
+                      "start": {
+                        "line": 6,
+                        "column": 8
+                      },
+                      "end": {
+                        "line": 6,
+                        "column": 8
+                      }
+                    },
+                    "value": "b"
+                  },
                   "value": {
                     "kind": "Reference",
                     "loc": {
@@ -270,7 +410,21 @@ interface Array {
                         "column": 16
                       }
                     },
-                    "name": "number"
+                    "name": {
+                      "kind": "Name",
+                      "loc": {
+                        "source": "006.txt",
+                        "start": {
+                          "line": 6,
+                          "column": 11
+                        },
+                        "end": {
+                          "line": 6,
+                          "column": 16
+                        }
+                      },
+                      "value": "number"
+                    }
                   }
                 }
               ]

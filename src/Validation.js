@@ -14,11 +14,11 @@ const isEnum = declaration =>
 const declarationMap = ast => {
     const addTo = declaration => map => {
         const node =
-            Map.get(declaration.name)(map)
+            Map.get(declaration.name.value)(map)
                 .map(node => Array.append(declaration)(node))
                 .withDefault([declaration]);
 
-        return Map.insert(declaration.name)(node)(map);
+        return Map.insert(declaration.name.value)(node)(map);
     };
 
     const f = map => declaration =>

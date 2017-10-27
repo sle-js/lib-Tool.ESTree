@@ -33,7 +33,21 @@ interface Expression <: Node { }
           "column": 0
         }
       },
-      "name": "Node",
+      "name": {
+        "kind": "Name",
+        "loc": {
+          "source": "004.txt",
+          "start": {
+            "line": 1,
+            "column": 10
+          },
+          "end": {
+            "line": 1,
+            "column": 13
+          }
+        },
+        "value": "Node"
+      },
       "props": [
         {
           "kind": "Property",
@@ -48,7 +62,21 @@ interface Expression <: Node { }
               "column": 16
             }
           },
-          "name": "type",
+          "name": {
+            "kind": "Name",
+            "loc": {
+              "source": "004.txt",
+              "start": {
+                "line": 2,
+                "column": 4
+              },
+              "end": {
+                "line": 2,
+                "column": 7
+              }
+            },
+            "value": "type"
+          },
           "value": {
             "kind": "Reference",
             "loc": {
@@ -62,7 +90,21 @@ interface Expression <: Node { }
                 "column": 15
               }
             },
-            "name": "string"
+            "name": {
+              "kind": "Name",
+              "loc": {
+                "source": "004.txt",
+                "start": {
+                  "line": 2,
+                  "column": 10
+                },
+                "end": {
+                  "line": 2,
+                  "column": 15
+                }
+              },
+              "value": "string"
+            }
           }
         }
       ],
@@ -81,10 +123,38 @@ interface Expression <: Node { }
           "column": 31
         }
       },
-      "name": "Expression",
+      "name": {
+        "kind": "Name",
+        "loc": {
+          "source": "004.txt",
+          "start": {
+            "line": 5,
+            "column": 10
+          },
+          "end": {
+            "line": 5,
+            "column": 19
+          }
+        },
+        "value": "Expression"
+      },
       "props": [],
       "base": [
-        "Node"
+        {
+          "kind": "Name",
+          "loc": {
+            "source": "004.txt",
+            "start": {
+              "line": 5,
+              "column": 24
+            },
+            "end": {
+              "line": 5,
+              "column": 27
+            }
+          },
+          "value": "Node"
+        }
       ]
     }
   ]

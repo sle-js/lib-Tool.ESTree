@@ -43,7 +43,21 @@ interface Position {
           "column": 0
         }
       },
-      "name": "Node",
+      "name": {
+        "kind": "Name",
+        "loc": {
+          "source": "002.txt",
+          "start": {
+            "line": 1,
+            "column": 10
+          },
+          "end": {
+            "line": 1,
+            "column": 13
+          }
+        },
+        "value": "Node"
+      },
       "props": [
         {
           "kind": "Property",
@@ -58,7 +72,21 @@ interface Position {
               "column": 16
             }
           },
-          "name": "type",
+          "name": {
+            "kind": "Name",
+            "loc": {
+              "source": "002.txt",
+              "start": {
+                "line": 2,
+                "column": 4
+              },
+              "end": {
+                "line": 2,
+                "column": 7
+              }
+            },
+            "value": "type"
+          },
           "value": {
             "kind": "Reference",
             "loc": {
@@ -72,7 +100,21 @@ interface Position {
                 "column": 15
               }
             },
-            "name": "string"
+            "name": {
+              "kind": "Name",
+              "loc": {
+                "source": "002.txt",
+                "start": {
+                  "line": 2,
+                  "column": 10
+                },
+                "end": {
+                  "line": 2,
+                  "column": 15
+                }
+              },
+              "value": "string"
+            }
           }
         },
         {
@@ -88,7 +130,21 @@ interface Position {
               "column": 23
             }
           },
-          "name": "loc",
+          "name": {
+            "kind": "Name",
+            "loc": {
+              "source": "002.txt",
+              "start": {
+                "line": 3,
+                "column": 4
+              },
+              "end": {
+                "line": 3,
+                "column": 6
+              }
+            },
+            "value": "loc"
+          },
           "value": {
             "kind": "Reference",
             "loc": {
@@ -102,7 +158,21 @@ interface Position {
                 "column": 22
               }
             },
-            "name": "SourceLocation"
+            "name": {
+              "kind": "Name",
+              "loc": {
+                "source": "002.txt",
+                "start": {
+                  "line": 3,
+                  "column": 9
+                },
+                "end": {
+                  "line": 3,
+                  "column": 22
+                }
+              },
+              "value": "SourceLocation"
+            }
           }
         }
       ],
@@ -121,7 +191,21 @@ interface Position {
           "column": 0
         }
       },
-      "name": "SourceLocation",
+      "name": {
+        "kind": "Name",
+        "loc": {
+          "source": "002.txt",
+          "start": {
+            "line": 6,
+            "column": 10
+          },
+          "end": {
+            "line": 6,
+            "column": 23
+          }
+        },
+        "value": "SourceLocation"
+      },
       "props": [
         {
           "kind": "Property",
@@ -136,7 +220,21 @@ interface Position {
               "column": 18
             }
           },
-          "name": "source",
+          "name": {
+            "kind": "Name",
+            "loc": {
+              "source": "002.txt",
+              "start": {
+                "line": 7,
+                "column": 4
+              },
+              "end": {
+                "line": 7,
+                "column": 9
+              }
+            },
+            "value": "source"
+          },
           "value": {
             "kind": "Reference",
             "loc": {
@@ -150,7 +248,21 @@ interface Position {
                 "column": 17
               }
             },
-            "name": "string"
+            "name": {
+              "kind": "Name",
+              "loc": {
+                "source": "002.txt",
+                "start": {
+                  "line": 7,
+                  "column": 12
+                },
+                "end": {
+                  "line": 7,
+                  "column": 17
+                }
+              },
+              "value": "string"
+            }
           }
         },
         {
@@ -166,7 +278,21 @@ interface Position {
               "column": 19
             }
           },
-          "name": "start",
+          "name": {
+            "kind": "Name",
+            "loc": {
+              "source": "002.txt",
+              "start": {
+                "line": 8,
+                "column": 4
+              },
+              "end": {
+                "line": 8,
+                "column": 8
+              }
+            },
+            "value": "start"
+          },
           "value": {
             "kind": "Reference",
             "loc": {
@@ -180,7 +306,21 @@ interface Position {
                 "column": 18
               }
             },
-            "name": "Position"
+            "name": {
+              "kind": "Name",
+              "loc": {
+                "source": "002.txt",
+                "start": {
+                  "line": 8,
+                  "column": 11
+                },
+                "end": {
+                  "line": 8,
+                  "column": 18
+                }
+              },
+              "value": "Position"
+            }
           }
         },
         {
@@ -196,7 +336,21 @@ interface Position {
               "column": 17
             }
           },
-          "name": "end",
+          "name": {
+            "kind": "Name",
+            "loc": {
+              "source": "002.txt",
+              "start": {
+                "line": 9,
+                "column": 4
+              },
+              "end": {
+                "line": 9,
+                "column": 6
+              }
+            },
+            "value": "end"
+          },
           "value": {
             "kind": "Reference",
             "loc": {
@@ -210,7 +364,21 @@ interface Position {
                 "column": 16
               }
             },
-            "name": "Position"
+            "name": {
+              "kind": "Name",
+              "loc": {
+                "source": "002.txt",
+                "start": {
+                  "line": 9,
+                  "column": 9
+                },
+                "end": {
+                  "line": 9,
+                  "column": 16
+                }
+              },
+              "value": "Position"
+            }
           }
         }
       ],
@@ -229,7 +397,21 @@ interface Position {
           "column": 0
         }
       },
-      "name": "Position",
+      "name": {
+        "kind": "Name",
+        "loc": {
+          "source": "002.txt",
+          "start": {
+            "line": 12,
+            "column": 10
+          },
+          "end": {
+            "line": 12,
+            "column": 17
+          }
+        },
+        "value": "Position"
+      },
       "props": [
         {
           "kind": "Property",
@@ -244,7 +426,21 @@ interface Position {
               "column": 16
             }
           },
-          "name": "line",
+          "name": {
+            "kind": "Name",
+            "loc": {
+              "source": "002.txt",
+              "start": {
+                "line": 13,
+                "column": 4
+              },
+              "end": {
+                "line": 13,
+                "column": 7
+              }
+            },
+            "value": "line"
+          },
           "value": {
             "kind": "Reference",
             "loc": {
@@ -258,7 +454,21 @@ interface Position {
                 "column": 15
               }
             },
-            "name": "number"
+            "name": {
+              "kind": "Name",
+              "loc": {
+                "source": "002.txt",
+                "start": {
+                  "line": 13,
+                  "column": 10
+                },
+                "end": {
+                  "line": 13,
+                  "column": 15
+                }
+              },
+              "value": "number"
+            }
           }
         },
         {
@@ -274,7 +484,21 @@ interface Position {
               "column": 18
             }
           },
-          "name": "column",
+          "name": {
+            "kind": "Name",
+            "loc": {
+              "source": "002.txt",
+              "start": {
+                "line": 14,
+                "column": 4
+              },
+              "end": {
+                "line": 14,
+                "column": 9
+              }
+            },
+            "value": "column"
+          },
           "value": {
             "kind": "Reference",
             "loc": {
@@ -288,7 +512,21 @@ interface Position {
                 "column": 17
               }
             },
-            "name": "number"
+            "name": {
+              "kind": "Name",
+              "loc": {
+                "source": "002.txt",
+                "start": {
+                  "line": 14,
+                  "column": 12
+                },
+                "end": {
+                  "line": 14,
+                  "column": 17
+                }
+              },
+              "value": "number"
+            }
           }
         }
       ],

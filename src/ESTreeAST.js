@@ -20,14 +20,19 @@
  *      column: number;
  * }
  *
+ * interface Name <: Node {
+ *      kind: "Name";
+ *      value: string;
+ * }
+ *
  * interface Declaration <: Node {
- *      name: string;
+ *      name: Name;
  * }
  *
  * interface Interface <: Declaration {
  *      kind: "Interface";
  *      props: [ Property ];
- *      base: [ string ];
+ *      base: [ Name ];
  * }
  *
  * interface ExtendInterface <: Declaration {
@@ -42,7 +47,7 @@
  *
  * interface Property <: Node {
  *      kind: "Property";
- *      name: string;
+ *      name: Name;
  *      value: Type;
  * }
  *
@@ -60,7 +65,7 @@
  *
  * interface Reference <: Type {
  *      kind: "Reference";
- *      name: string;
+ *      name: Name;
  * }
  *
  * interface Array <: Type {
@@ -89,6 +94,12 @@ const SourceLocation = (source, start, end) =>
 
 const Position = (line, column) =>
     ({line, column});
+
+
+const Name = (loc, value) =>
+    Object.assign({},
+        Node("Name", loc),
+        {kind: "Name", value});
 
 
 const Declaration = (kind, loc, name) =>
@@ -166,6 +177,7 @@ module.exports = {
     Node,
     SourceLocation,
     Position,
+    Name,
     Declaration,
     Interface,
     ExtendInterface,

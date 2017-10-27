@@ -33,7 +33,21 @@ interface Expression <: Node {
           "column": 0
         }
       },
-      "name": "Position",
+      "name": {
+        "kind": "Name",
+        "loc": {
+          "source": "004b.estree",
+          "start": {
+            "line": 1,
+            "column": 10
+          },
+          "end": {
+            "line": 1,
+            "column": 17
+          }
+        },
+        "value": "Position"
+      },
       "props": [
         {
           "kind": "Property",
@@ -48,7 +62,21 @@ interface Expression <: Node {
               "column": 15
             }
           },
-          "name": "column",
+          "name": {
+            "kind": "Name",
+            "loc": {
+              "source": "004b.estree",
+              "start": {
+                "line": 2,
+                "column": 4
+              },
+              "end": {
+                "line": 2,
+                "column": 9
+              }
+            },
+            "value": "column"
+          },
           "value": {
             "kind": "Reference",
             "loc": {
@@ -62,7 +90,21 @@ interface Expression <: Node {
                 "column": 14
               }
             },
-            "name": "int"
+            "name": {
+              "kind": "Name",
+              "loc": {
+                "source": "004b.estree",
+                "start": {
+                  "line": 2,
+                  "column": 12
+                },
+                "end": {
+                  "line": 2,
+                  "column": 14
+                }
+              },
+              "value": "int"
+            }
           }
         },
         {
@@ -78,7 +120,21 @@ interface Expression <: Node {
               "column": 12
             }
           },
-          "name": "row",
+          "name": {
+            "kind": "Name",
+            "loc": {
+              "source": "004b.estree",
+              "start": {
+                "line": 3,
+                "column": 4
+              },
+              "end": {
+                "line": 3,
+                "column": 6
+              }
+            },
+            "value": "row"
+          },
           "value": {
             "kind": "Reference",
             "loc": {
@@ -92,7 +148,21 @@ interface Expression <: Node {
                 "column": 11
               }
             },
-            "name": "int"
+            "name": {
+              "kind": "Name",
+              "loc": {
+                "source": "004b.estree",
+                "start": {
+                  "line": 3,
+                  "column": 9
+                },
+                "end": {
+                  "line": 3,
+                  "column": 11
+                }
+              },
+              "value": "int"
+            }
           }
         }
       ],
@@ -111,7 +181,21 @@ interface Expression <: Node {
           "column": 0
         }
       },
-      "name": "Location",
+      "name": {
+        "kind": "Name",
+        "loc": {
+          "source": "004b.estree",
+          "start": {
+            "line": 7,
+            "column": 10
+          },
+          "end": {
+            "line": 7,
+            "column": 17
+          }
+        },
+        "value": "Location"
+      },
       "props": [
         {
           "kind": "Property",
@@ -126,7 +210,21 @@ interface Expression <: Node {
               "column": 16
             }
           },
-          "name": "name",
+          "name": {
+            "kind": "Name",
+            "loc": {
+              "source": "004b.estree",
+              "start": {
+                "line": 8,
+                "column": 4
+              },
+              "end": {
+                "line": 8,
+                "column": 7
+              }
+            },
+            "value": "name"
+          },
           "value": {
             "kind": "Reference",
             "loc": {
@@ -140,7 +238,21 @@ interface Expression <: Node {
                 "column": 15
               }
             },
-            "name": "string"
+            "name": {
+              "kind": "Name",
+              "loc": {
+                "source": "004b.estree",
+                "start": {
+                  "line": 8,
+                  "column": 10
+                },
+                "end": {
+                  "line": 8,
+                  "column": 15
+                }
+              },
+              "value": "string"
+            }
           }
         },
         {
@@ -156,7 +268,21 @@ interface Expression <: Node {
               "column": 22
             }
           },
-          "name": "position",
+          "name": {
+            "kind": "Name",
+            "loc": {
+              "source": "004b.estree",
+              "start": {
+                "line": 9,
+                "column": 4
+              },
+              "end": {
+                "line": 9,
+                "column": 11
+              }
+            },
+            "value": "position"
+          },
           "value": {
             "kind": "Reference",
             "loc": {
@@ -170,7 +296,21 @@ interface Expression <: Node {
                 "column": 21
               }
             },
-            "name": "Position"
+            "name": {
+              "kind": "Name",
+              "loc": {
+                "source": "004b.estree",
+                "start": {
+                  "line": 9,
+                  "column": 14
+                },
+                "end": {
+                  "line": 9,
+                  "column": 21
+                }
+              },
+              "value": "Position"
+            }
           }
         }
       ],
@@ -189,7 +329,21 @@ interface Expression <: Node {
           "column": 0
         }
       },
-      "name": "Node",
+      "name": {
+        "kind": "Name",
+        "loc": {
+          "source": "004a.estree",
+          "start": {
+            "line": 3,
+            "column": 10
+          },
+          "end": {
+            "line": 3,
+            "column": 13
+          }
+        },
+        "value": "Node"
+      },
       "props": [
         {
           "kind": "Property",
@@ -204,7 +358,21 @@ interface Expression <: Node {
               "column": 16
             }
           },
-          "name": "type",
+          "name": {
+            "kind": "Name",
+            "loc": {
+              "source": "004a.estree",
+              "start": {
+                "line": 4,
+                "column": 4
+              },
+              "end": {
+                "line": 4,
+                "column": 7
+              }
+            },
+            "value": "type"
+          },
           "value": {
             "kind": "Reference",
             "loc": {
@@ -218,7 +386,21 @@ interface Expression <: Node {
                 "column": 15
               }
             },
-            "name": "string"
+            "name": {
+              "kind": "Name",
+              "loc": {
+                "source": "004a.estree",
+                "start": {
+                  "line": 4,
+                  "column": 10
+                },
+                "end": {
+                  "line": 4,
+                  "column": 15
+                }
+              },
+              "value": "string"
+            }
           }
         },
         {
@@ -234,7 +416,21 @@ interface Expression <: Node {
               "column": 17
             }
           },
-          "name": "loc",
+          "name": {
+            "kind": "Name",
+            "loc": {
+              "source": "004a.estree",
+              "start": {
+                "line": 5,
+                "column": 4
+              },
+              "end": {
+                "line": 5,
+                "column": 6
+              }
+            },
+            "value": "loc"
+          },
           "value": {
             "kind": "Reference",
             "loc": {
@@ -248,7 +444,21 @@ interface Expression <: Node {
                 "column": 16
               }
             },
-            "name": "Location"
+            "name": {
+              "kind": "Name",
+              "loc": {
+                "source": "004a.estree",
+                "start": {
+                  "line": 5,
+                  "column": 9
+                },
+                "end": {
+                  "line": 5,
+                  "column": 16
+                }
+              },
+              "value": "Location"
+            }
           }
         }
       ],
@@ -267,7 +477,21 @@ interface Expression <: Node {
           "column": 0
         }
       },
-      "name": "Expression",
+      "name": {
+        "kind": "Name",
+        "loc": {
+          "source": "004.txt",
+          "start": {
+            "line": 3,
+            "column": 10
+          },
+          "end": {
+            "line": 3,
+            "column": 19
+          }
+        },
+        "value": "Expression"
+      },
       "props": [
         {
           "kind": "Property",
@@ -282,7 +506,21 @@ interface Expression <: Node {
               "column": 17
             }
           },
-          "name": "type",
+          "name": {
+            "kind": "Name",
+            "loc": {
+              "source": "004.txt",
+              "start": {
+                "line": 4,
+                "column": 4
+              },
+              "end": {
+                "line": 4,
+                "column": 7
+              }
+            },
+            "value": "type"
+          },
           "value": {
             "kind": "Literal",
             "loc": {
@@ -301,7 +539,21 @@ interface Expression <: Node {
         }
       ],
       "base": [
-        "Node"
+        {
+          "kind": "Name",
+          "loc": {
+            "source": "004.txt",
+            "start": {
+              "line": 3,
+              "column": 24
+            },
+            "end": {
+              "line": 3,
+              "column": 27
+            }
+          },
+          "value": "Node"
+        }
       ]
     }
   ]

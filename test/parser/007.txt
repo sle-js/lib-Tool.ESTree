@@ -31,7 +31,21 @@ enum UnaryOperator {
           "column": 0
         }
       },
-      "name": "UnaryOperator",
+      "name": {
+        "kind": "Name",
+        "loc": {
+          "source": "007.txt",
+          "start": {
+            "line": 1,
+            "column": 5
+          },
+          "end": {
+            "line": 1,
+            "column": 17
+          }
+        },
+        "value": "UnaryOperator"
+      },
       "values": [
         {
           "kind": "Literal",

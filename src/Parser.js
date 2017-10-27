@@ -67,28 +67,28 @@ function def(lexer) {
     return or([Tokens.INTERFACE, Tokens.EXTEND, Tokens.ENUM])([
         C.andMap([
             C.backtrack(token(Tokens.INTERFACE)),
-            token(Tokens.NAME),
+            tokenName,
             C.optionalMap(
                 C.andMap([
                     C.backtrack(token(Tokens.LESS_COLON)),
-                    C.sepBy1(tokenValue(Tokens.NAME))(C.backtrack(token(Tokens.COMMA)))
+                    C.sepBy1(tokenName)(C.backtrack(token(Tokens.COMMA)))
                 ])(a => a[1])
             )(a => a.withDefault([])),
             object
-        ])(a => ESTreeAST.Interface(stretchSourceLocation(locationAt(a[0]))(a[3].loc), valueOf(a[1]), a[3].properties, a[2])),
+        ])(a => ESTreeAST.Interface(stretchSourceLocation(locationAt(a[0]))(a[3].loc), a[1], a[3].properties, a[2])),
         C.andMap([
             C.backtrack(token(Tokens.EXTEND)),
             token(Tokens.INTERFACE),
-            token(Tokens.NAME),
+            tokenName,
             object
-        ])(a => ESTreeAST.ExtendInterface(stretchSourceLocation(locationAt(a[0]))(a[3].loc), valueOf(a[2]), a[3].properties)),
+        ])(a => ESTreeAST.ExtendInterface(stretchSourceLocation(locationAt(a[0]))(a[3].loc), a[2], a[3].properties)),
         C.andMap([
             C.backtrack(token(Tokens.ENUM)),
-            token(Tokens.NAME),
+            tokenName,
             token(Tokens.LCURLY),
             C.sepBy1(literal)(C.backtrack(token(Tokens.BAR))),
             token(Tokens.RCURLY)
-        ])(a => ESTreeAST.Enum(location(a[0])(a[4]), valueOf(a[1]), a[3]))
+        ])(a => ESTreeAST.Enum(location(a[0])(a[4]), a[1], a[3]))
     ])(lexer);
 }
 
@@ -104,11 +104,12 @@ function object(lexer) {
 
 function prop(lexer) {
     return C.andMap([
-        C.backtrack(token(Tokens.NAME)),
+        C.backtrack(tokenName),
         token(Tokens.COLON),
         unionType,
         token(Tokens.SEMICOLON)
-    ])(a => ESTreeAST.Property(location(a[0])(a[3]), valueOf(a[0]), a[2]))(lexer);
+    ])(a =>
+        ESTreeAST.Property(stretchSourceLocation(a[0].loc)(locationAt(a[3])), a[0], a[2]))(lexer);
 }
 
 
@@ -120,7 +121,7 @@ function unionType(lexer) {
 function type(lexer) {
     return or([Tokens.NULL, Tokens.TRUE, Tokens.FALSE, Tokens.constantInteger, Tokens.constantString, Tokens.NAME, Tokens.LSQUARE, Tokens.LCURLY])([
         C.backtrack(literal),
-        C.backtrack(tokenMap(Tokens.NAME)(t => ESTreeAST.Reference(locationAt(t), valueOf(t)))),
+        C.backtrack(tokenNameMap(t => ESTreeAST.Reference(t.loc, t))),
         C.andMap([
             C.backtrack(token(Tokens.LSQUARE)),
             unionType,
@@ -146,8 +147,12 @@ const valueOf = token =>
     token.state.token.value;
 
 
-const tokenValue = t =>
-    tokenMap(t)(valueOf);
+const tokenName = lexer =>
+    tokenMap(Tokens.NAME)(t => ESTreeAST.Name(locationAt(t), t.state.token.value))(lexer);
+
+
+const tokenNameMap = f => lexer =>
+    tokenMap(Tokens.NAME)(t => f(ESTreeAST.Name(locationAt(t), t.state.token.value)))(lexer);
 
 
 const tokenConstant = t => c => lexer =>

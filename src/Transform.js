@@ -26,7 +26,7 @@ const applyExtend = declarations => {
             interfaceDeclaration.base);
 
     const applyExtendToDeclaration = extendInterfaceDeclaration =>
-        Array.map(d => isInterface(d) && d.name === extendInterfaceDeclaration.name ? extendInterface(d)(extendInterfaceDeclaration) : d);
+        Array.map(d => isInterface(d) && d.name.value === extendInterfaceDeclaration.name.value ? extendInterface(d)(extendInterfaceDeclaration) : d);
 
     const foldFunction = acc => declaration =>
         isExtendInterface(declaration)

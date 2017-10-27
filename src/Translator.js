@@ -24,7 +24,7 @@ const isEnum = declaration =>
 
 
 const removeAll = needles => a =>
-    Array.filter(item => !Array.any(i => i.name === item.name)(needles))(a);
+    Array.filter(item => !Array.any(i => i.name.value === item.name.value)(needles))(a);
 
 
 const translate = ast => {
@@ -32,7 +32,7 @@ const translate = ast => {
         Array.filter(x => isInterface(x) || isEnum(x))(ast);
 
     const find = name =>
-        Array.findMap(object => object.name === name ? Maybe.Just(object) : Maybe.Nothing)(ast);
+        Array.findMap(object => object.name.value === name.value ? Maybe.Just(object) : Maybe.Nothing)(ast);
 
     const allProperties = interfaceAST =>
         Array.concat(
@@ -67,23 +67,23 @@ const translate = ast => {
             nonLiteralProperties(interfaceAST);
 
         const findLiteralProp = name =>
-            Array.findMap(prop => prop.name === name && isLiteralProperty(prop) ? Maybe.Just(prop) : Maybe.Nothing)(interfaceAST.props);
+            Array.findMap(prop => prop.name.value === name.value && isLiteralProperty(prop) ? Maybe.Just(prop) : Maybe.Nothing)(interfaceAST.props);
 
         const renderPropLiteralValue = prop =>
             renderValue(prop.value.value);
 
         const renderPropLiteral = prop =>
-            prop.name + ": " + (renderPropLiteralValue(prop));
+            prop.name.value + ": " + (renderPropLiteralValue(prop));
 
         const renderProp = prop =>
             isLiteralProperty(prop)
                 ? renderPropLiteral(prop)
-                : findLiteralProp(prop.name).map(renderPropLiteralValue).withDefault(prop.name);
+                : findLiteralProp(prop.name).map(renderPropLiteralValue).withDefault(prop.name.value);
 
         const constructorBody =
             Array.length(interfaceAST.base) === 0
                 ? tab + "({" + properties.map(renderProp).join(", ") + "});"
-                : tab + "Object.assign({}" + interfaceAST.base.map(find).map(c => c.map(base => ",\n" + tab + tab + base.name + "(" + nonLiteralProperties(base).map(renderProp).join(", ") + ")").withDefault("")).join("") +
+                : tab + "Object.assign({}" + interfaceAST.base.map(find).map(c => c.map(base => ",\n" + tab + tab + base.name.value + "(" + nonLiteralProperties(base).map(renderProp).join(", ") + ")").withDefault("")).join("") +
 
                 (Array.length(interfaceAST.props) > 0
                     ? ",\n" + tab + tab + "{" + interfaceAST.props.map(renderProp).join(", ") + "}"
@@ -92,7 +92,7 @@ const translate = ast => {
                 ");";
 
         return [
-            "const " + interfaceAST.name + " = (" + nonLP.map(p => p.name).join(", ") + ") =>",
+            "const " + interfaceAST.name.value + " = (" + nonLP.map(p => p.name.value).join(", ") + ") =>",
             constructorBody
         ].join("\n");
     };
@@ -100,7 +100,7 @@ const translate = ast => {
 
     const enumConstructor = enumAST => {
         return [
-            "const " + enumAST.name + " = (value) =>",
+            "const " + enumAST.name.value + " = (value) =>",
             tab + "(" + enumAST.values.map(i => "value === " + renderValue(i.value)).join("\n" + tab + "|| ") + ")",
             tab + tab + "? value",
             tab + tab + ": undefined;"
@@ -114,7 +114,7 @@ const translate = ast => {
 
     const moduleExports = [
         "module.exports = {",
-        enumAndInterfaces.map(i => tab + i.name).join(",\n"),
+        enumAndInterfaces.map(i => tab + i.name.value).join(",\n"),
         "};"
     ];
 
