@@ -23,6 +23,10 @@ const get = k => m => {
 };
 
 
+const entries = m =>
+    [... m.entries()];
+
+
 const values = m =>
     [... m.values()];
 
@@ -32,5 +36,6 @@ module.exports = {
     singleton,
     insert,
     get,
+    entries,
     values
 };

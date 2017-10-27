@@ -1,5 +1,6 @@
 const Array = require("./Libs").Array;
 const Errors = require("./Errors");
+const Map = require("./Map");
 
 
 const isInterface = declaration =>
@@ -10,30 +11,27 @@ const isEnum = declaration =>
     declaration.kind === "Enum";
 
 
-const duplicateIdentifiers = ast => {
-    const addLocation = node => location =>
-        Errors.DuplicateIdentifier(Array.append(location)(node.locs))(node.name);
-
-    const addTo = map => declaration => {
+const declarationMap = ast => {
+    const addTo = declaration => map => {
         const node =
-            map.get(declaration.name)
-                ? addLocation(map.get(declaration.name))(declaration.loc)
-                : Errors.DuplicateIdentifier([declaration.loc])(declaration.name);
+            Map.get(declaration.name)(map)
+                .map(node => Array.append(declaration)(node))
+                .withDefault([declaration]);
 
-        map.set(declaration.name, node);
-
-        return map;
+        return Map.insert(declaration.name)(node)(map);
     };
 
     const f = map => declaration =>
-        (isInterface(declaration) || isEnum(declaration))
-            ? addTo(map)(declaration)
+        isInterface(declaration) || isEnum(declaration)
+            ? addTo(declaration)(map)
             : map;
 
-    const identifiers =
-        Array.foldl(new Map())(f)(ast.declarations);
+    return Array.foldl(Map.empty)(f)(ast.declarations);
+};
 
-    return Array.filter(node => Array.length(node.locs) > 1)([... identifiers.values()]);
+
+const duplicateIdentifiers = ast => {
+    return Array.map(node => Errors.DuplicateIdentifier(Array.map(declaration => declaration.loc)(node[1]))(node[0]))(Array.filter(node => Array.length(node[1]) > 1)(Map.entries(declarationMap(ast))));
 };
 
 
