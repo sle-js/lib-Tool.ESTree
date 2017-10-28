@@ -9,6 +9,7 @@
 //    | InvalidImport { loc :: Location, url :: String, reason :: String }
 //    | DuplicateIdentifier { locs :: Array Location, name :: String }
 //    | ExtendUnknownInterface { loc :: Location, name :: String }
+//    | BaseUnknownDeclaration { loc :: Location, name :: String }
 
 
 const Position = line => column =>
@@ -35,11 +36,16 @@ const ExtendUnknownInterface = loc => name =>
     ({kind: "ExtendUnknownInterface", loc, name});
 
 
+const BaseUnknownDeclaration = loc => name =>
+    ({kind: "BaseUnknownDeclaration", loc, name});
+
+
 module.exports = {
     Location,
     Position,
     DuplicateIdentifier,
     ExpectedTokens,
     InvalidImport,
-    ExtendUnknownInterface
+    ExtendUnknownInterface,
+    BaseUnknownDeclaration
 };

@@ -45,13 +45,21 @@ const extendUnknownInterfaces = ast => declarations =>
         .map(d => Errors.ExtendUnknownInterface(d.name.loc)(d.name.value));
 
 
+const baseReferencesUnknownInterface = ast => declarations =>
+    Array.flatten(ast.declarations
+        .filter(d => isInterface(d))
+        .map(d => d.base))
+        .filter(b => !Map.member(b.value)(declarations))
+        .map(b => Errors.BaseUnknownDeclaration(b.loc)(b.value));
+
 const validateAST = ast => {
     const declarations =
         declarationMap(ast);
 
     return Array.flatten([
         duplicateIdentifiers(declarations),
-        extendUnknownInterfaces(ast)(declarations)]);
+        extendUnknownInterfaces(ast)(declarations),
+        baseReferencesUnknownInterface(ast)(declarations)]);
 };
 
 

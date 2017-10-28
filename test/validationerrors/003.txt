@@ -1,0 +1,43 @@
+-- Attempt to inherit off of an unknown interface
+interface Node {
+    type: string;
+}
+
+interface Expression <: Node, Position {
+    name: integer;
+}
+
+interface Statement <: Mode, Expression { }
+-- validation
+[
+  {
+    "kind": "BaseUnknownDeclaration",
+    "loc": {
+      "source": "003.txt",
+      "start": {
+        "line": 5,
+        "column": 30
+      },
+      "end": {
+        "line": 5,
+        "column": 37
+      }
+    },
+    "name": "Position"
+  },
+  {
+    "kind": "BaseUnknownDeclaration",
+    "loc": {
+      "source": "003.txt",
+      "start": {
+        "line": 9,
+        "column": 23
+      },
+      "end": {
+        "line": 9,
+        "column": 26
+      }
+    },
+    "name": "Mode"
+  }
+]
