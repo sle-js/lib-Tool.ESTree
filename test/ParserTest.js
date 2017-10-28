@@ -65,7 +65,7 @@ const processFile = fileName => name => content => {
 
             const validationAssertion =
                 content.validation
-                    ? syntaxAssertion.equals(asString(Validation.duplicateIdentifiers(ast)).trim())(content.validation.join("\n").trim())
+                    ? syntaxAssertion.equals(asString(Validation.validateAST(ast)).trim())(content.validation.join("\n").trim())
                     : syntaxAssertion;
 
             return content.js
