@@ -10,6 +10,7 @@
 //    | DuplicateIdentifier { locs :: Array Location, name :: String }
 //    | ExtendUnknownInterface { loc :: Location, name :: String }
 //    | BaseUnknownDeclaration { loc :: Location, name :: String }
+//    | BaseReferencesEnum { loc :: Location, name :: String }
 
 
 const Position = line => column =>
@@ -40,6 +41,10 @@ const BaseUnknownDeclaration = loc => name =>
     ({kind: "BaseUnknownDeclaration", loc, name});
 
 
+const BaseReferencesEnum = loc => name =>
+    ({kind: "BaseUnknownDeclaration", loc, name});
+
+
 module.exports = {
     Location,
     Position,
@@ -47,5 +52,6 @@ module.exports = {
     ExpectedTokens,
     InvalidImport,
     ExtendUnknownInterface,
-    BaseUnknownDeclaration
+    BaseUnknownDeclaration,
+    BaseReferencesEnum
 };
