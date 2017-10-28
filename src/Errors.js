@@ -42,7 +42,7 @@ const BaseUnknownDeclaration = loc => name =>
 
 
 const BaseReferencesEnum = loc => name =>
-    ({kind: "BaseUnknownDeclaration", loc, name});
+    ({kind: "BaseReferencesEnum", loc, name});
 
 
 module.exports = {
