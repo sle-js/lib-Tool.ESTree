@@ -1,0 +1,26 @@
+-- Attempt to extend an unknown interface
+interface Node {
+    type: string;
+}
+
+extend interface Mode {
+    name: integer;
+}
+-- validation
+[
+  {
+    "kind": "ExtendUnknownInterface",
+    "loc": {
+      "source": "002.txt",
+      "start": {
+        "line": 5,
+        "column": 17
+      },
+      "end": {
+        "line": 5,
+        "column": 20
+      }
+    },
+    "name": "Mode"
+  }
+]

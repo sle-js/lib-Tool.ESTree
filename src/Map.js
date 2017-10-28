@@ -23,6 +23,10 @@ const get = k => m => {
 };
 
 
+const member = k => m =>
+    get(k)(m).isJust();
+
+
 const entries = m =>
     [... m.entries()];
 
@@ -33,9 +37,10 @@ const values = m =>
 
 module.exports = {
     empty,
-    singleton,
-    insert,
-    get,
     entries,
+    get,
+    insert,
+    member,
+    singleton,
     values
 };

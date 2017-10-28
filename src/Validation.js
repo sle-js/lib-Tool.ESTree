@@ -11,6 +11,10 @@ const isEnum = declaration =>
     declaration.kind === "Enum";
 
 
+const isExtendInterface = declaration =>
+    declaration.kind === "ExtendInterface";
+
+
 const declarationMap = ast => {
     const addTo = declaration => map => {
         const node =
@@ -35,11 +39,17 @@ const duplicateIdentifiers = declarations => {
 };
 
 
+const extendUnknownInterfaces = ast => declarations =>
+    ast.declarations
+        .filter(d => isExtendInterface(d) && !Map.member(d.name.value)(declarations))
+        .map(d => Errors.ExtendUnknownInterface(d.name.loc)(d.name.value));
+
+
 const validateAST = ast => {
     const declarations =
         declarationMap(ast);
 
-    return duplicateIdentifiers(declarations);
+    return Array.concat(duplicateIdentifiers(declarations))(extendUnknownInterfaces(ast)(declarations));
 };
 
 
