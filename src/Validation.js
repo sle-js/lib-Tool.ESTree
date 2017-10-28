@@ -49,7 +49,9 @@ const validateAST = ast => {
     const declarations =
         declarationMap(ast);
 
-    return Array.concat(duplicateIdentifiers(declarations))(extendUnknownInterfaces(ast)(declarations));
+    return Array.flatten([
+        duplicateIdentifiers(declarations),
+        extendUnknownInterfaces(ast)(declarations)]);
 };
 
 
