@@ -1,0 +1,35 @@
+-- Duplicate property name within an interface
+interface Node {
+    type: string;
+    name: string;
+    type: "Node";
+}
+-- validation
+[
+  {
+    "kind": "DuplicateProperty",
+    "originalLoc": {
+      "source": "005.txt",
+      "start": {
+        "line": 2,
+        "column": 4
+      },
+      "end": {
+        "line": 2,
+        "column": 7
+      }
+    },
+    "duplicateLoc": {
+      "source": "005.txt",
+      "start": {
+        "line": 4,
+        "column": 4
+      },
+      "end": {
+        "line": 4,
+        "column": 7
+      }
+    },
+    "name": "type"
+  }
+]

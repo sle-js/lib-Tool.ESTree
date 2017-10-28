@@ -62,6 +62,27 @@ const baseReferencesEnum = ast => declarations =>
         .map(b => Errors.BaseReferencesEnum(b.loc)(b.value));
 
 
+const duplicateInterfaceProperties = ast => {
+        const f = acc => prop =>
+            Map.member(prop.name.value)(acc.props)
+                ? {
+                    errors: Array.append(Errors.DuplicateProperty(Map.get(prop.name.value)(acc.props).withDefault(undefined))(prop.name.loc)(prop.name.value))(acc.errors),
+                    props: acc.props
+                }
+                : {
+                    errors: acc.errors,
+                    props: Map.insert(prop.name.value)(prop.name.loc)(acc.props)
+                };
+
+        const duplicateProperties = props =>
+            Array.foldl({errors: [], props: Map.empty})(f)(props);
+
+        return Array.flatten(ast.declarations
+            .filter(d => isInterface(d))
+            .map(d => duplicateProperties(d.props).errors));
+    }
+;
+
 const validateAST = ast => {
     const declarations =
         declarationMap(ast);
@@ -70,7 +91,8 @@ const validateAST = ast => {
         duplicateIdentifiers(declarations),
         extendUnknownInterfaces(ast)(declarations),
         baseReferencesUnknownDeclaration(ast)(declarations),
-        baseReferencesEnum(ast)(declarations)
+        baseReferencesEnum(ast)(declarations),
+        duplicateInterfaceProperties(ast)
     ]);
 };
 

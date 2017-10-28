@@ -11,6 +11,7 @@
 //    | ExtendUnknownInterface { loc :: Location, name :: String }
 //    | BaseUnknownDeclaration { loc :: Location, name :: String }
 //    | BaseReferencesEnum { loc :: Location, name :: String }
+//    | DuplicateProperty { originalLoc :: Location, duplicateLoc :: Location, name :: String }
 
 
 const Position = line => column =>
@@ -45,10 +46,15 @@ const BaseReferencesEnum = loc => name =>
     ({kind: "BaseReferencesEnum", loc, name});
 
 
+const DuplicateProperty = originalLoc => duplicateLoc => name =>
+    ({kind: "DuplicateProperty", originalLoc, duplicateLoc, name});
+
+
 module.exports = {
     BaseReferencesEnum,
     BaseUnknownDeclaration,
     DuplicateIdentifier,
+    DuplicateProperty,
     ExpectedTokens,
     ExtendUnknownInterface,
     InvalidImport,
