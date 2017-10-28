@@ -36,4 +36,12 @@ assumptionEqual(Array.set(3)(9)([0, 1, 2, 3, 4]), [0, 1, 2, 9, 4]);
 assumptionEqual(Array.set(4)(9)([0, 1, 2, 3, 4]), [0, 1, 2, 3, 9]);
 
 
+// Flatten an array.
+//= flatten :: Array Array a => Array a
+Array.flatten = a =>
+    a.reduce((x, y) => x.concat(y));
+assumptionEqual(Array.flatten([[]]), []);
+assumptionEqual(Array.flatten([[1], [], [2, 3]]), [1, 2, 3]);
+
+
 module.exports = Array;
