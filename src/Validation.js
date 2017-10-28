@@ -52,6 +52,7 @@ const baseReferencesUnknownInterface = ast => declarations =>
         .filter(b => !Map.member(b.value)(declarations))
         .map(b => Errors.BaseUnknownDeclaration(b.loc)(b.value));
 
+
 const validateAST = ast => {
     const declarations =
         declarationMap(ast);
@@ -59,7 +60,8 @@ const validateAST = ast => {
     return Array.flatten([
         duplicateIdentifiers(declarations),
         extendUnknownInterfaces(ast)(declarations),
-        baseReferencesUnknownInterface(ast)(declarations)]);
+        baseReferencesUnknownInterface(ast)(declarations)
+    ]);
 };
 
 

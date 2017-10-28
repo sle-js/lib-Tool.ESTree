@@ -46,12 +46,12 @@ const BaseReferencesEnum = loc => name =>
 
 
 module.exports = {
-    Location,
-    Position,
+    BaseReferencesEnum,
+    BaseUnknownDeclaration,
     DuplicateIdentifier,
     ExpectedTokens,
-    InvalidImport,
     ExtendUnknownInterface,
-    BaseUnknownDeclaration,
-    BaseReferencesEnum
+    InvalidImport,
+    Location,
+    Position
 };
