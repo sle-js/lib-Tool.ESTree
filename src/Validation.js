@@ -45,12 +45,21 @@ const extendUnknownInterfaces = ast => declarations =>
         .map(d => Errors.ExtendUnknownInterface(d.name.loc)(d.name.value));
 
 
-const baseReferencesUnknownInterface = ast => declarations =>
+const baseReferencesUnknownDeclaration = ast => declarations =>
     Array.flatten(ast.declarations
         .filter(d => isInterface(d))
         .map(d => d.base))
         .filter(b => !Map.member(b.value)(declarations))
         .map(b => Errors.BaseUnknownDeclaration(b.loc)(b.value));
+
+
+// baseReferencesEnum :: ESTreeAST -> (Map String -> Array Declaration) -> Array Errors
+const baseReferencesEnum = ast => declarations =>
+    Array.flatten(ast.declarations
+        .filter(d => isInterface(d))
+        .map(d => d.base))
+        .filter(b => Map.get(b.value)(declarations).map(Array.any(d => isEnum(d))).withDefault(false))
+        .map(b => Errors.BaseReferencesEnum(b.loc)(b.value));
 
 
 const validateAST = ast => {
@@ -60,7 +69,8 @@ const validateAST = ast => {
     return Array.flatten([
         duplicateIdentifiers(declarations),
         extendUnknownInterfaces(ast)(declarations),
-        baseReferencesUnknownInterface(ast)(declarations)
+        baseReferencesUnknownDeclaration(ast)(declarations),
+        baseReferencesEnum(ast)(declarations)
     ]);
 };
 

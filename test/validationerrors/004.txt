@@ -1,0 +1,26 @@
+-- Attempt to inherit off of an enum declaration
+enum Node {
+    "a" | "b" | "c"
+}
+
+interface Expression <: Node {
+    name: integer;
+}
+-- validation
+[
+  {
+    "kind": "BaseReferencesEnum",
+    "loc": {
+      "source": "004.txt",
+      "start": {
+        "line": 5,
+        "column": 24
+      },
+      "end": {
+        "line": 5,
+        "column": 27
+      }
+    },
+    "name": "Node"
+  }
+]
