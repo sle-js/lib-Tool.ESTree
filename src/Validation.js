@@ -35,9 +35,8 @@ const declarationMap = ast => {
 };
 
 
-const duplicateIdentifiers = declarations => {
-    return Array.map(node => Errors.DuplicateIdentifier(Array.map(declaration => declaration.name.loc)(node[1]))(node[0]))(Array.filter(node => Array.length(node[1]) > 1)(Map.entries(declarations)));
-};
+const duplicateIdentifiers = declarations =>
+    Array.map(node => Errors.DuplicateIdentifier(Array.map(declaration => declaration.name.loc)(node[1]))(node[0]))(Array.filter(node => Array.length(node[1]) > 1)(Map.entries(declarations)));
 
 
 const extendUnknownInterfaces = ast => declarations =>
@@ -48,7 +47,7 @@ const extendUnknownInterfaces = ast => declarations =>
 
 const baseReferencesUnknownDeclaration = ast => declarations =>
     Array.flatten(ast.declarations
-        .filter(d => isInterface(d))
+        .filter(isInterface)
         .map(d => d.base))
         .filter(b => !Map.member(b.value)(declarations))
         .map(b => Errors.BaseUnknownDeclaration(b.loc)(b.value));
@@ -57,32 +56,32 @@ const baseReferencesUnknownDeclaration = ast => declarations =>
 // baseReferencesEnum :: ESTreeAST -> (Map String -> Array Declaration) -> Array Errors
 const baseReferencesEnum = ast => declarations =>
     Array.flatten(ast.declarations
-        .filter(d => isInterface(d))
+        .filter(isInterface)
         .map(d => d.base))
         .filter(b => Map.get(b.value)(declarations).map(Array.any(d => isEnum(d))).withDefault(false))
         .map(b => Errors.BaseReferencesEnum(b.loc)(b.value));
 
 
 const duplicateInterfaceProperties = ast => {
-        const f = acc => prop =>
-            Map.member(prop.name.value)(acc.props)
-                ? {
-                    errors: Array.append(Errors.DuplicateProperty(Map.get(prop.name.value)(acc.props).withDefault(undefined))(prop.name.loc)(prop.name.value))(acc.errors),
-                    props: acc.props
-                }
-                : {
-                    errors: acc.errors,
-                    props: Map.insert(prop.name.value)(prop.name.loc)(acc.props)
-                };
+    const f = acc => prop =>
+        Map.member(prop.name.value)(acc.props)
+            ? {
+                errors: Array.append(Errors.DuplicateProperty(Map.get(prop.name.value)(acc.props).withDefault(undefined))(prop.name.loc)(prop.name.value))(acc.errors),
+                props: acc.props
+            }
+            : {
+                errors: acc.errors,
+                props: Map.insert(prop.name.value)(prop.name.loc)(acc.props)
+            };
 
-        const duplicateProperties = props =>
-            Array.foldl({errors: [], props: Map.empty})(f)(props);
+    const duplicateProperties =
+        Array.foldl({errors: [], props: Map.empty})(f);
 
-        return Array.flatten(Transform.applyExtend(ast.declarations)
-            .filter(d => isInterface(d))
-            .map(d => duplicateProperties(d.props).errors));
-    }
-;
+    return Array.flatten(Transform.applyExtend(ast.declarations)
+        .filter(isInterface)
+        .map(d => duplicateProperties(d.props).errors));
+};
+
 
 const validateAST = ast => {
     const declarations =
