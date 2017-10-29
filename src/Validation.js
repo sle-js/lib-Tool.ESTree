@@ -1,6 +1,7 @@
 const Array = require("./Libs").Array;
 const Errors = require("./Errors");
 const Map = require("./Map");
+const Transform = require("./Transform");
 
 
 const isInterface = declaration =>
@@ -77,7 +78,7 @@ const duplicateInterfaceProperties = ast => {
         const duplicateProperties = props =>
             Array.foldl({errors: [], props: Map.empty})(f)(props);
 
-        return Array.flatten(ast.declarations
+        return Array.flatten(Transform.applyExtend(ast.declarations)
             .filter(d => isInterface(d))
             .map(d => duplicateProperties(d.props).errors));
     }

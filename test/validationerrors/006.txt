@@ -1,0 +1,36 @@
+-- A duplicate property in an interface that is added through an extension
+import file:./006.estree;
+
+extend interface Node {
+    type: string;
+    loc: Location;
+}
+-- validation
+[
+  {
+    "kind": "DuplicateProperty",
+    "originalLoc": {
+      "source": "006.estree",
+      "start": {
+        "line": 2,
+        "column": 4
+      },
+      "end": {
+        "line": 2,
+        "column": 7
+      }
+    },
+    "duplicateLoc": {
+      "source": "006.txt",
+      "start": {
+        "line": 4,
+        "column": 4
+      },
+      "end": {
+        "line": 4,
+        "column": 7
+      }
+    },
+    "name": "type"
+  }
+]
