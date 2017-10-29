@@ -93,7 +93,7 @@ const processFile = fileName => name => content => {
                     : astAssertion;
 
             const validationAssertion =
-                content.ast
+                content.validation
                     ? syntaxAssertion.fail(asString(errContent))
                     : syntaxAssertion;
 
