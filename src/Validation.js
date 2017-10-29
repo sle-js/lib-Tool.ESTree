@@ -58,7 +58,7 @@ const baseReferencesEnum = ast => declarations =>
     Array.flatten(ast.declarations
         .filter(isInterface)
         .map(d => d.base))
-        .filter(b => Map.get(b.value)(declarations).map(Array.any(d => isEnum(d))).withDefault(false))
+        .filter(b => Map.get(b.value)(declarations).map(Array.any(isEnum)).withDefault(false))
         .map(b => Errors.BaseReferencesEnum(b.loc)(b.value));
 
 
