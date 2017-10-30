@@ -1,4 +1,5 @@
 const Array = mrequire("core:Native.Data.Array:1.1.0");
+const Maybe = mrequire("core:Native.Data.Maybe:1.0.0");
 
 
 //- Folds all of the elements from the right.
@@ -42,6 +43,20 @@ Array.flatten = a =>
     a.reduce((x, y) => x.concat(y));
 assumptionEqual(Array.flatten([[]]), []);
 assumptionEqual(Array.flatten([[1], [], [2, 3]]), [1, 2, 3]);
+
+
+// Find the first element in an array where the passed predicate is true
+//= find :: (a -> Bool) -> Array a -> Maybe a
+Array.find = p => a => {
+    for (let lp = 0; lp < a.length; lp += 1) {
+        if (p(a[lp])) {
+            return Maybe.Just(a[lp]);
+        }
+    }
+    return Maybe.Nothing;
+};
+assumptionEqual(Array.find(n => n > 4)([1, 2, 3, 4, 5, 6]), Maybe.Just(5));
+assumptionEqual(Array.find(n => n > 40)([1, 2, 3, 4, 5, 6]), Maybe.Nothing);
 
 
 module.exports = Array;
