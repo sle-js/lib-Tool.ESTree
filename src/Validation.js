@@ -83,6 +83,38 @@ const duplicateInterfaceProperties = ast => {
 };
 
 
+const detectCycles = ast => declarations => {
+    const detectCycle = declaration => path => {
+        const f = acc => b => {
+            if (b.value === path[0].name.value) {
+                return Array.append(Errors.InheritanceCycle(path.map(d => ({loc: d.loc, name: d.name}))))(acc);
+            } else if (Array.any(d => d.name.value === b.value)(path)) {
+                return acc;
+            } else {
+                return Map.get(b.value)(declarations).map(d => {
+                    const item = d[0];
+                    if (isInterface(item)) {
+                        const newPath = Array.append(item)(path);
+                        const newCycle = detectCycle(item)(newPath);
+
+                        return Array.concat(newCycle)(acc);
+                    } else {
+                        return acc;
+                    }
+                }).withDefault(acc);
+            }
+        };
+
+        return Array.foldl([])(f)(declaration.base);
+    };
+
+
+    return Array.flatten(ast.declarations
+        .filter(isInterface)
+        .map(d => detectCycle(d)([d])));
+};
+
+
 const validateAST = ast => {
     const declarations =
         declarationMap(ast);
@@ -92,7 +124,8 @@ const validateAST = ast => {
         extendUnknownInterfaces(ast)(declarations),
         baseReferencesUnknownDeclaration(ast)(declarations),
         baseReferencesEnum(ast)(declarations),
-        duplicateInterfaceProperties(ast)
+        duplicateInterfaceProperties(ast),
+        detectCycles(ast)(declarations)
     ]);
 };
 

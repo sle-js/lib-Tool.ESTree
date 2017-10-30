@@ -1,0 +1,282 @@
+-- Identify and report a cycle as an error
+interface Node <: Statement {
+    node: string;
+}
+
+interface Expression <: Node {
+    expression: string;
+}
+
+interface Statement <: Expression {
+    statement: string;
+}
+-- validation
+[
+  {
+    "kind": "InheritanceCycle",
+    "cycle": [
+      {
+        "loc": {
+          "source": "007.txt",
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 3,
+            "column": 0
+          }
+        },
+        "name": {
+          "kind": "Name",
+          "loc": {
+            "source": "007.txt",
+            "start": {
+              "line": 1,
+              "column": 10
+            },
+            "end": {
+              "line": 1,
+              "column": 13
+            }
+          },
+          "value": "Node"
+        }
+      },
+      {
+        "loc": {
+          "source": "007.txt",
+          "start": {
+            "line": 9,
+            "column": 0
+          },
+          "end": {
+            "line": 11,
+            "column": 0
+          }
+        },
+        "name": {
+          "kind": "Name",
+          "loc": {
+            "source": "007.txt",
+            "start": {
+              "line": 9,
+              "column": 10
+            },
+            "end": {
+              "line": 9,
+              "column": 18
+            }
+          },
+          "value": "Statement"
+        }
+      },
+      {
+        "loc": {
+          "source": "007.txt",
+          "start": {
+            "line": 5,
+            "column": 0
+          },
+          "end": {
+            "line": 7,
+            "column": 0
+          }
+        },
+        "name": {
+          "kind": "Name",
+          "loc": {
+            "source": "007.txt",
+            "start": {
+              "line": 5,
+              "column": 10
+            },
+            "end": {
+              "line": 5,
+              "column": 19
+            }
+          },
+          "value": "Expression"
+        }
+      }
+    ]
+  },
+  {
+    "kind": "InheritanceCycle",
+    "cycle": [
+      {
+        "loc": {
+          "source": "007.txt",
+          "start": {
+            "line": 5,
+            "column": 0
+          },
+          "end": {
+            "line": 7,
+            "column": 0
+          }
+        },
+        "name": {
+          "kind": "Name",
+          "loc": {
+            "source": "007.txt",
+            "start": {
+              "line": 5,
+              "column": 10
+            },
+            "end": {
+              "line": 5,
+              "column": 19
+            }
+          },
+          "value": "Expression"
+        }
+      },
+      {
+        "loc": {
+          "source": "007.txt",
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 3,
+            "column": 0
+          }
+        },
+        "name": {
+          "kind": "Name",
+          "loc": {
+            "source": "007.txt",
+            "start": {
+              "line": 1,
+              "column": 10
+            },
+            "end": {
+              "line": 1,
+              "column": 13
+            }
+          },
+          "value": "Node"
+        }
+      },
+      {
+        "loc": {
+          "source": "007.txt",
+          "start": {
+            "line": 9,
+            "column": 0
+          },
+          "end": {
+            "line": 11,
+            "column": 0
+          }
+        },
+        "name": {
+          "kind": "Name",
+          "loc": {
+            "source": "007.txt",
+            "start": {
+              "line": 9,
+              "column": 10
+            },
+            "end": {
+              "line": 9,
+              "column": 18
+            }
+          },
+          "value": "Statement"
+        }
+      }
+    ]
+  },
+  {
+    "kind": "InheritanceCycle",
+    "cycle": [
+      {
+        "loc": {
+          "source": "007.txt",
+          "start": {
+            "line": 9,
+            "column": 0
+          },
+          "end": {
+            "line": 11,
+            "column": 0
+          }
+        },
+        "name": {
+          "kind": "Name",
+          "loc": {
+            "source": "007.txt",
+            "start": {
+              "line": 9,
+              "column": 10
+            },
+            "end": {
+              "line": 9,
+              "column": 18
+            }
+          },
+          "value": "Statement"
+        }
+      },
+      {
+        "loc": {
+          "source": "007.txt",
+          "start": {
+            "line": 5,
+            "column": 0
+          },
+          "end": {
+            "line": 7,
+            "column": 0
+          }
+        },
+        "name": {
+          "kind": "Name",
+          "loc": {
+            "source": "007.txt",
+            "start": {
+              "line": 5,
+              "column": 10
+            },
+            "end": {
+              "line": 5,
+              "column": 19
+            }
+          },
+          "value": "Expression"
+        }
+      },
+      {
+        "loc": {
+          "source": "007.txt",
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 3,
+            "column": 0
+          }
+        },
+        "name": {
+          "kind": "Name",
+          "loc": {
+            "source": "007.txt",
+            "start": {
+              "line": 1,
+              "column": 10
+            },
+            "end": {
+              "line": 1,
+              "column": 13
+            }
+          },
+          "value": "Node"
+        }
+      }
+    ]
+  }
+]

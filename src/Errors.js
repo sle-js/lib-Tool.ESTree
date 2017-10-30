@@ -12,6 +12,7 @@
 //    | BaseUnknownDeclaration { loc :: Location, name :: String }
 //    | BaseReferencesEnum { loc :: Location, name :: String }
 //    | DuplicateProperty { originalLoc :: Location, duplicateLoc :: Location, name :: String }
+//    | InheritanceCycle { cycle :: Array { loc :: Location, name :: String } }
 
 
 const Position = line => column =>
@@ -50,6 +51,10 @@ const DuplicateProperty = originalLoc => duplicateLoc => name =>
     ({kind: "DuplicateProperty", originalLoc, duplicateLoc, name});
 
 
+const InheritanceCycle = cycle =>
+    ({kind: "InheritanceCycle", cycle});
+
+
 module.exports = {
     BaseReferencesEnum,
     BaseUnknownDeclaration,
@@ -57,6 +62,7 @@ module.exports = {
     DuplicateProperty,
     ExpectedTokens,
     ExtendUnknownInterface,
+    InheritanceCycle,
     InvalidImport,
     Location,
     Position
