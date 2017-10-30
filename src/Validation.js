@@ -87,7 +87,7 @@ const detectCycles = ast => declarations => {
     const detectCycle = declaration => path => {
         const f = acc => b => {
             if (b.value === path[0].name.value) {
-                return Array.append(Errors.InheritanceCycle(path.map(d => ({loc: d.loc, name: d.name}))))(acc);
+                return Array.append(Errors.InheritanceCycle(path.map(d => ({loc: d.name.loc, name: d.name.value}))))(acc);
             } else if (Array.any(d => d.name.value === b.value)(path)) {
                 return acc;
             } else {
