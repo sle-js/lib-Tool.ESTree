@@ -1,5 +1,5 @@
 // type Location =
-//      { source :: String, position :: Position }
+//      { source :: String, start :: Position, end :: Position }
 //
 // type Position =
 //      { line :: Int, column :: Int }
