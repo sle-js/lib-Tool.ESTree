@@ -35,19 +35,19 @@ assertKindIs = kind => errs =>
 module.exports = Unit.Suite("UseESTree")([
     catchTest("Source file does not exist")(
         Use.translate("./invalid_file_name_that_does_not_exist"))(
-        err => Assertion.equals(toString(err))(toString(Errors.SourceFileNotFound("./invalid_file_name_that_does_not_exist")))),
+        assertKindIs("SourceFileNotFound")),
 
     catchTest("Source file contains a syntax error")(
         Use.translate(path("./useestree/001.input")))(
-        err => Assertion.equals(err.kind)("ExpectedTokens")),
+        assertKindIs("ExpectedTokens")),
 
     catchTest("Source file contains an invalid import")(
         Use.translate(path("./useestree/002.input")))(
-        err => Assertion.equals(err.kind)("InvalidImport")),
+        assertKindIs("InvalidImport")),
 
     catchTest("Source file contains a valid import but the imported file has a syntax error")(
         Use.translate(path("./useestree/003.input")))(
-        err => Assertion.equals(err.kind)("ExpectedTokens")),
+        assertKindIs("ExpectedTokens")),
 
     catchTest("Source file contain validation errors")(
         Use.translate(path("./useestree/004.input")))(

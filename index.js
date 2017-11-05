@@ -25,7 +25,7 @@ const target = fileName =>
 const loadSourceFile = sourceName =>
     FileSystem
         .readFile(sourceName)
-        .catch(err => Promise.reject(Errors.SourceFileNotFound(sourceName)));
+        .catch(err => Promise.reject([Errors.SourceFileNotFound(sourceName)]));
 
 
 const validate = ast => {
@@ -43,9 +43,12 @@ const translate = sourceName => {
         .then(source =>
             Parser
                 .program(LexerConfiguration.fromNamedString(sourceName)(source))
-                .mapError(err => err.result)
+                .mapError(err => [err.result])
                 .asPromise())
-        .then(astResult => Transform.applyImport(sourceName)(astResult.result))
+        .then(astResult =>
+            Transform
+                .applyImport(sourceName)(astResult.result)
+                .catch(err => Promise.reject([err])))
         .then(validate)
         .then(ast => Promise.resolve(Transform.applyExtend(ast)))
         .then(ast => Translator.translate(ast).asPromise())
