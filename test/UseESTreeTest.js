@@ -28,6 +28,10 @@ const catchTest = name => promise => errorAssertion =>
         .catch(err => Unit.Test(name)(Assertion.fail("Error handler raised: " + err)));
 
 
+assertKindIs = kind => errs =>
+    Assertion.isTrue(Array.all(x => x.kind === kind)(errs));
+
+
 module.exports = Unit.Suite("UseESTree")([
     catchTest("Source file does not exist")(
         Use.translate("./invalid_file_name_that_does_not_exist"))(
@@ -47,5 +51,5 @@ module.exports = Unit.Suite("UseESTree")([
 
     catchTest("Source file contain validation errors")(
         Use.translate(path("./useestree/004.input")))(
-        err => Assertion.isTrue(Array.all(x => x.kind === "ExpectedTokens")))
+        assertKindIs("BaseUnknownDeclaration"))
 ]);
