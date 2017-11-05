@@ -1,0 +1,79 @@
+interface Node {
+    kind: string;
+    loc: SourceLocation | null;
+}
+
+interface SourceLocation {
+     source: string | null;
+     start: Position;
+     end: Position;
+}
+
+interface Position {
+     line: number;
+     column: number;
+}
+
+interface Name <: Node {
+    kind: "Name";
+    name: string;
+}
+
+interface Declaration <: Node {
+     name: Name;
+}
+
+interface Interface <: Declaration {
+     kind: "Interface";
+     props: [ Property ];
+     base: [ Name ];
+}
+
+interface ExtendInterface <: Declaration {
+     kind: "ExtendInterface";
+     props: [ Property ];
+}
+
+interface Enum <: Declaration {
+     kind: "Enum";
+     values: [ string ];
+}
+
+interface Property <: Node {
+     kind: "Property";
+     name: Name;
+     value: Type;
+}
+
+interface Type <: Node { }
+
+interface Union <: Type {
+     kind: "Union";
+     types: [ Type ];
+}
+
+interface Literal <: Type {
+     kind: "Literal";
+     value: string | number | boolean | null;
+}
+
+interface Reference <: Type {
+     kind: "Reference";
+     name: Name;
+}
+
+interface Array <: Type {
+     kind: "Array";
+     base: Type;
+}
+
+interface Object <: Type {
+     kind: "Object";
+     items: [ Property ];
+}
+
+interface Program <: Node {
+    kind: "Program";
+    importURL: string | null;
+    declarations: [ Declaration ];
+}

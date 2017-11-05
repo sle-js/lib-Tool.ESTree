@@ -1,6 +1,6 @@
 const Array = require("./Libs").Array;
 const Assertion = require("./Libs").Assertion;
-const Errors = require("./../src/Errors");
+const FileSystem = require("./../src/FileSystem");
 const Path = require("path");
 const Unit = require("./Libs").Unit;
 
@@ -51,5 +51,13 @@ module.exports = Unit.Suite("UseESTree")([
 
     catchTest("Source file contain validation errors")(
         Use.translate(path("./useestree/004.input")))(
-        assertKindIs("BaseUnknownDeclaration"))
+        assertKindIs("BaseUnknownDeclaration")),
+
+    thenTest("Translate estree AST")(
+        Use.translate(path("./useestree/005.estree"))
+            .then(result => Promise.all([
+                FileSystem.readFile(path("./useestree/005.js")),
+                FileSystem.readFile(path("./useestree/005.expected.js"))
+            ])))(
+        result => Assertion.equals(result[0])(result[1]))
 ]);
