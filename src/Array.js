@@ -59,4 +59,11 @@ assumptionEqual(Array.find(n => n > 4)([1, 2, 3, 4, 5, 6]), Maybe.Just(5));
 assumptionEqual(Array.find(n => n > 40)([1, 2, 3, 4, 5, 6]), Maybe.Nothing);
 
 
+// Confirms that all elements within the array satisfy the passed predicate.
+//= all :: (a -> Bool) -> Array a -> Bool
+Array.all = p =>
+    Array.foldl(true)(acc => i => acc && p(i));
+assumptionEqual(Array.all(n => n > 0)([1, 2, 3, 4]), true);
+assumptionEqual(Array.all(n => n > 3)([1, 2, 3, 4]), false);
+
 module.exports = Array;
