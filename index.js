@@ -40,7 +40,11 @@ const validate = ast => {
 
 const translate = sourceName => {
     return loadSourceFile(sourceName)
-        .then(lexer => Parser.program(LexerConfiguration.fromNamedString(sourceName)).asPromise())
+        .then(source =>
+            Parser
+                .program(LexerConfiguration.fromNamedString(sourceName)(source))
+                .mapError(err => err.result)
+                .asPromise())
         .then(astResult => Transform.applyImport(sourceName)(astResult.result))
         .then(validate)
         .then(ast => Promise.resolve(Transform.applyExtend(ast)))

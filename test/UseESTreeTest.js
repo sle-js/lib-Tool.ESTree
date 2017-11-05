@@ -30,5 +30,10 @@ const catchTest = name => promise => errorAssertion =>
 module.exports = Unit.Suite("UseESTree")([
     catchTest("Source file does not exist")(
         Use.translate("./invalid_file_name_that_does_not_exist"))(
-        err => Assertion.equals(toString(err))(toString(Errors.SourceFileNotFound("./invalid_file_name_that_does_not_exist"))))
+        err => Assertion.equals(toString(err))(toString(Errors.SourceFileNotFound("./invalid_file_name_that_does_not_exist")))),
+
+    catchTest("Source file contains a syntax error")(
+        Use.translate(path("./useestree/001.input")))(
+        err =>
+            Assertion.equals(err.kind)("ExpectedTokens"))
 ]);
