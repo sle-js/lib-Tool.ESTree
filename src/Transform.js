@@ -17,7 +17,7 @@ const isExtendInterface = declaration =>
     declaration.kind === "ExtendInterface";
 
 
-const applyExtend = declarations => {
+const applyExtend = ast => {
     const extendInterface = interfaceDeclaration => extendInterfaceDeclaration =>
         ESTreeAST.Interface(
             interfaceDeclaration.loc,
@@ -33,7 +33,7 @@ const applyExtend = declarations => {
             ? applyExtendToDeclaration(declaration)(acc)
             : Array.append(declaration)(acc);
 
-    return Array.foldl([])(foldFunction)(declarations);
+    return ESTreeAST.Program(ast.loc, ast.importURL, Array.foldl([])(foldFunction)(ast.declarations));
 };
 
 

@@ -70,7 +70,7 @@ const processFile = fileName => name => content => {
 
             return content.js
                 ? Translator
-                    .translate(Transform.applyExtend(ast.declarations))
+                    .translate(Transform.applyExtend(ast))
                     .reduce(
                         okay =>
                             validationAssertion.equals(okay.trim())(content.js.join("\n").trim()))(

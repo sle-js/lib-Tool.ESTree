@@ -77,7 +77,7 @@ const duplicateInterfaceProperties = ast => {
     const duplicateProperties =
         Array.foldl({errors: [], props: Map.empty})(f);
 
-    return Array.flatten(Transform.applyExtend(ast.declarations)
+    return Array.flatten(Transform.applyExtend(ast).declarations
         .filter(isInterface)
         .map(d => duplicateProperties(d.props).errors));
 };

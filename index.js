@@ -50,8 +50,8 @@ const translate = sourceName => {
                 .applyImport(sourceName)(astResult.result)
                 .catch(err => Promise.reject([err])))
         .then(validate)
-        .then(ast => Promise.resolve(Transform.applyExtend(ast.declarations)))
-        .then(declarations => Translator.translate(declarations).asPromise())
+        .then(ast => Promise.resolve(Transform.applyExtend(ast)))
+        .then(ast => Translator.translate(ast).asPromise())
         .then(FileSystem.writeFile(target(sourceName)));
 };
 

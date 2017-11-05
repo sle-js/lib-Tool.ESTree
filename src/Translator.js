@@ -29,10 +29,10 @@ const removeAll = needles => a =>
 
 const translate = ast => {
     const enumAndInterfaces =
-        Array.filter(x => isInterface(x) || isEnum(x))(ast);
+        Array.filter(x => isInterface(x) || isEnum(x))(ast.declarations);
 
     const find = name =>
-        Array.findMap(object => object.name.value === name.value ? Maybe.Just(object) : Maybe.Nothing)(ast);
+        Array.findMap(object => object.name.value === name.value ? Maybe.Just(object) : Maybe.Nothing)(ast.declarations);
 
     const allProperties = interfaceAST =>
         Array.concat(
