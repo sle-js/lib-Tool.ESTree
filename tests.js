@@ -2,8 +2,9 @@ const Unit = require("./test/Libs").Unit;
 
 
 Unit.Suite("All")([
+    require("./test/LexerTest"),
     require("./test/ParserTest"),
-    require("./test/LexerTest")
+    require("./test/UseESTreeTest")
 ])
     .then(Unit.showDetail)
     .then(Unit.showSummary)

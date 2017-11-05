@@ -5,7 +5,8 @@
 //      { line :: Int, column :: Int }
 //
 // data Errors =
-//      ExpectedTokens { loc :: Location, found :: { id :: Int, symbol :: String, value :: String }, expected :: Array { id :: Int, symbol :: String } }
+//      SourceFileNotFound { name :: String }
+//    | ExpectedTokens { loc :: Location, found :: { id :: Int, symbol :: String, value :: String }, expected :: Array { id :: Int, symbol :: String } }
 //    | InvalidImport { loc :: Location, url :: String, reason :: String }
 //    | DuplicateIdentifier { locs :: Array Location, name :: String }
 //    | ExtendUnknownInterface { loc :: Location, name :: String }
@@ -21,6 +22,10 @@ const Position = line => column =>
 
 const Location = source => position =>
     ({source, position});
+
+
+const SourceFileNotFound = name =>
+    ({kind: "SourceFileNotFound", name});
 
 
 const ExpectedTokens = loc => found => expected =>
@@ -65,5 +70,6 @@ module.exports = {
     InheritanceCycle,
     InvalidImport,
     Location,
-    Position
+    Position,
+    SourceFileNotFound
 };
