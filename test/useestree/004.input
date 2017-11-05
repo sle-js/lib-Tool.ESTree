@@ -1,0 +1,9 @@
+interface Node {
+    type: string;
+}
+
+interface Expression <: Node, Position {
+    name: integer;
+}
+
+interface Statement <: Mode, Expression { }

@@ -1,3 +1,4 @@
+const Array = require("./Libs").Array;
 const Assertion = require("./Libs").Assertion;
 const Errors = require("./../src/Errors");
 const Path = require("path");
@@ -42,6 +43,9 @@ module.exports = Unit.Suite("UseESTree")([
 
     catchTest("Source file contains a valid import but the imported file has a syntax error")(
         Use.translate(path("./useestree/003.input")))(
-        err =>
-            Assertion.equals(err.kind)("ExpectedTokens"))
+        err => Assertion.equals(err.kind)("ExpectedTokens")),
+
+    catchTest("Source file contain validation errors")(
+        Use.translate(path("./useestree/004.input")))(
+        err => Assertion.isTrue(Array.all(x => x.kind === "ExpectedTokens")))
 ]);
