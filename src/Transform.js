@@ -46,7 +46,11 @@ const applyImport = programFileName => programAST => {
                 .catch(err => Promise.reject(Errors.InvalidImport(programAST.importURL.loc)(programAST.importURL.value)(err.code)));
 
         const parseString = fileName => content =>
-            Parser.program(LexerConfiguration.fromNamedString(fileName)(content)).map(astResult => astResult.result).asPromise();
+            Parser
+                .program(LexerConfiguration.fromNamedString(fileName)(content))
+                .map(astResult => astResult.result)
+                .mapError(errResult => errResult.result)
+                .asPromise();
 
         const programDirectoryName =
             Path.dirname(programFileName);

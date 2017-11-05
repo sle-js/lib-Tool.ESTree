@@ -1,0 +1,5 @@
+import file:./003.estree;
+
+interface Expression <: Node {
+    type: "Hello";
+}

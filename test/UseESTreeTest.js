@@ -34,6 +34,14 @@ module.exports = Unit.Suite("UseESTree")([
 
     catchTest("Source file contains a syntax error")(
         Use.translate(path("./useestree/001.input")))(
+        err => Assertion.equals(err.kind)("ExpectedTokens")),
+
+    catchTest("Source file contains an invalid import")(
+        Use.translate(path("./useestree/002.input")))(
+        err => Assertion.equals(err.kind)("InvalidImport")),
+
+    catchTest("Source file contains a valid import but the imported file has a syntax error")(
+        Use.translate(path("./useestree/003.input")))(
         err =>
             Assertion.equals(err.kind)("ExpectedTokens"))
 ]);
