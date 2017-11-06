@@ -59,16 +59,6 @@ const many = parser => lexer =>
     manyResult(okayResult(lexer)([]))(parser);
 
 
-const backtrackingManyResult = currentResult => parser => {
-    const nextResult =
-        andThen(currentResult)(parser);
-
-    return nextResult.isOkay()
-        ? backtrackingManyResult(nextResult)(parser)
-        : currentResult;
-};
-
-
 const or = errorFn => parsers => lexer => {
     const parseOption = parser => {
         const optionResult = parser(lexer);
