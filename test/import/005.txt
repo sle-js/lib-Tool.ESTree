@@ -6,6 +6,7 @@ interface Expression <: Node {
 }
 -- syntax
 {
+  "package": "Tool.ESTree",
   "kind": "InvalidImport",
   "loc": {
     "source": "005.estree",

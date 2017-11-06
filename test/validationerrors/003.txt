@@ -11,6 +11,7 @@ interface Statement <: Mode, Expression { }
 -- validation
 [
   {
+    "package": "Tool.ESTree",
     "kind": "BaseUnknownDeclaration",
     "loc": {
       "source": "003.txt",
@@ -26,6 +27,7 @@ interface Statement <: Mode, Expression { }
     "name": "Position"
   },
   {
+    "package": "Tool.ESTree",
     "kind": "BaseUnknownDeclaration",
     "loc": {
       "source": "003.txt",

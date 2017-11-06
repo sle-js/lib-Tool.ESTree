@@ -5,6 +5,7 @@ interface Node <: A, ,B {
 }
 -- syntax
 {
+  "package": "Tool.ESTree",
   "kind": "ExpectedTokens",
   "loc": {
     "source": "004.txt",

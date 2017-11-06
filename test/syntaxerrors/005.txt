@@ -10,6 +10,7 @@ inteface Node  {
 }
 -- syntax
 {
+  "package": "Tool.ESTree",
   "kind": "ExpectedTokens",
   "loc": {
     "source": "005.txt",

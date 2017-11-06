@@ -9,6 +9,7 @@ extend interface Mode {
 -- validation
 [
   {
+    "package": "Tool.ESTree",
     "kind": "ExtendUnknownInterface",
     "loc": {
       "source": "002.txt",

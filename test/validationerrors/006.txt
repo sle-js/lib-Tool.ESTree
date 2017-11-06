@@ -8,6 +8,7 @@ extend interface Node {
 -- validation
 [
   {
+    "package": "Tool.ESTree",
     "kind": "DuplicateProperty",
     "originalLoc": {
       "source": "006.estree",

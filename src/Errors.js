@@ -26,43 +26,43 @@ const Location = source => position =>
 
 
 const SourceFileNotFound = name =>
-    ({kind: "SourceFileNotFound", name});
+    ({package: "Tool.ESTree", kind: "SourceFileNotFound", name});
 
 
 const UnableToWriteToTarget = name => reason =>
-    ({kind: "UnableToWriteToTarget", name, reason});
+    ({package: "Tool.ESTree", kind: "UnableToWriteToTarget", name, reason});
 
 
 const ExpectedTokens = loc => found => expected =>
-    ({kind: "ExpectedTokens", loc, found, expected});
+    ({package: "Tool.ESTree", kind: "ExpectedTokens", loc, found, expected});
 
 
 const InvalidImport = loc => url => code =>
-    ({kind: "InvalidImport", loc, url, code});
+    ({package: "Tool.ESTree", kind: "InvalidImport", loc, url, code});
 
 
 const DuplicateIdentifier = locs => name =>
-    ({kind: "DuplicateIdentifier", locs, name});
+    ({package: "Tool.ESTree", kind: "DuplicateIdentifier", locs, name});
 
 
 const ExtendUnknownInterface = loc => name =>
-    ({kind: "ExtendUnknownInterface", loc, name});
+    ({package: "Tool.ESTree", kind: "ExtendUnknownInterface", loc, name});
 
 
 const BaseUnknownDeclaration = loc => name =>
-    ({kind: "BaseUnknownDeclaration", loc, name});
+    ({package: "Tool.ESTree", kind: "BaseUnknownDeclaration", loc, name});
 
 
 const BaseReferencesEnum = loc => name =>
-    ({kind: "BaseReferencesEnum", loc, name});
+    ({package: "Tool.ESTree", kind: "BaseReferencesEnum", loc, name});
 
 
 const DuplicateProperty = originalLoc => duplicateLoc => name =>
-    ({kind: "DuplicateProperty", originalLoc, duplicateLoc, name});
+    ({package: "Tool.ESTree", kind: "DuplicateProperty", originalLoc, duplicateLoc, name});
 
 
 const InheritanceCycle = cycle =>
-    ({kind: "InheritanceCycle", cycle});
+    ({package: "Tool.ESTree", kind: "InheritanceCycle", cycle});
 
 
 module.exports = {

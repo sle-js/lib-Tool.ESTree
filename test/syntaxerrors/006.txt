@@ -4,6 +4,7 @@ enum Node {
 }
 -- syntax
 {
+  "package": "Tool.ESTree",
   "kind": "ExpectedTokens",
   "loc": {
     "source": "006.txt",

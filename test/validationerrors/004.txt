@@ -9,6 +9,7 @@ interface Expression <: Node {
 -- validation
 [
   {
+    "package": "Tool.ESTree",
     "kind": "BaseReferencesEnum",
     "loc": {
       "source": "004.txt",

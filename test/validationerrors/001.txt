@@ -21,6 +21,7 @@ interface Node {
 -- validation
 [
   {
+    "package": "Tool.ESTree",
     "kind": "DuplicateIdentifier",
     "locs": [
       {
@@ -60,6 +61,7 @@ interface Node {
     "name": "Node"
   },
   {
+    "package": "Tool.ESTree",
     "kind": "DuplicateIdentifier",
     "locs": [
       {
