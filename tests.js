@@ -3,7 +3,7 @@ const Unit = require("./test/Libs").Unit;
 
 Unit.Suite("All")([
     require("./test/LexerTest"),
-    require("./test/ParserTest"),
+    require("./test/TestRunner"),
     require("./test/UseESTreeTest")
 ])
     .then(Unit.showDetail)
