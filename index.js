@@ -18,8 +18,8 @@ assumptionEqual(replaceExtension(".js")("/home/bob/test.sample"), "/home/bob/tes
 assumptionEqual(replaceExtension(".js")("./test.sample"), "test.js");
 
 
-const target = fileName =>
-    replaceExtension(".js")(fileName);
+const target =
+    replaceExtension(".js");
 
 
 const loadSourceFile = sourceName =>
