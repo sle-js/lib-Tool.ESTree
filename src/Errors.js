@@ -5,7 +5,8 @@
 //      { line :: Int, column :: Int }
 //
 // data Errors =
-//      SourceFileNotFound { name :: String }
+//      SourceFileNotFound { name :: String, reason :: String }
+//    | UnableToWriteToTarget { name :: String, reason :: String }
 //    | ExpectedTokens { loc :: Location, found :: { id :: Int, symbol :: String, value :: String }, expected :: Array { id :: Int, symbol :: String } }
 //    | InvalidImport { loc :: Location, url :: String, reason :: String }
 //    | DuplicateIdentifier { locs :: Array Location, name :: String }
@@ -26,6 +27,10 @@ const Location = source => position =>
 
 const SourceFileNotFound = name =>
     ({kind: "SourceFileNotFound", name});
+
+
+const UnableToWriteToTarget = name => reason =>
+    ({kind: "UnableToWriteToTarget", name, reason});
 
 
 const ExpectedTokens = loc => found => expected =>
@@ -71,5 +76,6 @@ module.exports = {
     InvalidImport,
     Location,
     Position,
-    SourceFileNotFound
+    SourceFileNotFound,
+    UnableToWriteToTarget
 };

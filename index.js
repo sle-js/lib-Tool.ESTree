@@ -25,7 +25,13 @@ const target = fileName =>
 const loadSourceFile = sourceName =>
     FileSystem
         .readFile(sourceName)
-        .catch(err => Promise.reject([Errors.SourceFileNotFound(sourceName)]));
+        .catch(err => Promise.reject([Errors.SourceFileNotFound(sourceName)(err.code)]));
+
+
+const writeTargetFile = targetName => content =>
+    FileSystem
+        .writeFile(targetName)(content)
+        .catch(err => Promise.reject([Errors.UnableToWriteToTarget(targetName)(err.code)]));
 
 
 const validate = ast => {
@@ -52,7 +58,7 @@ const translate = sourceName => {
         .then(validate)
         .then(ast => Promise.resolve(Transform.applyExtend(ast)))
         .then(ast => Translator.translate(ast).asPromise())
-        .then(FileSystem.writeFile(target(sourceName)));
+        .then(writeTargetFile(target(sourceName)));
 };
 
 
