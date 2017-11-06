@@ -44,8 +44,8 @@ const validate = ast => {
 };
 
 
-const translate = sourceName => {
-    return loadSourceFile(sourceName)
+const translate = sourceName =>
+    loadSourceFile(sourceName)
         .then(source =>
             Parser
                 .program(LexerConfiguration.fromNamedString(sourceName)(source))
@@ -59,7 +59,6 @@ const translate = sourceName => {
         .then(ast => Promise.resolve(Transform.applyExtend(ast)))
         .then(ast => Translator.translate(ast).asPromise())
         .then(writeTargetFile(target(sourceName)));
-};
 
 
 module.exports = {
