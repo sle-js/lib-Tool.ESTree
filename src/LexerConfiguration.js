@@ -1,4 +1,4 @@
-const Int = require("./Int");
+const Int = require("./Libs").Int;
 const Lexer = require("./Lexer");
 const Maybe = require("./Libs").Maybe;
 const Regex = require("./Regex");
