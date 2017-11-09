@@ -1,5 +1,5 @@
 const Errors = require("./src/Errors");
-const FileSystem = require("./src/FileSystem");
+const FileSystem = require("./src/Libs").FileSystem;
 const LexerConfiguration = require("./src/LexerConfiguration");
 const Parser = require("./src/Parser");
 const Path = require("path");

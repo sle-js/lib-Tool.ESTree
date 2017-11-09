@@ -1,6 +1,6 @@
 const Array = require("./Libs").Array;
 const Assertion = require("./Libs").Assertion;
-const FileSystem = require("./../src/FileSystem");
+const FileSystem = require("./Libs").FileSystem;
 const Path = require("path");
 const Unit = require("./Libs").Unit;
 
