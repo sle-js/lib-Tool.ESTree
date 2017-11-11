@@ -1,6 +1,6 @@
 const Array = require("./Libs").Array;
 const Errors = require("./Errors");
-const Map = require("./Map");
+const Map = require("./Libs").Dict;
 const Transform = require("./Transform");
 
 

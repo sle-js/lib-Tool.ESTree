@@ -1,6 +1,6 @@
 const Array = require("./Libs").Array;
 const Maybe = require("./Libs").Maybe;
-const Result = require("./Result");
+const Result = require("./Libs").Result;
 
 
 const tab =

@@ -1,5 +1,5 @@
 const Array = require("./Libs").Array;
-const C = require("./ParseCombinators");
+const C = require("./Libs").Combinators;
 const Errors = require("./Errors");
 const ESTreeAST = require("./ESTreeAST");
 const Maybe = require("./Libs").Maybe;

@@ -1,7 +1,7 @@
 const Int = require("./Libs").Int;
-const Lexer = require("./Lexer");
+const Lexer = require("./Libs").Lexer;
 const Maybe = require("./Libs").Maybe;
-const Regex = require("./Regex");
+const Regex = require("./Libs").Regex;
 const Tokens = require("./Tokens");
 
 
