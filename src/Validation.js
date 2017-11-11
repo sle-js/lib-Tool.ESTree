@@ -1,6 +1,6 @@
 const Array = require("./Libs").Array;
 const Errors = require("./Errors");
-const Map = require("./Libs").Dict;
+const Dict = require("./Libs").Dict;
 const Transform = require("./Transform");
 
 
@@ -19,11 +19,11 @@ const isExtendInterface = declaration =>
 const declarationMap = ast => {
     const addTo = declaration => map => {
         const node =
-            Map.get(declaration.name.value)(map)
+            Dict.get(declaration.name.value)(map)
                 .map(node => Array.append(declaration)(node))
                 .withDefault([declaration]);
 
-        return Map.insert(declaration.name.value)(node)(map);
+        return Dict.insert(declaration.name.value)(node)(map);
     };
 
     const f = map => declaration =>
@@ -31,17 +31,17 @@ const declarationMap = ast => {
             ? addTo(declaration)(map)
             : map;
 
-    return Array.foldl(Map.empty)(f)(ast.declarations);
+    return Array.foldl(Dict.empty)(f)(ast.declarations);
 };
 
 
 const duplicateIdentifiers = declarations =>
-    Array.map(node => Errors.DuplicateIdentifier(Array.map(declaration => declaration.name.loc)(node[1]))(node[0]))(Array.filter(node => Array.length(node[1]) > 1)(Map.entries(declarations)));
+    Array.map(node => Errors.DuplicateIdentifier(Array.map(declaration => declaration.name.loc)(node[1]))(node[0]))(Array.filter(node => Array.length(node[1]) > 1)(Dict.entries(declarations)));
 
 
 const extendUnknownInterfaces = ast => declarations =>
     ast.declarations
-        .filter(d => isExtendInterface(d) && !Map.member(d.name.value)(declarations))
+        .filter(d => isExtendInterface(d) && !Dict.member(d.name.value)(declarations))
         .map(d => Errors.ExtendUnknownInterface(d.name.loc)(d.name.value));
 
 
@@ -49,33 +49,33 @@ const baseReferencesUnknownDeclaration = ast => declarations =>
     Array.flatten(ast.declarations
         .filter(isInterface)
         .map(d => d.base))
-        .filter(b => !Map.member(b.value)(declarations))
+        .filter(b => !Dict.member(b.value)(declarations))
         .map(b => Errors.BaseUnknownDeclaration(b.loc)(b.value));
 
 
-// baseReferencesEnum :: ESTreeAST -> (Map String -> Array Declaration) -> Array Errors
+// baseReferencesEnum :: ESTreeAST -> (Dict String -> Array Declaration) -> Array Errors
 const baseReferencesEnum = ast => declarations =>
     Array.flatten(ast.declarations
         .filter(isInterface)
         .map(d => d.base))
-        .filter(b => Map.get(b.value)(declarations).map(Array.any(isEnum)).withDefault(false))
+        .filter(b => Dict.get(b.value)(declarations).map(Array.any(isEnum)).withDefault(false))
         .map(b => Errors.BaseReferencesEnum(b.loc)(b.value));
 
 
 const duplicateInterfaceProperties = ast => {
     const f = acc => prop =>
-        Map.member(prop.name.value)(acc.props)
+        Dict.member(prop.name.value)(acc.props)
             ? {
-                errors: Array.append(Errors.DuplicateProperty(Map.get(prop.name.value)(acc.props).withDefault(undefined))(prop.name.loc)(prop.name.value))(acc.errors),
+                errors: Array.append(Errors.DuplicateProperty(Dict.get(prop.name.value)(acc.props).withDefault(undefined))(prop.name.loc)(prop.name.value))(acc.errors),
                 props: acc.props
             }
             : {
                 errors: acc.errors,
-                props: Map.insert(prop.name.value)(prop.name.loc)(acc.props)
+                props: Dict.insert(prop.name.value)(prop.name.loc)(acc.props)
             };
 
     const duplicateProperties =
-        Array.foldl({errors: [], props: Map.empty})(f);
+        Array.foldl({errors: [], props: Dict.empty})(f);
 
     return Array.flatten(Transform.applyExtend(ast).declarations
         .filter(isInterface)
@@ -91,7 +91,7 @@ const detectCycles = ast => declarations => {
             } else if (Array.any(d => d.name.value === b.value)(path)) {
                 return acc;
             } else {
-                return Map.get(b.value)(declarations).map(d => {
+                return Dict.get(b.value)(declarations).map(d => {
                     const item = d[0];
                     if (isInterface(item)) {
                         const newPath = Array.append(item)(path);
