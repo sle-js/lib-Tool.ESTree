@@ -4,7 +4,7 @@ module.exports = $import(
     const Unit = $imports.Unit;
 
     return Unit.Suite("All")([
-        require("./test/LexerTest"),
+        $import("./test/LexerTest"),
         require("./test/TestRunner"),
         require("./test/UseESTreeTest")
     ])
