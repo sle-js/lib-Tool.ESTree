@@ -1,17 +1,15 @@
-const Path = require("path");
+const Path = require("./Libs").Path;
 
 const $Array = require("./Libs").Array;
 const Assertion = require("./Libs").Assertion;
 const FileSystem = require("./Libs").FileSystem;
+const LexerConfiguration = require("./Libs").LexerConfiguration;
+const Parser = require("./Libs").Parser;
 const String = require("./Libs").String;
-const Transform = require("../src/Transform");
-const Translator = require("../src/Translator");
+const Transform = require("./Libs").Transform;
+const Translator = require("./Libs").Translator;
 const Unit = require("./Libs").Unit;
-const Validation = require("../src/Validation");
-
-const LexerConfiguration = require("../src/LexerConfiguration");
-const Parser = require("../src/Parser");
-
+const Validation = require("./Libs").Validation;
 
 const asString = o =>
     o.kind || Array.isArray(o)
