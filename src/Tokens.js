@@ -58,7 +58,7 @@ names[LSQUARE] = "[";
 names[RSQUARE] = "]";
 
 
-module.exports = {
+module.exports = Promise.resolve({
     names,
 
     err,
@@ -84,4 +84,4 @@ module.exports = {
     SEMICOLON,
     LSQUARE,
     RSQUARE
-};
+});
