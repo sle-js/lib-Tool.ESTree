@@ -24,6 +24,20 @@ const lexerDefinition = Lexer.setup({
 });
 
 
+const assertLexerState = (assertion, lexer, id, value, position, index) => {
+    const head = lexer.head();
+
+    return assertion
+        .equals(head.token().id)(id)
+        .equals(head.token().value)(value)
+        .equals(head.position()[0])(position[0])
+        .equals(head.position()[1])(position[1])
+        .equals(head.position()[2])(position[2])
+        .equals(head.position()[3])(position[3])
+        .equals(head.index())(index);
+};
+
+
 module.exports = Unit.Suite("Lexer Suite")([
     Unit.Test("given an empty lexer should be at EOF")(assertLexerState(
         Assertion,
@@ -129,15 +143,3 @@ module.exports = Unit.Suite("Lexer Suite")([
 ]);
 
 
-function assertLexerState(assertion, lexer, id, value, position, index) {
-    const head = lexer.head();
-
-    return assertion
-        .equals(head.token().id)(id)
-        .equals(head.token().value)(value)
-        .equals(head.position()[0])(position[0])
-        .equals(head.position()[1])(position[1])
-        .equals(head.position()[2])(position[2])
-        .equals(head.position()[3])(position[3])
-        .equals(head.index())(index);
-}
