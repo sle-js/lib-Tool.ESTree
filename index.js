@@ -1,67 +1,78 @@
-const Errors = require("./src/Errors");
-const FileSystem = require("./src/Libs").FileSystem;
-const LexerConfiguration = require("./src/LexerConfiguration");
-const Parser = require("./src/Parser");
-const Path = require("path");
-const Transform = require("./src/Transform");
-const Translator = require("./src/Translator");
-const Validation = require("./src/Validation");
+module.exports = $importAll([
+    "./src/Errors",
+    "./src/Libs",
+    "./src/LexerConfiguration",
+    "./src/Parser",
+    "path",
+    "./src/Transform",
+    "./src/Translator",
+    "./src/Validation"
+]).then($imports => {
+    const Errors = $imports[0];
+    const FileSystem = $imports[1].FileSystem;
+    const LexerConfiguration = $imports[2];
+    const Parser = $imports[3];
+    const Path = $imports[4];
+    const Transform = $imports[5];
+    const Translator = $imports[6];
+    const Validation = $imports[7];
 
 
-const replaceExtension = newExtension => fileName => {
-    const parseFileName =
-        Path.parse(fileName);
+    const replaceExtension = newExtension => fileName => {
+        const parseFileName =
+            Path.parse(fileName);
 
-    return Path.join(parseFileName.dir, parseFileName.name + newExtension);
-};
-assumptionEqual(replaceExtension(".js")("/home/bob/test.sample"), "/home/bob/test.js");
-assumptionEqual(replaceExtension(".js")("./test.sample"), "test.js");
-
-
-const target =
-    replaceExtension(".js");
+        return Path.join(parseFileName.dir, parseFileName.name + newExtension);
+    };
+    assumptionEqual(replaceExtension(".js")("/home/bob/test.sample"), "/home/bob/test.js");
+    assumptionEqual(replaceExtension(".js")("./test.sample"), "test.js");
 
 
-const loadSourceFile = sourceName =>
-    FileSystem
-        .readFile(sourceName)
-        .catch(err => Promise.reject([Errors.SourceFileNotFound(sourceName)(err.code)]));
+    const target =
+        replaceExtension(".js");
 
 
-const writeTargetFile = targetName => content =>
-    FileSystem
-        .writeFile(targetName)(content)
-        .catch(err => Promise.reject([Errors.UnableToWriteToTarget(targetName)(err.code)]));
+    const loadSourceFile = sourceName =>
+        FileSystem
+            .readFile(sourceName)
+            .catch(err => Promise.reject([Errors.SourceFileNotFound(sourceName)(err.code)]));
 
 
-const validate = ast => {
-    const validationResult =
-        Validation.validateAST(ast);
-
-    return (validationResult.length === 0)
-        ? Promise.resolve(ast)
-        : Promise.reject(validationResult);
-};
+    const writeTargetFile = targetName => content =>
+        FileSystem
+            .writeFile(targetName)(content)
+            .catch(err => Promise.reject([Errors.UnableToWriteToTarget(targetName)(err.code)]));
 
 
-const translate = sourceName =>
-    loadSourceFile(sourceName)
-        .then(source =>
-            Parser
-                .program(LexerConfiguration.fromNamedString(sourceName)(source))
-                .mapError(err => [err.result])
-                .asPromise())
-        .then(astResult =>
-            Transform
-                .applyImport(sourceName)(astResult.result)
-                .catch(err => Promise.reject([err])))
-        .then(validate)
-        .then(ast => Promise.resolve(Transform.applyExtend(ast)))
-        .then(ast => Translator.translate(ast).asPromise())
-        .then(writeTargetFile(target(sourceName)));
+    const validate = ast => {
+        const validationResult =
+            Validation.validateAST(ast);
+
+        return (validationResult.length === 0)
+            ? Promise.resolve(ast)
+            : Promise.reject(validationResult);
+    };
 
 
-module.exports = {
-    target,
-    translate
-};
+    const translate = sourceName =>
+        loadSourceFile(sourceName)
+            .then(source =>
+                Parser
+                    .program(LexerConfiguration.fromNamedString(sourceName)(source))
+                    .mapError(err => [err.result])
+                    .asPromise())
+            .then(astResult =>
+                Transform
+                    .applyImport(sourceName)(astResult.result)
+                    .catch(err => Promise.reject([err])))
+            .then(validate)
+            .then(ast => Promise.resolve(Transform.applyExtend(ast)))
+            .then(ast => Translator.translate(ast).asPromise())
+            .then(writeTargetFile(target(sourceName)));
+
+
+    return {
+        target,
+        translate
+    };
+});
