@@ -173,7 +173,7 @@ const Program = (loc, importURL, declarations) =>
         {kind: "Program", importURL, declarations});
 
 
-module.exports = {
+module.exports = Promise.resolve({
     Node,
     SourceLocation,
     Position,
@@ -190,4 +190,4 @@ module.exports = {
     Array,
     $Object,
     Program
-};
+});
