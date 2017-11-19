@@ -65,7 +65,7 @@ const InheritanceCycle = cycle =>
     ({package: "Tool.ESTree", kind: "InheritanceCycle", cycle});
 
 
-module.exports = {
+module.exports = Promise.resolve({
     BaseReferencesEnum,
     BaseUnknownDeclaration,
     DuplicateIdentifier,
@@ -78,4 +78,4 @@ module.exports = {
     Position,
     SourceFileNotFound,
     UnableToWriteToTarget
-};
+});
