@@ -1,4 +1,4 @@
-const Path = require("path");
+const Path = require("./Libs").Path;
 
 const Array = require("./Libs").Array;
 const Errors = require("./Errors");

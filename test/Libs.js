@@ -4,7 +4,6 @@ module.exports = $importAll([
     "../index",
     "../src/LexerConfiguration",
     "../src/Parser",
-    "path",
     "../src/Transform",
     "../src/Translator",
     "../src/Validation",
@@ -14,9 +13,8 @@ module.exports = $importAll([
     Index: $imports[2],
     LexerConfiguration: $imports[3],
     Parser: $imports[4],
-    Path: $imports[5],
-    Transform: $imports[6],
-    Translator: $imports[7],
-    Validation: $imports[8],
-    Unit: $imports[9]
+    Transform: $imports[5],
+    Translator: $imports[6],
+    Validation: $imports[7],
+    Unit: $imports[8]
 }));
