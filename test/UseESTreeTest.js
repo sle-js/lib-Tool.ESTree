@@ -1,10 +1,10 @@
 const Array = require("./Libs").Array;
 const Assertion = require("./Libs").Assertion;
 const FileSystem = require("./Libs").FileSystem;
-const Path = require("path");
+const Path = require("./Libs").Path;
 const Unit = require("./Libs").Unit;
 
-const Use = require("./../index");
+const Use = require("./Libs").Index;
 
 
 const toString = o =>

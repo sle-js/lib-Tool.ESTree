@@ -3,6 +3,7 @@ const Libs = require("../src/Libs");
 
 module.exports = Object.assign({}, Libs, {
     Assertion: mrequire("core:Test.Unit.Assertion:2.0.1"),
+    Index: require("../index"),
     LexerConfiguration: require("../src/LexerConfiguration"),
     Parser: require("../src/Parser"),
     Path: require("path"),
