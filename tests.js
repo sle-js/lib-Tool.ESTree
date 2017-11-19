@@ -5,8 +5,8 @@ module.exports = $import(
 
     return Unit.Suite("All")([
         $import("./test/LexerTest"),
-        require("./test/TestRunner"),
-        require("./test/UseESTreeTest")
+        $import("./test/TestRunner"),
+        $import("./test/UseESTreeTest")
     ])
         .then(Unit.showDetail)
         .then(Unit.showSummary)
