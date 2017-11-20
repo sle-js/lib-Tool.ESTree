@@ -100,7 +100,7 @@ module.exports = $import(
         })()),
 
         Unit.Test("given a lexer with a character that the lexer does not recognise then the error token is returned and the lexer is advanced onto the next character")((() => {
-            lexer = lexerDefinition.fromString("2912*hello");
+            const lexer = lexerDefinition.fromString("2912*hello");
 
             const assertion1 = assertLexerState(
                 Assertion,
