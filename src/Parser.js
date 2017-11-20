@@ -1,15 +1,14 @@
 module.exports = $importAll([
     "./Libs",
-    "./Errors",
     "./ESTreeAST",
     "./Tokens"
 ]).then($imports => {
     const Array = $imports[0].Array;
     const C = $imports[0].Combinators;
-    const Errors = $imports[1];
-    const ESTreeAST = $imports[2];
+    const Errors = $imports[0].Errors;
+    const ESTreeAST = $imports[1];
     const Maybe = $imports[0].Maybe;
-    const Tokens = $imports[3];
+    const Tokens = $imports[2];
 
 
     const transformColumn = column =>
@@ -21,7 +20,7 @@ module.exports = $importAll([
 
 
     const errorLocation = token =>
-        Errors.Location(token.state.source.withDefault(""))(Errors.Position(transformColumn(token.position()[1]))(transformRow(token.position()[0])));
+        Errors.Location(token.state.source.withDefault(""), Errors.Position(transformColumn(token.position()[1]), transformRow(token.position()[0])));
 
 
     const expectedTokensError = tokenIDs => token => {
@@ -36,7 +35,7 @@ module.exports = $importAll([
             symbol: Tokens.names[tokenID]
         }))(tokenIDs);
 
-        return Errors.ExpectedTokens(errorLocation(token))(foundToken(token.state.token))(expectedTokens);
+        return Errors.ExpectedTokens(errorLocation(token), foundToken(token.state.token), expectedTokens);
     };
 
 

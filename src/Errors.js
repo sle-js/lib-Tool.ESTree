@@ -1,81 +1,87 @@
-// type Location =
-//      { source :: String, start :: Position, end :: Position }
-//
-// type Position =
-//      { line :: Int, column :: Int }
-//
-// data Errors =
-//      SourceFileNotFound { name :: String, reason :: String }
-//    | UnableToWriteToTarget { name :: String, reason :: String }
-//    | ExpectedTokens { loc :: Location, found :: { id :: Int, symbol :: String, value :: String }, expected :: Array { id :: Int, symbol :: String } }
-//    | InvalidImport { loc :: Location, url :: String, reason :: String }
-//    | DuplicateIdentifier { locs :: Array Location, name :: String }
-//    | ExtendUnknownInterface { loc :: Location, name :: String }
-//    | BaseUnknownDeclaration { loc :: Location, name :: String }
-//    | BaseReferencesEnum { loc :: Location, name :: String }
-//    | DuplicateProperty { originalLoc :: Location, duplicateLoc :: Location, name :: String }
-//    | InheritanceCycle { cycle :: Array { loc :: Location, name :: String } }
-
-
-const Position = line => column =>
+const Position = (line, column) =>
     ({line, column});
 
 
-const Location = source => position =>
+const Location = (source, position) =>
     ({source, position});
 
 
-const SourceFileNotFound = name =>
-    ({package: "Tool.ESTree", kind: "SourceFileNotFound", name});
+const Errors = (kind) =>
+    ({package: "Tool.ESTree", kind});
 
 
-const UnableToWriteToTarget = name => reason =>
-    ({package: "Tool.ESTree", kind: "UnableToWriteToTarget", name, reason});
+const SourceFileNotFound = (name, code) =>
+    Object.assign({},
+        Errors("SourceFileNotFound"),
+        {kind: "SourceFileNotFound", name, code});
 
 
-const ExpectedTokens = loc => found => expected =>
-    ({package: "Tool.ESTree", kind: "ExpectedTokens", loc, found, expected});
+const UnableToWriteToTarget = (name, code) =>
+    Object.assign({},
+        Errors("UnableToWriteToTarget"),
+        {kind: "UnableToWriteToTarget", name, code});
 
 
-const InvalidImport = loc => url => code =>
-    ({package: "Tool.ESTree", kind: "InvalidImport", loc, url, code});
+const ExpectedTokens = (loc, found, expected) =>
+    Object.assign({},
+        Errors("ExpectedTokens"),
+        {kind: "ExpectedTokens", loc, found, expected});
 
 
-const DuplicateIdentifier = locs => name =>
-    ({package: "Tool.ESTree", kind: "DuplicateIdentifier", locs, name});
+const InvalidImport = (loc, url, code) =>
+    Object.assign({},
+        Errors("InvalidImport"),
+        {kind: "InvalidImport", loc, url, code});
 
 
-const ExtendUnknownInterface = loc => name =>
-    ({package: "Tool.ESTree", kind: "ExtendUnknownInterface", loc, name});
+const DuplicateIdentifier = (locs, name) =>
+    Object.assign({},
+        Errors("DuplicateIdentifier"),
+        {kind: "DuplicateIdentifier", locs, name});
 
 
-const BaseUnknownDeclaration = loc => name =>
-    ({package: "Tool.ESTree", kind: "BaseUnknownDeclaration", loc, name});
+const ExtendUnknownInterface = (loc, name) =>
+    Object.assign({},
+        Errors("ExtendUnknownInterface"),
+        {kind: "ExtendUnknownInterface", loc, name});
 
 
-const BaseReferencesEnum = loc => name =>
-    ({package: "Tool.ESTree", kind: "BaseReferencesEnum", loc, name});
+const BaseUnknownDeclaration = (loc, name) =>
+    Object.assign({},
+        Errors("BaseUnknownDeclaration"),
+        {kind: "BaseUnknownDeclaration", loc, name});
 
 
-const DuplicateProperty = originalLoc => duplicateLoc => name =>
-    ({package: "Tool.ESTree", kind: "DuplicateProperty", originalLoc, duplicateLoc, name});
+const BaseReferencesEnum = (loc, name) =>
+    Object.assign({},
+        Errors("BaseReferencesEnum"),
+        {kind: "BaseReferencesEnum", loc, name});
 
 
-const InheritanceCycle = cycle =>
-    ({package: "Tool.ESTree", kind: "InheritanceCycle", cycle});
+const DuplicateProperty = (originalLoc, duplicateLoc, name) =>
+    Object.assign({},
+        Errors("DuplicateProperty"),
+        {kind: "DuplicateProperty", originalLoc, duplicateLoc, name});
 
 
-module.exports = Promise.resolve({
-    BaseReferencesEnum,
-    BaseUnknownDeclaration,
-    DuplicateIdentifier,
-    DuplicateProperty,
-    ExpectedTokens,
-    ExtendUnknownInterface,
-    InheritanceCycle,
-    InvalidImport,
-    Location,
+const InheritanceCycle = (cycle) =>
+    Object.assign({},
+        Errors("InheritanceCycle"),
+        {kind: "InheritanceCycle", cycle});
+
+
+module.exports = {
     Position,
+    Location,
+    Errors,
     SourceFileNotFound,
-    UnableToWriteToTarget
-});
+    UnableToWriteToTarget,
+    ExpectedTokens,
+    InvalidImport,
+    DuplicateIdentifier,
+    ExtendUnknownInterface,
+    BaseUnknownDeclaration,
+    BaseReferencesEnum,
+    DuplicateProperty,
+    InheritanceCycle
+};

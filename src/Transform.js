@@ -1,17 +1,16 @@
 module.exports = $importAll([
     "./Libs",
-    "./Errors",
     "./ESTreeAST",
     "./LexerConfiguration",
     "./Parser"
 ]).then($imports => {
     const Path = $imports[0].Path;
     const Array = $imports[0].Array;
-    const Errors = $imports[1];
-    const ESTreeAST = $imports[2];
+    const Errors = $imports[0].Errors;
+    const ESTreeAST = $imports[1];
     const FileSystem = $imports[0].FileSystem;
-    const LexerConfiguration = $imports[3];
-    const Parser = $imports[4];
+    const LexerConfiguration = $imports[2];
+    const Parser = $imports[3];
     const String = $imports[0].String;
 
 
@@ -49,7 +48,7 @@ module.exports = $importAll([
         } else {
             const loadImportedFile = fileName =>
                 FileSystem.readFile(fileName)
-                    .catch(err => Promise.reject(Errors.InvalidImport(programAST.importURL.loc)(programAST.importURL.value)(err.code)));
+                    .catch(err => Promise.reject(Errors.InvalidImport(programAST.importURL.loc, programAST.importURL.value, err.code)));
 
             const parseString = fileName => content =>
                 Parser

@@ -1,0 +1,99 @@
+interface Position {
+    line: int;
+    column: int;
+}
+
+
+interface Location {
+    source: string;
+    position: Position;
+}
+
+
+interface Errors {
+    package: "Tool.ESTree";
+    kind: string;
+}
+
+
+interface SourceFileNotFound <: Errors {
+    kind: "SourceFileNotFound";
+    name: string;
+    code: string;
+}
+
+
+interface UnableToWriteToTarget <: Errors {
+    kind: "UnableToWriteToTarget";
+    name: string;
+    code: string;
+}
+
+
+interface ExpectedTokens <: Errors {
+    kind: "ExpectedTokens";
+    loc: Location;
+    found: {
+        id: int;
+        symbol: string;
+        value: string;
+    };
+    expected: [ {
+        id: int;
+        symbol: string;
+    } ];
+}
+
+
+interface InvalidImport <: Errors {
+    kind: "InvalidImport";
+    loc: Location;
+    url: string;
+    code: string;
+}
+
+
+interface DuplicateIdentifier <: Errors {
+    kind: "DuplicateIdentifier";
+    locs: [ Location ];
+    name: string;
+}
+
+
+interface ExtendUnknownInterface <: Errors {
+    kind: "ExtendUnknownInterface";
+    loc: Location;
+    name: string;
+}
+
+
+interface BaseUnknownDeclaration <: Errors {
+    kind: "BaseUnknownDeclaration";
+    loc: Location;
+    name: string;
+}
+
+
+interface BaseReferencesEnum <: Errors {
+    kind: "BaseReferencesEnum";
+    loc: Location;
+    name: string;
+}
+
+
+interface DuplicateProperty <: Errors {
+    kind: "DuplicateProperty";
+    originalLoc: Location;
+    duplicateLoc: Location;
+    name: string;
+}
+
+
+interface InheritanceCycle <: Errors {
+    kind: "InheritanceCycle";
+    cycle: [ {
+        loc: Location;
+        name: string;
+    } ];
+}
+

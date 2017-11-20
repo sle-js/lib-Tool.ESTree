@@ -1,12 +1,11 @@
 module.exports = $importAll([
     "./Libs",
-    "./Errors",
     "./Transform"
 ]).then($imports => {
     const Array = $imports[0].Array;
-    const Errors = $imports[1];
+    const Errors = $imports[0].Errors;
     const Dict = $imports[0].Dict;
-    const Transform = $imports[2];
+    const Transform = $imports[1];
 
 
     const isInterface = declaration =>
@@ -41,13 +40,13 @@ module.exports = $importAll([
 
 
     const duplicateIdentifiers = declarations =>
-        Array.map(node => Errors.DuplicateIdentifier(Array.map(declaration => declaration.name.loc)(node[1]))(node[0]))(Array.filter(node => Array.length(node[1]) > 1)(Dict.entries(declarations)));
+        Array.map(node => Errors.DuplicateIdentifier(Array.map(declaration => declaration.name.loc)(node[1]), node[0]))(Array.filter(node => Array.length(node[1]) > 1)(Dict.entries(declarations)));
 
 
     const extendUnknownInterfaces = ast => declarations =>
         ast.declarations
             .filter(d => isExtendInterface(d) && !Dict.member(d.name.value)(declarations))
-            .map(d => Errors.ExtendUnknownInterface(d.name.loc)(d.name.value));
+            .map(d => Errors.ExtendUnknownInterface(d.name.loc, d.name.value));
 
 
     const baseReferencesUnknownDeclaration = ast => declarations =>
@@ -55,7 +54,7 @@ module.exports = $importAll([
             .filter(isInterface)
             .map(d => d.base))
             .filter(b => !Dict.member(b.value)(declarations))
-            .map(b => Errors.BaseUnknownDeclaration(b.loc)(b.value));
+            .map(b => Errors.BaseUnknownDeclaration(b.loc, b.value));
 
 
 // baseReferencesEnum :: ESTreeAST -> (Dict String -> Array Declaration) -> Array Errors
@@ -64,14 +63,14 @@ module.exports = $importAll([
             .filter(isInterface)
             .map(d => d.base))
             .filter(b => Dict.get(b.value)(declarations).map(Array.any(isEnum)).withDefault(false))
-            .map(b => Errors.BaseReferencesEnum(b.loc)(b.value));
+            .map(b => Errors.BaseReferencesEnum(b.loc, b.value));
 
 
     const duplicateInterfaceProperties = ast => {
         const f = acc => prop =>
             Dict.member(prop.name.value)(acc.props)
                 ? {
-                    errors: Array.append(Errors.DuplicateProperty(Dict.get(prop.name.value)(acc.props).withDefault(undefined))(prop.name.loc)(prop.name.value))(acc.errors),
+                    errors: Array.append(Errors.DuplicateProperty(Dict.get(prop.name.value)(acc.props).withDefault(undefined), prop.name.loc, prop.name.value))(acc.errors),
                     props: acc.props
                 }
                 : {

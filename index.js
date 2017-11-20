@@ -1,5 +1,4 @@
 module.exports = $importAll([
-    "./src/Errors",
     "./src/Libs",
     "./src/LexerConfiguration",
     "./src/Parser",
@@ -8,14 +7,14 @@ module.exports = $importAll([
     "./src/Translator",
     "./src/Validation"
 ]).then($imports => {
-    const Errors = $imports[0];
-    const FileSystem = $imports[1].FileSystem;
-    const LexerConfiguration = $imports[2];
-    const Parser = $imports[3];
-    const Path = $imports[4];
-    const Transform = $imports[5];
-    const Translator = $imports[6];
-    const Validation = $imports[7];
+    const Errors = $imports[0].Errors;
+    const FileSystem = $imports[0].FileSystem;
+    const LexerConfiguration = $imports[1];
+    const Parser = $imports[2];
+    const Path = $imports[3];
+    const Transform = $imports[4];
+    const Translator = $imports[5];
+    const Validation = $imports[6];
 
 
     const replaceExtension = newExtension => fileName => {
