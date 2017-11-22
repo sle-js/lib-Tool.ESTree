@@ -124,11 +124,15 @@ module.exports = $import(
                         .then(directoryContents => Unit.Suite(suiteName)(directoryContents.filter(file => file.endsWith(".txt")).map(file => loadSuite(file)(Path.resolve(fileSystemName, file))))));
 
 
+    const dirname = name =>
+        Path.resolve(__dirname, name);
+
+
     return Unit.Suite("ESTree")([
-        loadSuite("Parser")("./test/parser"),
-        loadSuite("Syntax Errors")("./test/syntaxerrors"),
-        loadSuite("Import")("./test/import"),
-        loadSuite("Translation")("./test/translation"),
-        loadSuite("Validation Errors")("./test/validationerrors")
+        loadSuite("Parser")(dirname("./parser")),
+        loadSuite("Syntax Errors")(dirname("./syntaxerrors")),
+        loadSuite("Import")(dirname("./import")),
+        loadSuite("Translation")(dirname("./translation")),
+        loadSuite("Validation Errors")(dirname("./validationerrors"))
     ]);
 });
