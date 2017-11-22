@@ -2,7 +2,7 @@ module.exports = $importAll([
     "core:Native.Data.Array:1.2.0",
     "core:Text.Parsing.Combinators:1.0.0",
     "core:Native.Data.Dict:1.0.0",
-    "use:./Errors.estree core:Tool.ESTree:1.0.1",
+    "./Errors.js",
     "core:Native.System.IO.FileSystem:1.0.0",
     "core:Native.Data.Int:1.0.0",
     "core:Text.Parsing.Lexer:1.0.0",
