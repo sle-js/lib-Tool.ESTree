@@ -128,7 +128,7 @@ module.exports = $import(
         Path.resolve(__dirname, name);
 
 
-    return Unit.Suite("ESTree")([
+    return Unit.Suite("TestRunner")([
         loadSuite("Parser")(dirname("./parser")),
         loadSuite("Syntax Errors")(dirname("./syntaxerrors")),
         loadSuite("Import")(dirname("./import")),

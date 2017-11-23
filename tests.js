@@ -3,7 +3,7 @@ module.exports = $import(
 ).then($imports => {
     const Unit = $imports.Unit;
 
-    return Unit.Suite("All")([
+    return Unit.Suite("Tool.ESTree")([
         $import("./test/LexerTest"),
         $import("./test/TestRunner"),
         $import("./test/UseESTreeTest")
